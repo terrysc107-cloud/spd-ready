@@ -3,9 +3,9 @@
 ## Status
 
 **Current phase:** Phase 1 — Foundation (in progress)
-**Current plan:** 01-01 complete — next: 01-02
+**Current plan:** 01-02 complete — next: 01-03
 **Last activity:** 2026-04-21
-**Next action:** /gsd-execute-phase 1 (continue with 01-02-PLAN.md)
+**Next action:** /gsd-execute-phase 1 (continue with 01-03-PLAN.md)
 
 ## Project Reference
 
@@ -18,7 +18,7 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 
 | # | Phase | Status | Plans |
 |---|-------|--------|-------|
-| 1 | Foundation | In progress (1/N plans done) | 01-01 complete |
+| 1 | Foundation | In progress (2/3 plans done) | 01-01 complete, 01-02 complete |
 | 2 | Student Core Loop | Not started | TBD |
 | 3 | Hospital Core Loop | Not started | TBD |
 | 4 | Feedback, Admin, and Demo Data | Not started | TBD |
@@ -71,4 +71,4 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 - .planning/ROADMAP.md
 - .planning/STATE.md
 
-**To resume:** Run /gsd-execute-phase 1 to continue with the next plan in Phase 1. Plan 01-01 is complete (scaffold + Supabase clients). Fill in spd-ready/.env.local with Supabase keys before running auth plans.
+**To resume:** Run /gsd-execute-phase 1 to continue with 01-03-PLAN.md (auth flows). Plans 01-01 and 01-02 are complete. Apply migrations to Supabase cloud project (supabase db push) and fill in spd-ready/.env.local with Supabase keys before running auth plans.
