@@ -119,18 +119,51 @@ These were considered and explicitly deferred to a future milestone:
 
 ## Traceability
 
-*(Filled by gsd-roadmapper)*
-
 | REQ-ID | Phase | Plan |
 |--------|-------|------|
-| AUTH-01 through AUTH-06 | | |
-| STUDENT-01 through STUDENT-05 | | |
-| ASSESS-01 through ASSESS-06 | | |
-| SCORE-01 through SCORE-05 | | |
-| HOSP-01 through HOSP-03 | | |
-| OPEN-01 through OPEN-03 | | |
-| MATCH-01 through MATCH-03 | | |
-| CAND-01 through CAND-05 | | |
-| FEED-01 through FEED-02 | | |
-| ADMIN-01 through ADMIN-03 | | |
-| PLATFORM-01 through PLATFORM-05 | | |
+| AUTH-01 | Phase 1: Foundation | TBD |
+| AUTH-02 | Phase 1: Foundation | TBD |
+| AUTH-03 | Phase 1: Foundation | TBD |
+| AUTH-04 | Phase 1: Foundation | TBD |
+| AUTH-05 | Phase 1: Foundation | TBD |
+| AUTH-06 | Phase 1: Foundation | TBD |
+| STUDENT-01 | Phase 2: Student Core Loop | TBD |
+| STUDENT-02 | Phase 2: Student Core Loop | TBD |
+| STUDENT-03 | Phase 2: Student Core Loop | TBD |
+| STUDENT-04 | Phase 2: Student Core Loop | TBD |
+| STUDENT-05 | Phase 2: Student Core Loop | TBD |
+| ASSESS-01 | Phase 2: Student Core Loop | TBD |
+| ASSESS-02 | Phase 2: Student Core Loop | TBD |
+| ASSESS-03 | Phase 2: Student Core Loop | TBD |
+| ASSESS-04 | Phase 2: Student Core Loop | TBD |
+| ASSESS-05 | Phase 2: Student Core Loop | TBD |
+| ASSESS-06 | Phase 2: Student Core Loop | TBD |
+| SCORE-01 | Phase 2: Student Core Loop | TBD |
+| SCORE-02 | Phase 2: Student Core Loop | TBD |
+| SCORE-03 | Phase 2: Student Core Loop | TBD |
+| SCORE-04 | Phase 2: Student Core Loop | TBD |
+| SCORE-05 | Phase 2: Student Core Loop | TBD |
+| HOSP-01 | Phase 3: Hospital Core Loop | TBD |
+| HOSP-02 | Phase 3: Hospital Core Loop | TBD |
+| HOSP-03 | Phase 3: Hospital Core Loop | TBD |
+| OPEN-01 | Phase 3: Hospital Core Loop | TBD |
+| OPEN-02 | Phase 3: Hospital Core Loop | TBD |
+| OPEN-03 | Phase 3: Hospital Core Loop | TBD |
+| MATCH-01 | Phase 3: Hospital Core Loop | TBD |
+| MATCH-02 | Phase 3: Hospital Core Loop | TBD |
+| MATCH-03 | Phase 3: Hospital Core Loop | TBD |
+| CAND-01 | Phase 3: Hospital Core Loop | TBD |
+| CAND-02 | Phase 3: Hospital Core Loop | TBD |
+| CAND-03 | Phase 3: Hospital Core Loop | TBD |
+| CAND-04 | Phase 3: Hospital Core Loop | TBD |
+| CAND-05 | Phase 3: Hospital Core Loop | TBD |
+| FEED-01 | Phase 4: Feedback, Admin, and Demo Data | TBD |
+| FEED-02 | Phase 4: Feedback, Admin, and Demo Data | TBD |
+| ADMIN-01 | Phase 4: Feedback, Admin, and Demo Data | TBD |
+| ADMIN-02 | Phase 4: Feedback, Admin, and Demo Data | TBD |
+| ADMIN-03 | Phase 4: Feedback, Admin, and Demo Data | TBD |
+| PLATFORM-01 | Phase 5: Polish, Email, and Analytics | TBD |
+| PLATFORM-02 | Phase 5: Polish, Email, and Analytics | TBD |
+| PLATFORM-03 | Phase 5: Polish, Email, and Analytics | TBD |
+| PLATFORM-04 | Phase 5: Polish, Email, and Analytics | TBD |
+| PLATFORM-05 | Phase 5: Polish, Email, and Analytics | TBD |
