@@ -2,41 +2,41 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: Phase 1 — Foundation (complete)
-current_plan: "01-03 complete — Phase 1 done"
-status: phase_complete
-last_updated: "2026-04-21T16:12:54Z"
+current_phase: 02-student-core-loop
+current_plan: 2
+status: in_progress
+last_updated: "2026-04-21T18:45:00Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  total_plans: 6
+  completed_plans: 4
+  percent: 67
 ---
 
 # SPD Ready — Project State
 
 ## Status
 
-**Current phase:** Phase 1 — Foundation (complete)
-**Current plan:** 01-03 complete — all Phase 1 plans done
+**Current phase:** 02-student-core-loop
+**Current plan:** 2
 **Last activity:** 2026-04-21
-**Next action:** /gsd-verify-work 1 to verify Phase 1 deliverables, then /gsd-plan-phase 2 for Student Core Loop
+**Next action:** Execute 02-02-PLAN.md (assessment engine — questions, start/step/submit actions, scoring)
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-04-20)
 
 **Core value:** A hospital or executive can review a structured student readiness profile and make a better placement decision faster than they could before.  
-**Current focus:** Planning complete — ready to execute Phase 1
+**Current focus:** Phase --phase — 2
 
 ## Phase Status
 
 | # | Phase | Status | Plans |
 |---|-------|--------|-------|
 | 1 | Foundation | Complete (3/3 plans done) | 01-01, 01-02, 01-03 all complete |
-| 2 | Student Core Loop | Not started | TBD |
+| 2 | Student Core Loop | In progress (1/3 plans done) | 02-01 complete |
 | 3 | Hospital Core Loop | Not started | TBD |
 | 4 | Feedback, Admin, and Demo Data | Not started | TBD |
 | 5 | Polish, Email, and Analytics | Not started | TBD |
@@ -45,6 +45,9 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-04-21 | ApplicationRow uses `as unknown as` double cast for Supabase nested join returns | Supabase returns arrays for joined relations; ApplicationRow uses singular objects for ergonomics; double cast is safe at call sites |
+| 2026-04-21 | Profile edit mode via ?edit=true query param | Clean URL pattern, no separate route needed, awaited per Next.js 16 async searchParams |
+| 2026-04-21 | profile_complete gate in onboarding/page.tsx redirects to /student/profile | Prevents double-onboarding; Plan 02-02 adds the second gate layer in assessment entry |
 | 2026-04-21 | Server Actions use redirect-with-query-params for errors | React form action prop requires void return type; returning error objects causes TS2322; all error paths use redirect('/path?error=...') instead |
 | 2026-04-21 | Next.js 16 async searchParams in pages | searchParams is a Promise in Next.js 16 — all auth pages await it before accessing fields |
 | 2026-04-21 | signUpAction redirects to role-specific onboarding | Students → /student/onboarding, hospitals → /hospital/onboarding after registration |
@@ -97,4 +100,6 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 - .planning/STATE.md
 
 **Phase 1 completed:** 2026-04-21
-**To resume:** Run /gsd-verify-work 1 to verify Phase 1 deliverables. Then /gsd-plan-phase 2 for the Student Core Loop (onboarding form, assessment engine, scoring, results page). Before Phase 2 can run end-to-end: apply migrations to Supabase cloud project (supabase db push) and fill in spd-ready/.env.local with Supabase credentials.
+**Phase 2 Plan 01 completed:** 2026-04-21
+**Stopped at:** 02-02-PLAN.md (assessment engine)
+**To resume:** Execute 02-02-PLAN.md — assessment DAL, start/step/submit Server Actions, AssessmentQuestion component, step routing, scoring. Before end-to-end verification: apply migrations (supabase db push) and populate spd-ready/.env.local with Supabase credentials.

@@ -19,11 +19,16 @@
 
 ### Student Profile (STUDENT)
 
-- [ ] **STUDENT-01**: Student can complete a multi-step onboarding form capturing: first name, last name, city, state, travel radius (miles), certification status, training program name, expected completion date, shift availability, transportation reliability, and preferred environment
-- [ ] **STUDENT-02**: Student's profile is saved to the `student_profiles` table on submit
-- [ ] **STUDENT-03**: Student can view and edit their completed profile
-- [ ] **STUDENT-04**: Student cannot access the assessment until their profile is complete (profile completion gate)
-- [ ] **STUDENT-05**: Student can view their application statuses (applied / under review / accepted / waitlisted / rejected)
+- [x] **STUDENT-01
+**: Student can complete a multi-step onboarding form capturing: first name, last name, city, state, travel radius (miles), certification status, training program name, expected completion date, shift availability, transportation reliability, and preferred environment
+- [x] **STUDENT-02
+**: Student's profile is saved to the `student_profiles` table on submit
+- [x] **STUDENT-03
+**: Student can view and edit their completed profile
+- [x] **STUDENT-04
+**: Student cannot access the assessment until their profile is complete (profile completion gate)
+- [x] **STUDENT-05
+**: Student can view their application statuses (applied / under review / accepted / waitlisted / rejected)
 
 ### Readiness Assessment (ASSESS)
 
