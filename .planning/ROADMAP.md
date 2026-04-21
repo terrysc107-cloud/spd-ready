@@ -10,7 +10,7 @@
 ## Phases
 
 - [ ] **Phase 1: Foundation** — Auth, schema, RLS, and project scaffold
-- [ ] **Phase 2: Student Core Loop** — Profile, assessment engine, scoring, and results
+- [x] **Phase 2: Student Core Loop** — Profile, assessment engine, scoring, and results
 - [ ] **Phase 3: Hospital Core Loop** — Site profile, openings, fit scoring, candidate review, and placement actions
 - [ ] **Phase 4: Feedback, Admin, and Demo Data** — Post-placement feedback, admin dashboard, and realistic seed data
 - [ ] **Phase 5: Polish, Email, and Analytics** — Email notifications, PostHog analytics, loading states, error boundaries, and mobile responsiveness
@@ -98,7 +98,7 @@
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-04-21 |
-| 2. Student Core Loop | 1/3 | In progress | — |
+| 2. Student Core Loop | 3/3 | Complete | 2026-04-21 |
 | 3. Hospital Core Loop | 0/? | Not started | — |
 | 4. Feedback, Admin, and Demo Data | 0/? | Not started | — |
 | 5. Polish, Email, and Analytics | 0/? | Not started | — |

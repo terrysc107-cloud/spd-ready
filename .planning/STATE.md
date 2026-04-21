@@ -4,16 +4,16 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 02-student-core-loop
 current_plan: 3
-status: in_progress
-stopped_at: Completed 02-02-PLAN.md (assessment engine — questions, DAL, scoring, Server Actions)
-last_updated: "2026-04-21T18:53:47.510Z"
+status: complete
+stopped_at: Completed 02-03-PLAN.md (assessment UI — entry gate, step pages, results page)
+last_updated: "2026-04-21T19:00:00Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_plans: 6
+  percent: 100
 ---
 
 # SPD Ready — Project State
@@ -21,9 +21,9 @@ progress:
 ## Status
 
 **Current phase:** 02-student-core-loop
-**Current plan:** 3
+**Current plan:** 3 (complete — phase 2 done)
 **Last activity:** 2026-04-21
-**Next action:** Execute 02-03-PLAN.md (assessment UI — entry gate, step pages, results page)
+**Next action:** Execute Phase 3 — Hospital Core Loop
 
 ## Project Reference
 
@@ -37,7 +37,7 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 | # | Phase | Status | Plans |
 |---|-------|--------|-------|
 | 1 | Foundation | Complete (3/3 plans done) | 01-01, 01-02, 01-03 all complete |
-| 2 | Student Core Loop | In progress (2/3 plans done) | 02-01, 02-02 complete |
+| 2 | Student Core Loop | Complete (3/3 plans done) | 02-01, 02-02, 02-03 all complete |
 | 3 | Hospital Core Loop | Not started | TBD |
 | 4 | Feedback, Admin, and Demo Data | Not started | TBD |
 | 5 | Polish, Email, and Analytics | Not started | TBD |
@@ -46,6 +46,9 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-04-21 | CategoryScoreBar is a Server Component with CSS-only width — no recharts | No hydration risk, simpler, sufficient for bar display |
+| 2026-04-21 | AssessmentQuestion uses useFormStatus (not useActionState) for pending state | saveAnswerAction always redirects, never returns state; useFormStatus is the correct API for this pattern |
+| 2026-04-21 | Results page reads readiness_tier from student_profiles (not student_assessments) | student_assessments has no readiness_tier column — confirmed in 02-02; tier written to profiles by submitAssessmentAction |
 | 2026-04-21 | assessment_questions schema uses options_json/scoring_key_json (jsonb), not option_a/b/c/d | Actual 001_initial_schema.sql uses jsonb columns; plan referenced wrong column names; migration adapted to actual schema |
 | 2026-04-21 | student_assessments has no readiness_tier column — tier stored in student_profiles only | Schema defines readiness_tier in student_profiles, not student_assessments; finalizeAssessment omits tier; submitAssessmentAction writes tier to profiles |
 | 2026-04-21 | Migration 005 uses fixed UUIDs for idempotent ON CONFLICT DO NOTHING | gen_random_uuid() in INSERT generates new UUIDs each run so ON CONFLICT never fires; fixed UUIDs ensure true idempotency |
