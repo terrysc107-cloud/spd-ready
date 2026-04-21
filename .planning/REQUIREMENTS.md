@@ -32,17 +32,24 @@
 
 ### Readiness Assessment (ASSESS)
 
-- [ ] **ASSESS-01**: Student can take a 30-question readiness assessment across 6 categories: Technical Knowledge (5 questions), Situational Judgment (5), Process Discipline (5), Behavioral/Culture Fit (5), Instrument/Workflow Familiarity (5), Reliability (5)
+- [x] **ASSESS-01
+**: Student can take a 30-question readiness assessment across 6 categories: Technical Knowledge (5 questions), Situational Judgment (5), Process Discipline (5), Behavioral/Culture Fit (5), Instrument/Workflow Familiarity (5), Reliability (5)
 - [ ] **ASSESS-02**: Assessment is presented one question per screen with a progress bar showing current position
-- [ ] **ASSESS-03**: Each answer is persisted to the database immediately so the assessment is resumable if the student navigates away or closes the browser
-- [ ] **ASSESS-04**: Student can only submit once all 30 questions are answered
-- [ ] **ASSESS-05**: Assessment has a retake cooldown (minimum 24 hours between attempts) to prevent score gaming
-- [ ] **ASSESS-06**: `assessment_questions` table is seeded with 30 SPD-specific questions at launch (5 per category); questions use real sterile processing vocabulary and scenarios
+- [x] **ASSESS-03
+**: Each answer is persisted to the database immediately so the assessment is resumable if the student navigates away or closes the browser
+- [x] **ASSESS-04
+**: Student can only submit once all 30 questions are answered
+- [x] **ASSESS-05
+**: Assessment has a retake cooldown (minimum 24 hours between attempts) to prevent score gaming
+- [x] **ASSESS-06
+**: `assessment_questions` table is seeded with 30 SPD-specific questions at launch (5 per category); questions use real sterile processing vocabulary and scenarios
 
 ### Scoring & Results (SCORE)
 
-- [ ] **SCORE-01**: Overall readiness score is calculated server-side on assessment submit using the weighted formula: `overall = technical*0.30 + situational*0.25 + process*0.15 + behavior*0.15 + instrument*0.10 + reliability*0.05`
-- [ ] **SCORE-02**: Student is assigned a readiness tier based on overall score: Tier 1 (Ready) ≥ 75%, Tier 2 (Ready with support) 55–74%, Tier 3 (Not ready yet) < 55%
+- [x] **SCORE-01
+**: Overall readiness score is calculated server-side on assessment submit using the weighted formula: `overall = technical*0.30 + situational*0.25 + process*0.15 + behavior*0.15 + instrument*0.10 + reliability*0.05`
+- [x] **SCORE-02
+**: Student is assigned a readiness tier based on overall score: Tier 1 (Ready) ≥ 75%, Tier 2 (Ready with support) 55–74%, Tier 3 (Not ready yet) < 55%
 - [ ] **SCORE-03**: Student results page displays: overall score, tier badge (hero element), per-category breakdown, top 2 strengths, bottom 2 growth areas, application eligibility status, and suggested next steps
 - [ ] **SCORE-04**: Tier 3 students receive a specific improvement path (not just a rejection message)
 - [ ] **SCORE-05**: Student profile is updated with readiness_score, readiness_tier, strengths_json, and growth_areas_json on assessment completion

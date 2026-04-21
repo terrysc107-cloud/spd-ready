@@ -3,16 +3,17 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 02-student-core-loop
-current_plan: 2
+current_plan: 3
 status: in_progress
-last_updated: "2026-04-21T18:45:00Z"
+stopped_at: Completed 02-02-PLAN.md (assessment engine — questions, DAL, scoring, Server Actions)
+last_updated: "2026-04-21T18:53:47.510Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 83
 ---
 
 # SPD Ready — Project State
@@ -20,9 +21,9 @@ progress:
 ## Status
 
 **Current phase:** 02-student-core-loop
-**Current plan:** 2
+**Current plan:** 3
 **Last activity:** 2026-04-21
-**Next action:** Execute 02-02-PLAN.md (assessment engine — questions, start/step/submit actions, scoring)
+**Next action:** Execute 02-03-PLAN.md (assessment UI — entry gate, step pages, results page)
 
 ## Project Reference
 
@@ -36,7 +37,7 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 | # | Phase | Status | Plans |
 |---|-------|--------|-------|
 | 1 | Foundation | Complete (3/3 plans done) | 01-01, 01-02, 01-03 all complete |
-| 2 | Student Core Loop | In progress (1/3 plans done) | 02-01 complete |
+| 2 | Student Core Loop | In progress (2/3 plans done) | 02-01, 02-02 complete |
 | 3 | Hospital Core Loop | Not started | TBD |
 | 4 | Feedback, Admin, and Demo Data | Not started | TBD |
 | 5 | Polish, Email, and Analytics | Not started | TBD |
@@ -45,6 +46,10 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
+| 2026-04-21 | assessment_questions schema uses options_json/scoring_key_json (jsonb), not option_a/b/c/d | Actual 001_initial_schema.sql uses jsonb columns; plan referenced wrong column names; migration adapted to actual schema |
+| 2026-04-21 | student_assessments has no readiness_tier column — tier stored in student_profiles only | Schema defines readiness_tier in student_profiles, not student_assessments; finalizeAssessment omits tier; submitAssessmentAction writes tier to profiles |
+| 2026-04-21 | Migration 005 uses fixed UUIDs for idempotent ON CONFLICT DO NOTHING | gen_random_uuid() in INSERT generates new UUIDs each run so ON CONFLICT never fires; fixed UUIDs ensure true idempotency |
+| 2026-04-21 | URL contract locked: /student/assessment/[assessmentId]/[step] for assessment routing | assessmentId in URL required for resume and multi-attempt support; Plan 02-03 must use this exact segment structure |
 | 2026-04-21 | ApplicationRow uses `as unknown as` double cast for Supabase nested join returns | Supabase returns arrays for joined relations; ApplicationRow uses singular objects for ergonomics; double cast is safe at call sites |
 | 2026-04-21 | Profile edit mode via ?edit=true query param | Clean URL pattern, no separate route needed, awaited per Next.js 16 async searchParams |
 | 2026-04-21 | profile_complete gate in onboarding/page.tsx redirects to /student/profile | Prevents double-onboarding; Plan 02-02 adds the second gate layer in assessment entry |
@@ -101,5 +106,5 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 
 **Phase 1 completed:** 2026-04-21
 **Phase 2 Plan 01 completed:** 2026-04-21
-**Stopped at:** 02-02-PLAN.md (assessment engine)
+**Stopped at:** Completed 02-02-PLAN.md (assessment engine — questions, DAL, scoring, Server Actions)
 **To resume:** Execute 02-02-PLAN.md — assessment DAL, start/step/submit Server Actions, AssessmentQuestion component, step routing, scoring. Before end-to-end verification: apply migrations (supabase db push) and populate spd-ready/.env.local with Supabase credentials.
