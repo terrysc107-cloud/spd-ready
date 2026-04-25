@@ -418,6 +418,12 @@ export async function POST() {
     study_sessions: {},
     streaks: {},
     xp_records: {},
+    domain_assessments: {},
+    concept_mastery: {},
+    confidence_taps: {},
+    module_assignments: [],
+    hospital_cohort: [],
+    certificates: [],
   }
 
   writeStore(store)
