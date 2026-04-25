@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 280" fill="none">
+  <rect width="160" height="280" rx="12" fill="#f0f5ff"/>
+  <!-- Two crossing shanks (close-up view) -->
+  <line x1="45" y1="60" x2="95" y2="220" stroke="#1e3566" stroke-width="5" stroke-linecap="round"/>
+  <line x1="115" y1="60" x2="65" y2="220" stroke="#1e3566" stroke-width="5" stroke-linecap="round"/>
+  <!-- Box lock highlight circle -->
+  <circle cx="80" cy="140" r="22" fill="#fef9c3" stroke="#d97706" stroke-width="3"/>
+  <!-- Pivot screw -->
+  <circle cx="80" cy="140" r="8" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <line x1="80" y1="133" x2="80" y2="147" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="73" y1="140" x2="87" y2="140" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Annotation arrow -->
+  <line x1="112" y1="115" x2="100" y2="132" stroke="#d97706" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="118" y="112" font-size="9" fill="#d97706" font-family="system-ui,sans-serif" font-weight="700">Box Lock</text>
+  <!-- Ratchet box below -->
+  <rect x="55" y="162" width="50" height="12" rx="3" fill="#c7d7f5" stroke="#1e3566" stroke-width="2"/>
+  <line x1="64" y1="162" x2="64" y2="174" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="72" y1="162" x2="72" y2="174" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="80" y1="162" x2="80" y2="174" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="88" y1="162" x2="88" y2="174" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="96" y1="162" x2="96" y2="174" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Ring handles (partial) -->
+  <path d="M45 60 Q28 48 30 32 Q32 16 48 18 Q64 20 62 36" fill="none" stroke="#1e3566" stroke-width="3"/>
+  <path d="M115 60 Q132 48 130 32 Q128 16 112 18 Q96 20 98 36" fill="none" stroke="#1e3566" stroke-width="3"/>
+  <text x="80" y="268" text-anchor="middle" font-size="9" fill="#4a5568" font-family="system-ui,sans-serif" font-weight="600">Box Lock Joint</text>
+</svg>

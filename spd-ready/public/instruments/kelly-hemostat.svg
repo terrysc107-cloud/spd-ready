@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 280" fill="none">
+  <rect width="160" height="280" rx="12" fill="#f0f5ff"/>
+  <!-- Ring handles -->
+  <ellipse cx="52" cy="244" rx="21" ry="15" stroke="#1e3566" stroke-width="3"/>
+  <ellipse cx="108" cy="244" rx="21" ry="15" stroke="#1e3566" stroke-width="3"/>
+  <!-- Shanks -->
+  <line x1="52" y1="229" x2="70" y2="185" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <line x1="108" y1="229" x2="90" y2="185" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <!-- Ratchet box -->
+  <rect x="62" y="184" width="36" height="9" rx="2" fill="#c7d7f5" stroke="#1e3566" stroke-width="2"/>
+  <line x1="70" y1="184" x2="70" y2="193" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="78" y1="184" x2="78" y2="193" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="86" y1="184" x2="86" y2="193" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="94" y1="184" x2="94" y2="193" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Box lock pivot -->
+  <circle cx="80" cy="176" r="6" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Jaws -->
+  <path d="M77 171 Q74 130 72 62" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <path d="M83 171 Q86 130 88 62" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <!-- Serrations -->
+  <line x1="73" y1="90" x2="87" y2="93" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="72.5" y1="108" x2="87.5" y2="111" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="72" y1="126" x2="88" y2="129" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="72" y1="144" x2="88" y2="147" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="72" y1="158" x2="88" y2="161" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Label -->
+  <text x="80" y="268" text-anchor="middle" font-size="9" fill="#4a5568" font-family="system-ui,sans-serif" font-weight="600">Kelly Hemostat</text>
+</svg>

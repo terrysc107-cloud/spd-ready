@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 280" fill="none">
+  <rect width="160" height="280" rx="12" fill="#f0f5ff"/>
+  <!-- Spring handle (box joint style, no ring handles) -->
+  <path d="M35 220 Q35 190 80 185 Q125 190 125 220" fill="none" stroke="#1e3566" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Left arm -->
+  <path d="M35 220 L35 260 Q35 270 45 270 L55 270 Q65 270 65 260 L65 220" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Right arm -->
+  <path d="M95 220 L95 260 Q95 270 105 270 L115 270 Q125 270 125 260 L125 220" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Crossbar/spring -->
+  <rect x="55" y="178" width="50" height="10" rx="5" fill="#c7d7f5" stroke="#1e3566" stroke-width="2"/>
+  <!-- Shaft leading to jaws -->
+  <rect x="73" y="70" width="14" height="115" rx="3" fill="#c7d7f5" stroke="#1e3566" stroke-width="2"/>
+  <!-- Heavy cutting jaws at top -->
+  <path d="M60 80 L73 72 L73 50 Q73 38 80 36 Q87 38 87 50 L87 72 L100 80 Q95 90 80 88 Q65 90 60 80 Z" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Jaw serrations -->
+  <line x1="68" y1="60" x2="92" y2="60" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="67" y1="70" x2="93" y2="70" stroke="#1e3566" stroke-width="1.5"/>
+  <text x="80" y="38" text-anchor="middle" font-size="8" fill="#d97706" font-family="system-ui,sans-serif" font-weight="700">CUTTING JAWS</text>
+  <text x="80" y="268" text-anchor="middle" font-size="8.5" fill="#4a5568" font-family="system-ui,sans-serif" font-weight="600">Orthopedic Rongeur</text>
+</svg>

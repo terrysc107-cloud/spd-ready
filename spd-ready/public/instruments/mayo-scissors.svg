@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 280" fill="none">
+  <rect width="160" height="280" rx="12" fill="#f0f5ff"/>
+  <!-- Ring handles -->
+  <ellipse cx="52" cy="248" rx="21" ry="15" stroke="#1e3566" stroke-width="3"/>
+  <ellipse cx="108" cy="248" rx="21" ry="15" stroke="#1e3566" stroke-width="3"/>
+  <!-- Shanks -->
+  <line x1="52" y1="233" x2="70" y2="186" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <line x1="108" y1="233" x2="90" y2="186" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <!-- Pivot screw -->
+  <circle cx="80" cy="180" r="7" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <line x1="80" y1="174" x2="80" y2="186" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="74" y1="180" x2="86" y2="180" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Left blade - tapers to sharp point -->
+  <path d="M77 175 L68 90 Q66 44 80 40 L82 175 Z" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Right blade -->
+  <path d="M83 175 L92 90 Q94 44 80 40 L78 175 Z" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Serrated edge on one blade -->
+  <line x1="68" y1="80" x2="76" y2="82" stroke="#1e3566" stroke-width="1"/>
+  <line x1="68.5" y1="96" x2="77" y2="98" stroke="#1e3566" stroke-width="1"/>
+  <line x1="69" y1="112" x2="77" y2="114" stroke="#1e3566" stroke-width="1"/>
+  <line x1="70" y1="128" x2="78" y2="130" stroke="#1e3566" stroke-width="1"/>
+  <line x1="71" y1="144" x2="78" y2="146" stroke="#1e3566" stroke-width="1"/>
+  <text x="80" y="268" text-anchor="middle" font-size="9" fill="#4a5568" font-family="system-ui,sans-serif" font-weight="600">Mayo Scissors</text>
+</svg>

@@ -1,0 +1,17 @@
+-- ============================================================
+-- SPD Ready — Seed Data
+-- ============================================================
+-- Placeholder: realistic seed data will be added in Phase 4
+-- (Feedback, Admin, and Demo Data phase).
+--
+-- Seed order (FK dependency order — DO NOT change):
+-- 1. auth.users (via Supabase admin client, not raw SQL)
+-- 2. public.users
+-- 3. hospital_profiles
+-- 4. student_profiles
+-- 5. assessment_questions
+-- 6. student_assessments
+-- 7. assessment_responses
+-- 8. externship_openings
+-- 9. applications
+-- 10. hospital_feedback

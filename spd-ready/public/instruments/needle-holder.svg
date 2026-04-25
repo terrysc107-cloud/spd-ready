@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 280" fill="none">
+  <rect width="160" height="280" rx="12" fill="#f0f5ff"/>
+  <!-- Gold-tinted ring handles (tungsten carbide indicator) -->
+  <ellipse cx="52" cy="244" rx="21" ry="15" fill="#fef3c7" stroke="#1e3566" stroke-width="3"/>
+  <ellipse cx="108" cy="244" rx="21" ry="15" fill="#fef3c7" stroke="#1e3566" stroke-width="3"/>
+  <ellipse cx="52" cy="244" rx="21" ry="15" stroke="#d97706" stroke-width="1.5" opacity="0.7"/>
+  <ellipse cx="108" cy="244" rx="21" ry="15" stroke="#d97706" stroke-width="1.5" opacity="0.7"/>
+  <!-- Gold ring accent label -->
+  <text x="80" y="232" text-anchor="middle" font-size="8" fill="#d97706" font-family="system-ui,sans-serif" font-weight="700">GOLD RINGS = TC</text>
+  <!-- Shanks -->
+  <line x1="52" y1="229" x2="70" y2="186" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <line x1="108" y1="229" x2="90" y2="186" stroke="#1e3566" stroke-width="3" stroke-linecap="round"/>
+  <!-- Ratchet box -->
+  <rect x="62" y="186" width="36" height="9" rx="2" fill="#c7d7f5" stroke="#1e3566" stroke-width="2"/>
+  <line x1="70" y1="186" x2="70" y2="195" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="78" y1="186" x2="78" y2="195" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="86" y1="186" x2="86" y2="195" stroke="#1e3566" stroke-width="1.5"/>
+  <line x1="94" y1="186" x2="94" y2="195" stroke="#1e3566" stroke-width="1.5"/>
+  <!-- Box lock -->
+  <circle cx="80" cy="178" r="6" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Short stubby jaws (key ID feature) -->
+  <path d="M74 172 L72 115 Q72 104 80 102 Q88 104 88 115 L86 172 Z" fill="#c7d7f5" stroke="#1e3566" stroke-width="2.5"/>
+  <!-- Diamond/crosshatch on jaws -->
+  <line x1="74" y1="125" x2="86" y2="125" stroke="#1e3566" stroke-width="1"/>
+  <line x1="73" y1="135" x2="87" y2="135" stroke="#1e3566" stroke-width="1"/>
+  <line x1="73" y1="145" x2="87" y2="145" stroke="#1e3566" stroke-width="1"/>
+  <line x1="73" y1="155" x2="87" y2="155" stroke="#1e3566" stroke-width="1"/>
+  <line x1="73" y1="165" x2="87" y2="165" stroke="#1e3566" stroke-width="1"/>
+  <text x="80" y="268" text-anchor="middle" font-size="9" fill="#4a5568" font-family="system-ui,sans-serif" font-weight="600">Needle Holder</text>
+</svg>
