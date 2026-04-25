@@ -36,17 +36,17 @@ export async function POST() {
 
   const store: Store = {
     users: {
-      [adminId]: { id: adminId, email: 'admin@demo.com', role: 'admin' },
-      [h1Id]: { id: h1Id, email: 'umcspd@demo.com', role: 'hospital' },
-      [h2Id]: { id: h2Id, email: 'riverside@demo.com', role: 'hospital' },
-      [s1Id]: { id: s1Id, email: 'maria@demo.com', role: 'student' },
-      [s2Id]: { id: s2Id, email: 'james@demo.com', role: 'student' },
-      [s3Id]: { id: s3Id, email: 'priya@demo.com', role: 'student' },
-      [s4Id]: { id: s4Id, email: 'carlos@demo.com', role: 'student' },
-      [s5Id]: { id: s5Id, email: 'aisha@demo.com', role: 'student' },
-      [s6Id]: { id: s6Id, email: 'david@demo.com', role: 'student' },
-      [s7Id]: { id: s7Id, email: 'emma@demo.com', role: 'student' },
-      [s8Id]: { id: s8Id, email: 'jasmine@demo.com', role: 'student' },
+      [adminId]: { id: adminId, email: 'admin@demo.com', password: '12345678', role: 'admin' },
+      [h1Id]: { id: h1Id, email: 'umcspd@demo.com', password: '12345678', role: 'hospital' },
+      [h2Id]: { id: h2Id, email: 'riverside@demo.com', password: '12345678', role: 'hospital' },
+      [s1Id]: { id: s1Id, email: 'maria@demo.com', password: '12345678', role: 'student' },
+      [s2Id]: { id: s2Id, email: 'james@demo.com', password: '12345678', role: 'student' },
+      [s3Id]: { id: s3Id, email: 'priya@demo.com', password: '12345678', role: 'student' },
+      [s4Id]: { id: s4Id, email: 'carlos@demo.com', password: '12345678', role: 'student' },
+      [s5Id]: { id: s5Id, email: 'aisha@demo.com', password: '12345678', role: 'student' },
+      [s6Id]: { id: s6Id, email: 'david@demo.com', password: '12345678', role: 'student' },
+      [s7Id]: { id: s7Id, email: 'emma@demo.com', password: '12345678', role: 'student' },
+      [s8Id]: { id: s8Id, email: 'jasmine@demo.com', password: '12345678', role: 'student' },
     },
 
     hospital_profiles: {
