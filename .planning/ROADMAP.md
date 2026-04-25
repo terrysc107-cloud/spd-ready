@@ -101,8 +101,8 @@
 Plans:
 - [x] 06-01-PLAN.md — Domain remap + data model (types, concept catalog, error categories, store extensions)
 - [x] 06-02-PLAN.md — HLD content authoring (10 new High-Level Disinfection questions)
-- [ ] 06-03-PLAN.md — Mastery engine + Likert assessment (formula, spaced repetition, recency decay, confidence tap, post-quiz Likert)
-- [ ] 06-04-PLAN.md — Student learning UI (/student/learning dashboard, domain detail, assigned modules in /student/study)
+- [x] 06-03-PLAN.md — Mastery engine + Likert assessment (formula, spaced repetition, recency decay, confidence tap, post-quiz Likert)
+- [x] 06-04-PLAN.md — Student learning UI (/student/learning dashboard, domain detail, assigned modules in /student/study)
 - [ ] 06-05-PLAN.md — Hospital cohort + assignment + ROI (cohort table, per-student detail, assign module, ROI projection panel)
 - [ ] 06-06-PLAN.md — Mock CE certificates + marketing update (certificate issuance, profile display, OhioHealth-validated landing section)
 
