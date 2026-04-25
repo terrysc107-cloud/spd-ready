@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { TrackDomain } from '@/lib/local-db/track-questions'
+import type { DomainAssessment, ConceptMastery, ModuleAssignment, HospitalCohortMember, Certificate, ConfidenceTap } from '@/lib/local-db/types'
 
 // On Vercel the project root is read-only — use /tmp instead
 const IS_VERCEL = Boolean(process.env.VERCEL)
@@ -182,6 +183,13 @@ export type Store = {
   study_sessions: Record<string, StudySession[]>
   streaks: Record<string, StreakData>    // keyed by user_id
   xp_records: Record<string, XPRecord>  // keyed by user_id
+  // Phase 6: learning engine tables (D-32)
+  domain_assessments: Record<string, DomainAssessment[]>          // by user_id
+  concept_mastery: Record<string, ConceptMastery[]>               // by user_id
+  confidence_taps: Record<string, Record<string, ConfidenceTap>>  // user_id -> question_id -> tap
+  module_assignments: ModuleAssignment[]
+  hospital_cohort: HospitalCohortMember[]
+  certificates: Certificate[]
 }
 
 function ensureDir() {
@@ -203,6 +211,12 @@ export function readStore(): Store {
     study_sessions: {},
     streaks: {},
     xp_records: {},
+    domain_assessments: {},
+    concept_mastery: {},
+    confidence_taps: {},
+    module_assignments: [],
+    hospital_cohort: [],
+    certificates: [],
   }
 
   if (!fs.existsSync(STORE_FILE)) return base
@@ -221,6 +235,12 @@ export function readStore(): Store {
       study_sessions: raw.study_sessions ?? {},
       streaks: raw.streaks ?? {},
       xp_records: raw.xp_records ?? {},
+      domain_assessments: raw.domain_assessments ?? {},
+      concept_mastery: raw.concept_mastery ?? {},
+      confidence_taps: raw.confidence_taps ?? {},
+      module_assignments: raw.module_assignments ?? [],
+      hospital_cohort: raw.hospital_cohort ?? [],
+      certificates: raw.certificates ?? [],
     }
   } catch {
     return base
