@@ -103,8 +103,8 @@ Plans:
 - [x] 06-02-PLAN.md — HLD content authoring (10 new High-Level Disinfection questions)
 - [x] 06-03-PLAN.md — Mastery engine + Likert assessment (formula, spaced repetition, recency decay, confidence tap, post-quiz Likert)
 - [x] 06-04-PLAN.md — Student learning UI (/student/learning dashboard, domain detail, assigned modules in /student/study)
-- [ ] 06-05-PLAN.md — Hospital cohort + assignment + ROI (cohort table, per-student detail, assign module, ROI projection panel)
-- [ ] 06-06-PLAN.md — Mock CE certificates + marketing update (certificate issuance, profile display, OhioHealth-validated landing section)
+- [x] 06-05-PLAN.md — Hospital cohort + assignment + ROI (cohort table, per-student detail, assign module, ROI projection panel)
+- [x] 06-06-PLAN.md — Mock CE certificates + marketing update (certificate issuance, profile display, OhioHealth-validated landing section)
 
 ---
 
@@ -117,4 +117,4 @@ Plans:
 | 3. Hospital Core Loop | 0/? | Not started | — |
 | 4. Feedback, Admin, and Demo Data | 0/? | Not started | — |
 | 5. Polish, Email, and Analytics | 0/? | Not started | — |
-| 6. Learning Engine + Intern Companion | 0/6 | Not started | — |
+| 6. Learning Engine + Intern Companion | 6/6 | Complete | 2026-04-25 |
