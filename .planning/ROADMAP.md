@@ -91,6 +91,21 @@
 **Plans:** TBD  
 **UI hint:** yes
 
+### Phase 6: Learning Engine + Intern Companion — OhioHealth-validated framework: six-domain alignment, Likert knowledge+confidence self-assessment, mastery formula with spaced repetition, coordinator cohort + module assignment flow, error-category tagging, mock CE certificates, hospital ROI projection panel, HLD content gap-fill
+
+**Goal:** A student can complete training modules with confidence-tap and post-module Likert self-assessment, see their per-domain mastery and knowledge/confidence deltas update on a learning dashboard, and earn mock CE certificates — while a hospital coordinator can add students by email, assign modules with notes, and view a cohort ROI projection grounded in OhioHealth/SpecialtyCare benchmarks.
+**Requirements**: N/A (net-new beyond v1 REQUIREMENTS.md scope)
+**Depends on:** Phase 5
+**Plans:** 6 plans
+
+Plans:
+- [x] 06-01-PLAN.md — Domain remap + data model (types, concept catalog, error categories, store extensions)
+- [x] 06-02-PLAN.md — HLD content authoring (10 new High-Level Disinfection questions)
+- [ ] 06-03-PLAN.md — Mastery engine + Likert assessment (formula, spaced repetition, recency decay, confidence tap, post-quiz Likert)
+- [ ] 06-04-PLAN.md — Student learning UI (/student/learning dashboard, domain detail, assigned modules in /student/study)
+- [ ] 06-05-PLAN.md — Hospital cohort + assignment + ROI (cohort table, per-student detail, assign module, ROI projection panel)
+- [ ] 06-06-PLAN.md — Mock CE certificates + marketing update (certificate issuance, profile display, OhioHealth-validated landing section)
+
 ---
 
 ## Progress Table
@@ -102,3 +117,4 @@
 | 3. Hospital Core Loop | 0/? | Not started | — |
 | 4. Feedback, Admin, and Demo Data | 0/? | Not started | — |
 | 5. Polish, Email, and Analytics | 0/? | Not started | — |
+| 6. Learning Engine + Intern Companion | 0/6 | Not started | — |

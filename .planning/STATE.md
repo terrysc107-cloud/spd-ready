@@ -2,27 +2,27 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 02-student-core-loop
-current_plan: 3
-status: complete
-stopped_at: Completed 02-03-PLAN.md (assessment UI — entry gate, step pages, results page)
-last_updated: "2026-04-21T19:00:00Z"
-last_activity: 2026-04-21
+current_phase: 06-learning-engine-intern-companion-ohiohealth-validated-framew
+current_plan: 2
+status: in_progress
+stopped_at: Wave 1 complete — 06-01 (data foundation) and 06-02 (HLD questions) merged
+last_updated: "2026-04-25T20:20:00.000Z"
+last_activity: 2026-04-25
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 18
+  completed_plans: 8
+  percent: 44
 ---
 
 # SPD Ready — Project State
 
 ## Status
 
-**Current phase:** 02-student-core-loop
-**Current plan:** 3 (complete — phase 2 done)
-**Last activity:** 2026-04-21
+**Current phase:** --phase
+**Current plan:** 1
+**Last activity:** 2026-04-25
 **Next action:** Execute Phase 3 — Hospital Core Loop
 
 ## Project Reference
@@ -30,7 +30,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-20)
 
 **Core value:** A hospital or executive can review a structured student readiness profile and make a better placement decision faster than they could before.  
-**Current focus:** Phase --phase — 2
+**Current focus:** Phase --phase — 06
 
 ## Phase Status
 
@@ -88,6 +88,10 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 - Server Actions handle all mutations — CSRF protection, revalidation, and redirect are built-in
 - Scoring runs as a Server Action on final submit — deterministic arithmetic, no Edge Function overhead
 
+### Roadmap Evolution
+
+- Phase 6 added: Learning Engine + Intern Companion — OhioHealth-validated framework (six-domain alignment, Likert knowledge+confidence self-assessment, mastery formula with spaced repetition, coordinator cohort + module assignment flow, error-category tagging, mock CE certificates, hospital ROI projection panel, HLD content gap-fill)
+
 ### Critical Pitfalls (from research)
 
 1. Never use getSession() for server-side authorization — always getUser()
@@ -111,3 +115,5 @@ See: .planning/PROJECT.md (updated 2026-04-20)
 **Phase 2 Plan 01 completed:** 2026-04-21
 **Stopped at:** Completed 02-02-PLAN.md (assessment engine — questions, DAL, scoring, Server Actions)
 **To resume:** Execute 02-02-PLAN.md — assessment DAL, start/step/submit Server Actions, AssessmentQuestion component, step routing, scoring. Before end-to-end verification: apply migrations (supabase db push) and populate spd-ready/.env.local with Supabase credentials.
+
+**Planned Phase:** 6 (Learning Engine + Intern Companion) — 6 plans — 2026-04-25T20:05:51.949Z
