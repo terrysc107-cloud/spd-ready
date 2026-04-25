@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import { submitLikertAction } from '@/actions/likert'
+import { issueCertificateOnCompletionAction } from '@/actions/certificates'
 import type { LearningDomain } from '@/lib/local-db/types'
 
 const KNOWLEDGE_LABELS = ['Not at all knowledgeable', 'Slightly', 'Moderately', 'Knowledgeable', 'Very knowledgeable']
@@ -51,6 +52,7 @@ export function LikertSelfAssessment({ domain, domainLabel, onComplete }: Props)
     if (!canSubmit) return
     startTransition(async () => {
       await submitLikertAction({ domain, knowledge: knowledge!, confidence: confidence! })
+      await issueCertificateOnCompletionAction({ domain })
       onComplete()
     })
   }
