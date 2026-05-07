@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
@@ -7,13 +8,14 @@ import { applyToOpeningAction } from '@/actions/hospital'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { ToastNotifier } from '@/components/ui/toast-notifier'
 
-export default async function StudentOpeningsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string; applied?: string }>
-}) {
-  const params = await searchParams
+const TOAST_MESSAGES = [
+  { param: 'applied', message: 'Application submitted successfully!', type: 'success' as const },
+  { param: 'error', message: 'Something went wrong. Please try again.', type: 'error' as const },
+]
+
+export default async function StudentOpeningsPage() {
   const user = await getCurrentUser()
   if (!user) redirect('/login')
 
@@ -25,7 +27,6 @@ export default async function StudentOpeningsPage({
 
   const openings = await getOpenOpenings()
 
-  // Find openings the student has already applied to
   const store = readStore()
   const myAppExternshipIds = new Set(
     Object.values(store.applications)
@@ -35,6 +36,10 @@ export default async function StudentOpeningsPage({
 
   return (
     <div className="py-8 max-w-3xl mx-auto space-y-6">
+      <Suspense>
+        <ToastNotifier messages={TOAST_MESSAGES} />
+      </Suspense>
+
       <div>
         <h1 className="text-2xl font-semibold">Open Externships</h1>
         <p className="text-muted-foreground text-sm mt-1">
@@ -43,17 +48,6 @@ export default async function StudentOpeningsPage({
             : 'Complete your readiness assessment and reach Tier 1 or Tier 2 to apply.'}
         </p>
       </div>
-
-      {params.error && (
-        <div className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">
-          {params.error}
-        </div>
-      )}
-      {params.applied && (
-        <div className="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
-          Application submitted successfully!
-        </div>
-      )}
 
       {openings.length === 0 ? (
         <Card>
