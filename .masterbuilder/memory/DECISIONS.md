@@ -50,10 +50,35 @@
 - `src/components/ui/` — added Dialog, Tooltip, Tabs, DropdownMenu, Avatar, Skeleton, Alert, Table primitives following the existing Base UI + shadcn-style conventions.
 
 ### Deferred (PR 2)
-- `motion` library (needs new dep, will install when AppShell entrance animations land)
+- ~~`motion` library~~ — added to package.json as `^12.0.0` in PR 2 commit
 - `sonner` (toast — defer to when we wire form success states)
 - `cmdk` / Command primitive (defer to when CommandPalette is built)
-- Sheet primitive (defer — Dialog can stand in for now)
+- Sheet primitive (defer — Dialog can stand in for now; mobile nav uses simple toggled panel)
+
+### 2026-05-14 — PR 2 app shell + shared components landed (commit `674d52e`)
+- `src/components/shell/NavBar.tsx` (client) — active-route highlight via `usePathname`, Avatar + DropdownMenu user menu with sign-out, mobile hamburger panel, a11y (`aria-current`, `aria-expanded`, `aria-label`)
+- `src/components/shell/AppShell.tsx` (server) — unified wrapper; `variant: 'student' | 'hospital'` selects nav items; `width: 'default' | 'wide'` for hospital views (wide = max-w-7xl)
+- `src/components/shell/PageHeader.tsx` — eyebrow + Fraunces display title + description + actions slot
+- `src/components/shell/HeroBanner.tsx` — `aurora` (wraps `.aurora` class) / `tint` (brand-50) / `default` (card) variants
+- `src/components/shell/EmptyState.tsx` — dashed-border card, icon + title + description + action
+- `src/components/data/StatCard.tsx` — uppercase label, display number + unit, trend arrow + delta, sparkline slot
+- `src/components/data/ScoreRing.tsx` (client) — SVG arc with CSS-animated `stroke-dashoffset` entrance, tier-threshold tick marks at 55% and 75%, `prefers-reduced-motion` safe, sm/md/lg sizes, tier color from `--tier-1/2/3` tokens
+- `(student)/layout.tsx` + `(hospital)/layout.tsx` → 10-line wrappers around `AppShell`; user initials/email pulled from cached `getCurrentUser()` DAL
+- `package.json` — added `motion ^12.0.0` (lands at Vercel install; reserved for PR 3/4 entrance animations)
+
+### Next up — PR 3 (page re-skins)
+- Swap emoji → Lucide via `@/lib/icons` barrel across all 30+ pages/components
+- Swap inline `oklch(...)` strings → token utilities (`text-primary`, `bg-tier-1-bg`, etc.)
+- Apply new components to real pages:
+  - **Student dashboard** — `HeroBanner(aurora)` + `StatCard` grid + `ScoreRing`
+  - **Student results** — `ScoreRing` + tier badge + category breakdown
+  - **Hospital dashboard** — `StatCard` grid replacing three plain cards
+  - **Hospital candidates pipeline** — Avatar + Tooltip + filter bar + ranked rows
+  - **Empty states** — `EmptyState` on openings, candidates, applications
+  - **Marketing landing** — aurora hero, social proof band, value-prop grid
+- Auth pages — premium type, brand mark, no emoji
+- Dark-mode cleanup — remove inert `dark:` classes in button.tsx, card.tsx, input.tsx, select.tsx
+
 
 ## Rules
 
