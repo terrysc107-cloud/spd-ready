@@ -50,6 +50,7 @@
   --color-tier2-border: var(--tier2-border);
   --color-tier2-bg: var(--tier2-bg);
   --color-accent-fg: var(--accent-fg);
+  --color-accent-light: var(--accent-light);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -95,6 +96,7 @@
   --tier2-border: oklch(0.85 0.12 80);
   --tier2-bg: oklch(0.98 0.03 80);
   --accent-fg: oklch(0.42 0.15 200);
+  --accent-light: oklch(0.75 0.18 190);
   --sidebar: oklch(0.20 0.05 222);
   --sidebar-foreground: oklch(0.95 0.01 220);
   --sidebar-primary: oklch(0.62 0.18 200);

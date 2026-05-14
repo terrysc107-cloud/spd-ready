@@ -3,11 +3,12 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/lib/dal/auth'
 import { getAllCandidates } from '@/lib/dal/hospital'
 import { TierBadge } from '@/components/student/TierBadge'
-import { Brain } from '@/lib/icons'
+import { EmptyState } from '@/components/shell/EmptyState'
+import { Brain, GraduationCap } from '@/lib/icons'
 
 function ScoreMiniBar({ label, score, tier }: { label: string; score: number | null; tier: number }) {
   const pct = score != null ? Math.min(100, Math.max(0, Math.round(score))) : 0
-  const barColor = tier === 1 ? 'bg-[oklch(0.55_0.18_150)]' : 'bg-[oklch(0.65_0.18_80)]'
+  const barColor = tier === 1 ? 'bg-tier1' : 'bg-tier2'
   return (
     <div className="space-y-0.5">
       <div className="flex items-center justify-between text-xs">
@@ -79,20 +80,22 @@ export default async function CandidatePipelinePage() {
 
       {/* Candidate list */}
       {candidates.length === 0 ? (
-        <div className="rounded-xl border border-dashed px-8 py-16 text-center text-muted-foreground">
-          No candidates yet. Students will appear here after completing their assessment.
-        </div>
+        <EmptyState
+          icon={<GraduationCap className="w-12 h-12" />}
+          heading="No candidates yet"
+          body="Students will appear here after completing their readiness assessment and reaching Tier 1 or Tier 2."
+        />
       ) : (
         <div className="space-y-3">
           {candidates.map(c => {
             const borderClass =
               c.readiness_tier === 1
-                ? 'border-l-4 border-l-[oklch(0.55_0.18_150)]'
-                : 'border-l-4 border-l-[oklch(0.65_0.18_80)]'
+                ? 'border-l-4 border-l-tier1'
+                : 'border-l-4 border-l-tier2'
             const scoreColor =
               c.readiness_tier === 1
-                ? 'text-[oklch(0.45_0.18_150)]'
-                : 'text-[oklch(0.55_0.18_80)]'
+                ? 'text-tier1-fg'
+                : 'text-tier2-fg'
 
             return (
               <div
@@ -134,8 +137,8 @@ export default async function CandidatePipelinePage() {
                         <div className="text-center">
                           <p className="text-xs text-muted-foreground flex items-center justify-center gap-0.5"><Brain className="w-3.5 h-3.5" /> Judgment</p>
                           <p className={`text-sm font-bold tabular-nums ${
-                            c.judgment_score >= 75 ? 'text-[oklch(0.45_0.18_150)]'
-                            : c.judgment_score >= 55 ? 'text-[oklch(0.55_0.18_80)]'
+                            c.judgment_score >= 75 ? 'text-tier1-fg'
+                            : c.judgment_score >= 55 ? 'text-tier2-fg'
                             : 'text-destructive'
                           }`}>{Math.round(c.judgment_score)}%</p>
                         </div>

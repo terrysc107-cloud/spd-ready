@@ -47,15 +47,15 @@ export default async function StudyResultsPage({
     : 'Needs Foundation'
 
   const readinessColor =
-    score >= 85 ? 'text-[oklch(0.45_0.18_150)]'
-    : score >= 70 ? 'text-[oklch(0.45_0.18_150)]'
-    : score >= 50 ? 'text-[oklch(0.55_0.18_80)]'
+    score >= 85 ? 'text-tier1-fg'
+    : score >= 70 ? 'text-tier1-fg'
+    : score >= 50 ? 'text-tier2-fg'
     : 'text-destructive'
 
   const ringColor =
-    score >= 85 ? 'oklch(0.55 0.18 150)'
-    : score >= 50 ? 'oklch(0.65 0.18 80)'
-    : 'oklch(0.577 0.245 27)'
+    score >= 85 ? 'var(--tier1)'
+    : score >= 50 ? 'var(--tier2)'
+    : 'var(--destructive)'
 
   const domainProgress = await getDomainProgress()
   const nextDomain = domainProgress.find(d => d.suggested && d.domain !== domainKey)
@@ -65,7 +65,7 @@ export default async function StudyResultsPage({
     <div className="max-w-2xl mx-auto py-8 space-y-6">
       {/* XP earned banner */}
       {xpEarned !== null && (
-        <div className="rounded-xl bg-[oklch(0.32_0.09_222)] text-white px-5 py-4 flex items-center justify-between">
+        <div className="rounded-xl bg-primary text-primary-foreground px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Zap className="w-6 h-6 text-yellow-300 shrink-0" />
             <div>
@@ -104,7 +104,7 @@ export default async function StudyResultsPage({
           <div
             className="w-32 h-32 rounded-full flex items-center justify-center"
             style={{
-              background: `conic-gradient(${ringColor} ${score * 3.6}deg, oklch(0.90 0.02 220) 0deg)`,
+              background: `conic-gradient(${ringColor} ${score * 3.6}deg, var(--border) 0deg)`,
               padding: '4px',
             }}
           >
@@ -119,12 +119,12 @@ export default async function StudyResultsPage({
 
         {/* Breakdown */}
         <div className="grid grid-cols-3 gap-3 text-center max-w-xs mx-auto pt-2">
-          <div className="rounded-lg bg-[oklch(0.96_0.04_150)] p-3">
-            <p className="text-2xl font-bold text-[oklch(0.45_0.18_150)]">{session.correct}</p>
+          <div className="rounded-lg bg-tier1-bg p-3">
+            <p className="text-2xl font-bold text-tier1-fg">{session.correct}</p>
             <p className="text-xs text-muted-foreground mt-0.5">Correct</p>
           </div>
-          <div className="rounded-lg bg-[oklch(0.98_0.03_80)] p-3">
-            <p className="text-2xl font-bold text-[oklch(0.55_0.18_80)]">{session.partial}</p>
+          <div className="rounded-lg bg-tier2-bg p-3">
+            <p className="text-2xl font-bold text-tier2-fg">{session.partial}</p>
             <p className="text-xs text-muted-foreground mt-0.5">Partial</p>
           </div>
           <div className="rounded-lg bg-destructive/5 p-3">
@@ -140,11 +140,11 @@ export default async function StudyResultsPage({
 
       {/* Suggested next */}
       {nextDomain && (
-        <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5 p-5 flex items-center justify-between gap-4">
+        <div className="rounded-xl border-2 border-accent/30 bg-accent/5 p-5 flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[oklch(0.42_0.15_200)] mb-1">Study next</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-accent-fg mb-1">Study next</p>
             <p className="font-bold text-sm flex items-center gap-1.5">
-              <DomainIcon name={nextDomain.icon} className="w-4 h-4 text-[oklch(0.42_0.15_200)]" /> {nextDomain.label}
+              <DomainIcon name={nextDomain.icon} className="w-4 h-4 text-accent-fg" /> {nextDomain.label}
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
               {nextDomain.sessions_completed === 0

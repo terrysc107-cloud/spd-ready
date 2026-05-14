@@ -49,6 +49,8 @@ export {
   // Misc
   Sparkles,
   Star,
+  Clock,
+  Plus,
 } from 'lucide-react'
 
 import {

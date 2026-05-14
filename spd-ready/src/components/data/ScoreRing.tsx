@@ -34,7 +34,7 @@ export function ScoreRing({
     <div
       className={cn('rounded-full flex items-center justify-center', outer, className)}
       style={{
-        background: `conic-gradient(${ringColor} ${score * 3.6}deg, oklch(0.92 0.01 220) 0deg)`,
+        background: `conic-gradient(${ringColor} ${score * 3.6}deg, var(--border) 0deg)`,
         padding: pad,
       }}
     >

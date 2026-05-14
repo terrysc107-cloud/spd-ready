@@ -6,6 +6,7 @@ import { getConceptsForDomain } from '@/lib/local-db/concepts'
 import { LEARNING_DOMAINS, LEARNING_DOMAIN_META } from '@/lib/local-db/types'
 import type { LearningDomain } from '@/lib/local-db/types'
 import { KnowledgeConfidenceDelta } from '@/components/student/KnowledgeConfidenceDelta'
+import { DomainIcon, Clock } from '@/lib/icons'
 
 export default async function LearningDomainPage({
   params,
@@ -36,7 +37,7 @@ export default async function LearningDomainPage({
 
       <div className="rounded-2xl border-2 border-border bg-card p-6 space-y-4">
         <div className="flex items-center gap-3">
-          <span className="text-4xl">{meta.icon}</span>
+          <DomainIcon name={meta.icon} className="w-10 h-10 text-muted-foreground" />
           <div>
             <h1 className="text-2xl font-bold">{meta.label}</h1>
             <p className="text-sm text-muted-foreground">{meta.description}</p>
@@ -58,7 +59,7 @@ export default async function LearningDomainPage({
             const m = masteries.find(x => x.concept_id === c.id)
             const score = m?.mastery_score ?? 0
             const dueNow = m && new Date(m.next_review_at).getTime() <= Date.now()
-            const color = score >= 80 ? 'oklch(0.55 0.18 150)' : score >= 50 ? 'oklch(0.65 0.18 80)' : 'oklch(0.577 0.245 27)'
+            const color = score >= 80 ? 'var(--tier1)' : score >= 50 ? 'var(--tier2)' : 'var(--destructive)'
             return (
               <li key={c.id} className="rounded-xl border-2 border-border bg-card p-4 space-y-2">
                 <div className="flex items-center justify-between gap-3">
@@ -71,7 +72,7 @@ export default async function LearningDomainPage({
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <div className="h-full rounded-full transition-all" style={{ width: `${score}%`, background: color }} />
                 </div>
-                {dueNow && <p className="text-xs font-semibold text-[oklch(0.45_0.15_200)]">⏰ Due for review</p>}
+                {dueNow && <p className="text-xs font-semibold text-accent-fg flex items-center gap-1"><Clock className="w-3 h-3" /> Due for review</p>}
               </li>
             )
           })}
