@@ -79,7 +79,7 @@ export function AssignModuleForm({ studentUserId }: { studentUserId: string }) {
         {isPending ? 'Assigning...' : 'Assign Module'}
       </Button>
       {error && <p className="text-sm text-destructive">{error}</p>}
-      {success && <p className="text-sm text-[oklch(0.45_0.18_150)]">Module assigned.</p>}
+      {success && <p className="text-sm text-tier1-fg">Module assigned.</p>}
     </form>
   )
 }

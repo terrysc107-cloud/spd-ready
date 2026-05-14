@@ -20,12 +20,12 @@ function studyRouteForDomain(d: LearningDomain): string {
 export function AssignedModuleCard({ a }: { a: AssignmentWithCoordinator }) {
   const meta = LEARNING_DOMAIN_META[a.domain]
   return (
-    <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/40 bg-[oklch(0.62_0.18_200)]/5 p-5 space-y-3">
+    <div className="rounded-xl border-2 border-accent/40 bg-accent/5 p-5 space-y-3">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
           <span className="text-3xl">{meta.icon}</span>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[oklch(0.45_0.15_200)]">Assigned by {a.coordinator_name}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-accent-fg">Assigned by {a.coordinator_name}</p>
             <p className="font-bold text-base mt-0.5">{meta.label}</p>
             {a.note && <p className="text-sm text-muted-foreground mt-1">&ldquo;{a.note}&rdquo;</p>}
           </div>

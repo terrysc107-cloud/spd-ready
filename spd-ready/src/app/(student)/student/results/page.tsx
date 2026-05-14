@@ -6,8 +6,8 @@ import { getLatestCompletedAssessment } from '@/lib/dal/assessment'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
 import { Button } from '@/components/ui/button'
 import { CheckCircle2, Zap, BookOpen } from '@/lib/icons'
+import { ScoreRing } from '@/components/data/ScoreRing'
 
-// Per-tier next steps copy
 const TIER_NEXT_STEPS: Record<1 | 2 | 3, { heading: string; steps: string[] }> = {
   1: {
     heading: 'You are eligible for externship placement.',
@@ -50,6 +50,18 @@ const CATEGORY_IMPROVEMENT_NOTES: Record<string, string> = {
     'Reinforce the impact of attendance on OR scheduling and patient safety.',
 }
 
+const TIER_BADGE_CLASSES = {
+  1: 'text-tier1-fg border-tier1-border',
+  2: 'text-tier2-fg border-tier2-border',
+  3: 'text-destructive border-destructive/40',
+}
+
+const TIER_BG = {
+  1: 'tier-1-bg',
+  2: 'tier-2-bg',
+  3: 'tier-3-bg',
+}
+
 export default async function ResultsPage() {
   const user = await getCurrentUser()
   if (!user) redirect('/login')
@@ -63,11 +75,9 @@ export default async function ResultsPage() {
     redirect('/student/assessment')
   }
 
-  // Tier is stored in student_profiles (not student_assessments — no readiness_tier column there)
   const tier = ((profile?.readiness_tier ?? 3) as 1 | 2 | 3)
   const overallScore = Math.round(assessment.overall_score ?? 0)
 
-  // Build category scores from assessment row — column names are {category}_score
   const categoryScores = {
     technical: assessment.technical_score ?? 0,
     situational: assessment.situational_score ?? 0,
@@ -77,47 +87,23 @@ export default async function ResultsPage() {
     reliability: assessment.reliability_score ?? 0,
   }
 
-  // Strengths and growth areas are written to student_profiles by submitAssessmentAction
   const strengths: string[] = (profile?.strengths_json ?? []) as string[]
   const growthAreas: string[] = (profile?.growth_areas_json ?? []) as string[]
-
   const nextSteps = TIER_NEXT_STEPS[tier]
 
   return (
     <div className="py-8 max-w-3xl mx-auto space-y-6">
       {/* ── Credential Header ─── */}
-      <div className={`rounded-2xl border-2 p-8 text-center relative overflow-hidden ${
-        tier === 1 ? 'tier-1-bg' : tier === 2 ? 'tier-2-bg' : 'tier-3-bg'
-      }`}>
+      <div className={`rounded-2xl border-2 p-8 text-center relative overflow-hidden ${TIER_BG[tier]}`}>
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
         </div>
         <div className="relative z-10">
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">SPD Ready · Readiness Assessment</p>
-          {/* Score ring */}
           <div className="flex justify-center mb-5">
-            <div
-              className="w-36 h-36 rounded-full flex items-center justify-center"
-              style={{
-                background: `conic-gradient(${
-                  tier === 1 ? 'oklch(0.55 0.18 150)' : tier === 2 ? 'oklch(0.65 0.18 80)' : 'oklch(0.577 0.245 27)'
-                } ${overallScore * 3.6}deg, oklch(0.90 0.02 220) 0deg)`,
-                padding: '5px',
-                borderRadius: '50%',
-              }}
-            >
-              <div className="w-full h-full rounded-full bg-white flex flex-col items-center justify-center shadow-inner">
-                <p className="text-4xl font-bold leading-none tabular-nums">{overallScore}%</p>
-                <p className="text-xs text-muted-foreground mt-1 font-medium">Overall Score</p>
-              </div>
-            </div>
+            <ScoreRing score={overallScore} tier={tier} size="lg" label="Overall Score" />
           </div>
-          {/* Tier badge */}
-          <div className={`inline-flex items-center gap-2 rounded-full px-5 py-2 font-bold text-sm border-2 bg-white shadow-sm ${
-            tier === 1 ? 'text-[oklch(0.45_0.18_150)] border-[oklch(0.75_0.12_150)]' :
-            tier === 2 ? 'text-[oklch(0.55_0.18_80)] border-[oklch(0.85_0.12_80)]' :
-            'text-destructive border-destructive/40'
-          }`}>
+          <div className={`inline-flex items-center gap-2 rounded-full px-5 py-2 font-bold text-sm border-2 bg-white shadow-sm ${TIER_BADGE_CLASSES[tier]}`}>
             {tier === 1 ? <CheckCircle2 className="w-4 h-4" /> : tier === 2 ? <Zap className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
             Tier {tier} — {tier === 1 ? 'Placement Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
           </div>
@@ -140,8 +126,8 @@ export default async function ResultsPage() {
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium">{CATEGORY_LABELS[key]}</span>
-                    {isStrength && <span className="text-xs bg-[oklch(0.96_0.04_150)] text-[oklch(0.45_0.18_150)] border border-[oklch(0.75_0.12_150)] rounded-full px-2 py-0.5 font-medium">Strength</span>}
-                    {isGrowth && <span className="text-xs bg-[oklch(0.98_0.03_80)] text-[oklch(0.55_0.18_80)] border border-[oklch(0.85_0.12_80)] rounded-full px-2 py-0.5 font-medium">Focus area</span>}
+                    {isStrength && <span className="text-xs bg-tier1-bg text-tier1-fg border border-tier1-border rounded-full px-2 py-0.5 font-medium">Strength</span>}
+                    {isGrowth && <span className="text-xs bg-tier2-bg text-tier2-fg border border-tier2-border rounded-full px-2 py-0.5 font-medium">Focus area</span>}
                   </div>
                   <span className="text-sm font-bold tabular-nums">{pct}%</span>
                 </div>
@@ -151,10 +137,10 @@ export default async function ResultsPage() {
                     style={{
                       width: `${pct}%`,
                       background: isStrength
-                        ? 'oklch(0.55 0.18 150)'
+                        ? 'var(--tier1)'
                         : isGrowth
-                        ? 'oklch(0.65 0.18 80)'
-                        : 'oklch(0.52 0.16 205)',
+                        ? 'var(--tier2)'
+                        : 'var(--accent)',
                     }}
                   />
                 </div>
@@ -167,18 +153,22 @@ export default async function ResultsPage() {
       {/* ── Strengths + Growth ─── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="rounded-xl border-2 tier-1-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.45_0.18_150)] mb-3 flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Top Strengths</h3>
+          <h3 className="font-bold text-sm text-tier1-fg mb-3 flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4" /> Top Strengths
+          </h3>
           <div className="space-y-2">
             {strengths.length > 0 ? strengths.map(key => (
               <div key={key} className="flex items-center justify-between">
                 <span className="text-sm font-medium">{CATEGORY_LABELS[key as keyof typeof CATEGORY_LABELS]}</span>
-                <span className="text-sm font-bold text-[oklch(0.45_0.18_150)]">{Math.round(categoryScores[key as keyof typeof categoryScores])}%</span>
+                <span className="text-sm font-bold text-tier1-fg">{Math.round(categoryScores[key as keyof typeof categoryScores])}%</span>
               </div>
             )) : <p className="text-sm text-muted-foreground">None recorded.</p>}
           </div>
         </div>
         <div className="rounded-xl border-2 tier-2-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.55_0.18_80)] mb-3 flex items-center gap-2"><Zap className="w-4 h-4" /> Growth Areas</h3>
+          <h3 className="font-bold text-sm text-tier2-fg mb-3 flex items-center gap-2">
+            <Zap className="w-4 h-4" /> Growth Areas
+          </h3>
           <div className="space-y-2">
             {growthAreas.length > 0 ? growthAreas.map(key => (
               <div key={key}>
@@ -204,7 +194,7 @@ export default async function ResultsPage() {
         </div>
       </div>
 
-      {/* Score formula explainer */}
+      {/* Score formula */}
       <div className="rounded-xl border-2 border-border bg-muted/30 p-5 space-y-3">
         <p className="font-semibold text-sm">How your readiness score is calculated</p>
         <div className="grid grid-cols-2 gap-2 text-xs">

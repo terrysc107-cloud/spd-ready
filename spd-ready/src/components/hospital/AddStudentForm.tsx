@@ -36,7 +36,7 @@ export function AddStudentForm() {
         <Button type="submit" disabled={isPending}>{isPending ? 'Adding...' : 'Add'}</Button>
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
-      {success && <p className="text-sm text-[oklch(0.45_0.18_150)]">Student added.</p>}
+      {success && <p className="text-sm text-tier1-fg">Student added.</p>}
     </form>
   )
 }

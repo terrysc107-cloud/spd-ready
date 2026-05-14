@@ -31,6 +31,9 @@ export {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Check,
   // Status / feedback
   CheckCircle2,
   XCircle,

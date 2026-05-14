@@ -103,10 +103,10 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
     }
     // Show results
     if (choice === question.correct) {
-      return 'border-[oklch(0.75_0.12_150)] bg-[oklch(0.96_0.04_150)] text-[oklch(0.35_0.15_150)]'
+      return 'border-tier1-border bg-tier1-bg text-tier1-fg-dark'
     }
     if (question.partial_credit && choice === question.partial_credit && selected === choice) {
-      return 'border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)] text-[oklch(0.45_0.15_80)]'
+      return 'border-tier2-border bg-tier2-bg text-tier2-fg'
     }
     if (selected === choice) {
       return 'border-destructive/40 bg-destructive/5 text-destructive'
@@ -116,16 +116,16 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
 
   const feedbackConfig = {
     correct: {
-      bg: 'bg-[oklch(0.96_0.04_150)] border-[oklch(0.75_0.12_150)]',
-      badge: 'bg-[oklch(0.55_0.18_150)] text-white',
+      bg: 'bg-tier1-bg border-tier1-border',
+      badge: 'bg-tier1 text-white',
       label: 'Correct',
-      icon: <CheckCircle2 className="w-5 h-5 text-[oklch(0.45_0.18_150)]" />,
+      icon: <CheckCircle2 className="w-5 h-5 text-tier1-fg" />,
     },
     partial: {
-      bg: 'bg-[oklch(0.98_0.03_80)] border-[oklch(0.85_0.12_80)]',
-      badge: 'bg-[oklch(0.65_0.18_80)] text-white',
+      bg: 'bg-tier2-bg border-tier2-border',
+      badge: 'bg-tier2 text-white',
       label: 'Partial Credit',
-      icon: <Zap className="w-5 h-5 text-[oklch(0.55_0.18_80)]" />,
+      icon: <Zap className="w-5 h-5 text-tier2-fg" />,
     },
     wrong: {
       bg: 'bg-destructive/5 border-destructive/30',
@@ -178,8 +178,8 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
           question.difficulty === 'foundational'
             ? 'bg-primary/10 text-primary'
             : question.difficulty === 'intermediate'
-            ? 'bg-[oklch(0.62_0.18_200)]/10 text-[oklch(0.42_0.15_200)]'
-            : 'bg-[oklch(0.577_0.245_27)]/10 text-[oklch(0.40_0.18_27)]'
+            ? 'bg-accent/10 text-accent-fg'
+            : 'bg-destructive/10 text-destructive'
         }`}>
           {question.difficulty}
         </span>

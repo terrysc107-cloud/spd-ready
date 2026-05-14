@@ -9,6 +9,9 @@ import {
   Building2, FolderOpen, Pencil, FileText, CheckCircle2,
 } from '@/lib/icons'
 import { DomainIcon } from '@/lib/icons'
+import { HeroBanner } from '@/components/shell/HeroBanner'
+import { StatCard } from '@/components/data/StatCard'
+import { ScoreRing } from '@/components/data/ScoreRing'
 
 export default async function StudentDashboardPage() {
   const user = await getCurrentUser()
@@ -25,65 +28,62 @@ export default async function StudentDashboardPage() {
   const tier = profile?.readiness_tier as 1 | 2 | 3 | null
 
   const tierConfig = {
-    1: { label: 'Placement Ready', color: 'text-[oklch(0.45_0.18_150)]', bg: 'bg-[oklch(0.96_0.04_150)]', border: 'border-[oklch(0.75_0.12_150)]', ring: 'oklch(0.55_0.18_150)' },
-    2: { label: 'Ready with Support', color: 'text-[oklch(0.55_0.18_80)]', bg: 'bg-[oklch(0.98_0.03_80)]', border: 'border-[oklch(0.85_0.12_80)]', ring: 'oklch(0.65_0.18_80)' },
-    3: { label: 'Developing Readiness', color: 'text-destructive', bg: 'bg-destructive/5', border: 'border-destructive/30', ring: 'oklch(0.577_0.245_27)' },
+    1: { label: 'Placement Ready', colorClass: 'text-tier1-fg', bgClass: 'bg-tier1-bg', borderClass: 'border-tier1-border' },
+    2: { label: 'Ready with Support', colorClass: 'text-tier2-fg', bgClass: 'bg-tier2-bg', borderClass: 'border-tier2-border' },
+    3: { label: 'Developing Readiness', colorClass: 'text-destructive', bgClass: 'bg-destructive/5', borderClass: 'border-destructive/30' },
   }
 
   const tc = tier ? tierConfig[tier] : null
 
+  const judgmentBorder =
+    judgmentScore === null ? 'border-border bg-muted/30'
+    : judgmentScore >= 75 ? 'border-tier1-border bg-tier1-bg'
+    : judgmentScore >= 55 ? 'border-tier2-border bg-tier2-bg'
+    : 'border-destructive/30 bg-destructive/5'
+
+  const judgmentTextColor =
+    judgmentScore === null ? 'text-muted-foreground'
+    : judgmentScore >= 75 ? 'text-tier1-fg'
+    : judgmentScore >= 55 ? 'text-tier2-fg'
+    : 'text-destructive'
+
   return (
     <div className="space-y-6 py-6">
       {/* Welcome header */}
-      <div className="brand-gradient rounded-2xl p-8 text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 bottom-0 w-64 opacity-10">
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white blur-2xl" />
-        </div>
-        <div className="relative z-10">
-          <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">Student Portal</p>
-          <h1 className="text-3xl font-bold">
-            {profile?.first_name ? `Welcome back, ${profile.first_name}` : 'Welcome to SPD Ready'}
-          </h1>
-          <p className="text-white/70 mt-2 text-sm">
-            {profile?.program_name ? `${profile.program_name} · ${profile.city}, ${profile.state}` : 'Complete your profile to get started.'}
-          </p>
-        </div>
-      </div>
+      <HeroBanner
+        aurora
+        eyebrow="Student Portal"
+        title={profile?.first_name ? `Welcome back, ${profile.first_name}` : 'Welcome to SPD Ready'}
+        subtitle={
+          profile?.program_name
+            ? `${profile.program_name} · ${profile.city}, ${profile.state}`
+            : 'Complete your profile to get started.'
+        }
+      />
 
       {/* Gamification stats row */}
       <div className="grid grid-cols-3 gap-3">
-        {/* Streak */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <Flame className="w-7 h-7 mx-auto text-orange-500" />
-          <p className="text-2xl font-bold tabular-nums mt-1">{streakData.current}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Day streak</p>
-        </div>
-        {/* XP */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <Zap className="w-7 h-7 mx-auto text-yellow-500" />
-          <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.total}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Total XP</p>
-        </div>
-        {/* Domains mastered */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <Trophy className="w-7 h-7 mx-auto text-amber-500" />
-          <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.domains_mastered.length}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Domains mastered</p>
-        </div>
+        <StatCard
+          icon={<Flame className="w-7 h-7 text-orange-500" />}
+          value={streakData.current}
+          label="Day streak"
+        />
+        <StatCard
+          icon={<Zap className="w-7 h-7 text-yellow-500" />}
+          value={xpRecord.total}
+          label="Total XP"
+        />
+        <StatCard
+          icon={<Trophy className="w-7 h-7 text-amber-500" />}
+          value={xpRecord.domains_mastered.length}
+          label="Domains mastered"
+        />
       </div>
 
       {/* Judgment Readiness */}
-      <div className={`rounded-xl border-2 p-5 flex items-center justify-between gap-4 ${
-        judgmentScore === null
-          ? 'border-border bg-muted/30'
-          : judgmentScore >= 75
-          ? 'border-[oklch(0.75_0.12_150)] bg-[oklch(0.96_0.04_150)]'
-          : judgmentScore >= 55
-          ? 'border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)]'
-          : 'border-destructive/30 bg-destructive/5'
-      }`}>
+      <div className={`rounded-xl border-2 p-5 flex items-center justify-between gap-4 ${judgmentBorder}`}>
         <div className="flex items-center gap-4">
-          <Brain className="w-8 h-8 shrink-0 text-[oklch(0.42_0.15_200)]" />
+          <Brain className="w-8 h-8 shrink-0 text-accent-fg" />
           <div>
             <p className="font-bold text-sm">Judgment Readiness Score</p>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -98,11 +98,7 @@ export default async function StudentDashboardPage() {
           </div>
         </div>
         {judgmentScore !== null ? (
-          <p className={`text-3xl font-bold tabular-nums ${
-            judgmentScore >= 75 ? 'text-[oklch(0.45_0.18_150)]'
-            : judgmentScore >= 55 ? 'text-[oklch(0.55_0.18_80)]'
-            : 'text-destructive'
-          }`}>
+          <p className={`text-3xl font-bold tabular-nums ${judgmentTextColor}`}>
             {Math.round(judgmentScore)}%
           </p>
         ) : (
@@ -114,25 +110,11 @@ export default async function StudentDashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Score / Assessment card */}
-        <div className={`col-span-1 rounded-xl border-2 p-6 ${tc ? `${tc.bg} ${tc.border}` : 'bg-card border-border'} flex flex-col items-center justify-center text-center`}>
+        <div className={`col-span-1 rounded-xl border-2 p-6 ${tc ? `${tc.bgClass} ${tc.borderClass}` : 'bg-card border-border'} flex flex-col items-center justify-center text-center`}>
           {score !== null && tier ? (
             <>
-              {/* Score ring */}
-              <div
-                className="w-28 h-28 rounded-full flex items-center justify-center relative mb-3"
-                style={{
-                  background: `conic-gradient(${tc!.ring} ${score * 3.6}deg, oklch(0.92 0.01 220) 0deg)`,
-                  padding: '4px',
-                }}
-              >
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                  <div>
-                    <p className="text-3xl font-bold leading-none">{score}%</p>
-                    <p className="text-xs text-muted-foreground mt-1">Readiness</p>
-                  </div>
-                </div>
-              </div>
-              <p className={`font-bold text-sm ${tc!.color}`}>Tier {tier} — {tc!.label}</p>
+              <ScoreRing score={score} tier={tier} size="md" className="mb-3" />
+              <p className={`font-bold text-sm ${tc!.colorClass}`}>Tier {tier} — {tc!.label}</p>
               <Link href="/student/results" className="mt-4 w-full">
                 <Button variant="outline" size="sm" className="w-full">View Full Results</Button>
               </Link>
@@ -216,7 +198,7 @@ export default async function StudentDashboardPage() {
           <div className="flex items-center justify-between">
             <p className="font-semibold text-sm">Tier Progress</p>
             {profile.readiness_tier === 1
-              ? <span className="inline-flex items-center gap-1 text-xs font-bold text-[oklch(0.45_0.18_150)]">
+              ? <span className="inline-flex items-center gap-1 text-xs font-bold text-tier1-fg">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Placement Ready
                 </span>
               : <span className="text-xs text-muted-foreground">
@@ -232,17 +214,17 @@ export default async function StudentDashboardPage() {
               style={{
                 width: `${Math.min(100, (profile.readiness_score / 100) * 100)}%`,
                 background: profile.readiness_tier === 1
-                  ? 'oklch(0.55 0.18 150)'
+                  ? 'var(--tier1)'
                   : profile.readiness_tier === 2
-                  ? 'oklch(0.65 0.18 80)'
-                  : 'oklch(0.577 0.245 27)',
+                  ? 'var(--tier2)'
+                  : 'var(--destructive)',
               }}
             />
           </div>
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>0%</span>
-            <span className="text-[oklch(0.55_0.18_80)] font-medium">Tier 2 at 55%</span>
-            <span className="text-[oklch(0.45_0.18_150)] font-medium">Tier 1 at 75%</span>
+            <span className="text-tier2-fg font-medium">Tier 2 at 55%</span>
+            <span className="text-tier1-fg font-medium">Tier 1 at 75%</span>
             <span>100%</span>
           </div>
         </div>
@@ -264,10 +246,8 @@ export default async function StudentDashboardPage() {
             const score = d.best_score
             const barColor = score === null
               ? 'bg-muted'
-              : score >= 85
-              ? 'bg-[oklch(0.55_0.18_150)]'
-              : score >= 50
-              ? 'bg-[oklch(0.65_0.18_80)]'
+              : score >= 85 ? 'bg-tier1'
+              : score >= 50 ? 'bg-tier2'
               : 'bg-destructive'
 
             return (
@@ -289,7 +269,7 @@ export default async function StudentDashboardPage() {
                     </div>
                   </div>
                   {d.suggested && (
-                    <span className="flex-shrink-0 text-xs font-semibold text-[oklch(0.42_0.15_200)] bg-[oklch(0.62_0.18_200)]/10 px-1.5 py-0.5 rounded-full">Next</span>
+                    <span className="flex-shrink-0 text-xs font-semibold text-accent-fg bg-accent/10 px-1.5 py-0.5 rounded-full">Next</span>
                   )}
                 </div>
               </Link>

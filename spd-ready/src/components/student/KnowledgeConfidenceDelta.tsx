@@ -11,7 +11,7 @@ function fmt(d: number): string {
 
 function color(d: number | null): string {
   if (d === null) return 'text-muted-foreground'
-  if (d > 0) return 'text-[oklch(0.45_0.18_150)]'
+  if (d > 0) return 'text-tier1-fg'
   if (d < 0) return 'text-destructive'
   return 'text-muted-foreground'
 }
