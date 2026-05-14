@@ -7,6 +7,7 @@ import { writeStore } from '@/lib/local-db/store'
 import { TierBadge } from '@/components/student/TierBadge'
 import { CategoryScoreBar } from '@/components/student/CategoryScoreBar'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
+import { Brain } from '@/lib/icons'
 
 function EnvLabel(env: string): string {
   const map: Record<string, string> = {
@@ -171,7 +172,7 @@ export default async function CandidateProfilePage({
         : 'border-destructive/30 bg-destructive/5'
       }`}>
         <div>
-          <p className="font-bold text-sm">🧠 Judgment Readiness Score</p>
+          <p className="font-bold text-sm flex items-center gap-1.5"><Brain className="w-4 h-4" /> Judgment Readiness Score</p>
           <p className="text-xs text-muted-foreground mt-0.5">
             {judgmentScore === null
               ? 'Student has not completed the judgment track yet'

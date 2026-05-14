@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { CheckCircle2, Zap, XCircle } from '@/lib/icons'
 import { saveStudySessionAction, type SessionAnswers } from '@/actions/study'
 import type { TrackQuestion, TrackDomain } from '@/lib/local-db/track-questions'
 import { ConfidenceTapPrompt } from './ConfidenceTapPrompt'
@@ -118,19 +119,19 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
       bg: 'bg-[oklch(0.96_0.04_150)] border-[oklch(0.75_0.12_150)]',
       badge: 'bg-[oklch(0.55_0.18_150)] text-white',
       label: 'Correct',
-      icon: '✅',
+      icon: <CheckCircle2 className="w-5 h-5 text-[oklch(0.45_0.18_150)]" />,
     },
     partial: {
       bg: 'bg-[oklch(0.98_0.03_80)] border-[oklch(0.85_0.12_80)]',
       badge: 'bg-[oklch(0.65_0.18_80)] text-white',
       label: 'Partial Credit',
-      icon: '⚡',
+      icon: <Zap className="w-5 h-5 text-[oklch(0.55_0.18_80)]" />,
     },
     wrong: {
       bg: 'bg-destructive/5 border-destructive/30',
       badge: 'bg-destructive text-white',
       label: 'Incorrect',
-      icon: '❌',
+      icon: <XCircle className="w-5 h-5 text-destructive" />,
     },
   }
 
@@ -240,7 +241,7 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
           {answerState && (
             <div className={`rounded-xl border-2 p-5 ${feedbackConfig[answerState].bg}`}>
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-lg">{feedbackConfig[answerState].icon}</span>
+                {feedbackConfig[answerState].icon}
                 <span className={`text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${feedbackConfig[answerState].badge}`}>
                   {feedbackConfig[answerState].label}
                 </span>

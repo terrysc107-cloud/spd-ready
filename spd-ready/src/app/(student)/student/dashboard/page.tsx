@@ -4,6 +4,11 @@ import { getCurrentUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getDomainProgress, getStreakData, getXPRecord, getJudgmentScore } from '@/lib/dal/study'
 import { Button } from '@/components/ui/button'
+import {
+  Flame, Zap, Trophy, Brain, BarChart3, User,
+  Building2, FolderOpen, Pencil, FileText, CheckCircle2,
+} from '@/lib/icons'
+import { DomainIcon } from '@/lib/icons'
 
 export default async function StudentDashboardPage() {
   const user = await getCurrentUser()
@@ -37,7 +42,7 @@ export default async function StudentDashboardPage() {
         <div className="relative z-10">
           <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">Student Portal</p>
           <h1 className="text-3xl font-bold">
-            {profile?.first_name ? `Welcome back, ${profile.first_name} 👋` : 'Welcome to SPD Ready'}
+            {profile?.first_name ? `Welcome back, ${profile.first_name}` : 'Welcome to SPD Ready'}
           </h1>
           <p className="text-white/70 mt-2 text-sm">
             {profile?.program_name ? `${profile.program_name} · ${profile.city}, ${profile.state}` : 'Complete your profile to get started.'}
@@ -49,19 +54,19 @@ export default async function StudentDashboardPage() {
       <div className="grid grid-cols-3 gap-3">
         {/* Streak */}
         <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">🔥</p>
+          <Flame className="w-7 h-7 mx-auto text-orange-500" />
           <p className="text-2xl font-bold tabular-nums mt-1">{streakData.current}</p>
           <p className="text-xs text-muted-foreground mt-0.5">Day streak</p>
         </div>
         {/* XP */}
         <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">⚡</p>
+          <Zap className="w-7 h-7 mx-auto text-yellow-500" />
           <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.total}</p>
           <p className="text-xs text-muted-foreground mt-0.5">Total XP</p>
         </div>
         {/* Domains mastered */}
         <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">🏆</p>
+          <Trophy className="w-7 h-7 mx-auto text-amber-500" />
           <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.domains_mastered.length}</p>
           <p className="text-xs text-muted-foreground mt-0.5">Domains mastered</p>
         </div>
@@ -78,7 +83,7 @@ export default async function StudentDashboardPage() {
           : 'border-destructive/30 bg-destructive/5'
       }`}>
         <div className="flex items-center gap-4">
-          <span className="text-3xl">🧠</span>
+          <Brain className="w-8 h-8 shrink-0 text-[oklch(0.42_0.15_200)]" />
           <div>
             <p className="font-bold text-sm">Judgment Readiness Score</p>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -135,7 +140,7 @@ export default async function StudentDashboardPage() {
           ) : profile?.profile_complete ? (
             <>
               <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
-                <span className="text-4xl">📊</span>
+                <BarChart3 className="w-10 h-10 text-muted-foreground/40" />
               </div>
               <p className="font-semibold text-sm">Not yet assessed</p>
               <p className="text-xs text-muted-foreground mt-1">Take the 30-question readiness assessment</p>
@@ -146,7 +151,7 @@ export default async function StudentDashboardPage() {
           ) : (
             <>
               <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
-                <span className="text-4xl">👤</span>
+                <User className="w-10 h-10 text-muted-foreground/40" />
               </div>
               <p className="font-semibold text-sm">Profile incomplete</p>
               <p className="text-xs text-muted-foreground mt-1">Set up your profile to unlock the assessment</p>
@@ -159,38 +164,38 @@ export default async function StudentDashboardPage() {
 
         {/* Action cards */}
         <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
+          {([
             {
-              icon: '🏥',
+              Icon: Building2,
               title: 'Browse Openings',
               desc: 'View externship positions matched to your location and availability.',
               href: '/student/openings',
               disabled: !profile?.readiness_tier || profile.readiness_tier === 3,
             },
             {
-              icon: '📁',
+              Icon: FolderOpen,
               title: 'My Applications',
               desc: 'Track the status of your externship applications.',
               href: '/student/applications',
               disabled: false,
             },
             {
-              icon: '✏️',
+              Icon: Pencil,
               title: 'Edit Profile',
               desc: 'Update your location, availability, and certification status.',
               href: '/student/onboarding',
               disabled: false,
             },
             {
-              icon: '📝',
+              Icon: FileText,
               title: 'Retake Assessment',
               desc: 'Improve your score and move up a readiness tier.',
               href: '/student/assessment',
               disabled: !profile?.profile_complete,
             },
-          ].map(({ icon, title, desc, href, disabled }) => (
+          ] as const).map(({ Icon, title, desc, href, disabled }) => (
             <div key={href} className={`rounded-xl border bg-card p-5 flex flex-col ${disabled ? 'opacity-50' : 'hover:shadow-md transition-shadow'}`}>
-              <span className="text-2xl mb-3">{icon}</span>
+              <Icon className="w-6 h-6 mb-3 text-primary" />
               <p className="font-semibold text-sm">{title}</p>
               <p className="text-xs text-muted-foreground mt-1 flex-1 leading-relaxed">{desc}</p>
               {!disabled && (
@@ -211,7 +216,9 @@ export default async function StudentDashboardPage() {
           <div className="flex items-center justify-between">
             <p className="font-semibold text-sm">Tier Progress</p>
             {profile.readiness_tier === 1
-              ? <span className="text-xs font-bold text-[oklch(0.45_0.18_150)]">✅ Placement Ready</span>
+              ? <span className="inline-flex items-center gap-1 text-xs font-bold text-[oklch(0.45_0.18_150)]">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Placement Ready
+                </span>
               : <span className="text-xs text-muted-foreground">
                   {profile.readiness_tier === 2
                     ? `${Math.max(0, 75 - Math.round(profile.readiness_score))}% to Tier 1`
@@ -266,7 +273,7 @@ export default async function StudentDashboardPage() {
             return (
               <Link key={d.domain} href={`/student/study/${d.domain}`} className="block group">
                 <div className="flex items-center gap-3">
-                  <span className="text-base w-6 text-center flex-shrink-0">{d.icon}</span>
+                  <DomainIcon name={d.icon} className="w-5 h-5 flex-shrink-0 text-muted-foreground" />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-medium truncate group-hover:text-primary transition-colors">{d.label}</span>

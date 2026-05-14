@@ -5,6 +5,7 @@ import { getDomainProgress, getXPRecord } from '@/lib/dal/study'
 import { getAssignmentsForStudent } from '@/lib/dal/learning'
 import { AssignedModuleCard } from '@/components/student/AssignedModuleCard'
 import { Button } from '@/components/ui/button'
+import { DomainIcon, Pin, Trophy, Zap } from '@/lib/icons'
 
 export default async function StudyPage() {
   const user = await getCurrentUser()
@@ -41,7 +42,9 @@ export default async function StudyPage() {
 
       {assignments.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">📌 Assigned by your coordinator</h2>
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <Pin className="w-4 h-4 text-muted-foreground" /> Assigned by your coordinator
+          </h2>
           {assignments.map(a => <AssignedModuleCard key={a.id} a={a} />)}
         </section>
       )}
@@ -53,7 +56,7 @@ export default async function StudyPage() {
         return (
           <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/40 bg-[oklch(0.62_0.18_200)]/5 p-4 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{suggested.icon}</span>
+              <DomainIcon name={suggested.icon} className="w-6 h-6 text-[oklch(0.42_0.15_200)]" />
               <div>
                 <p className="font-semibold text-sm">Suggested next: {suggested.label}</p>
                 <p className="text-xs text-muted-foreground">
@@ -85,7 +88,7 @@ export default async function StudyPage() {
             <Link key={d.domain} href={`/student/study/${d.domain}`} className="block group">
               <div className={`rounded-xl border-2 bg-card p-5 h-full flex flex-col gap-3 transition-all group-hover:shadow-md group-hover:border-primary/40 ${d.suggested ? 'border-[oklch(0.62_0.18_200)]/40' : 'border-border'}`}>
                 <div className="flex items-start justify-between">
-                  <span className="text-3xl">{d.icon}</span>
+                  <DomainIcon name={d.icon} className="w-7 h-7 text-muted-foreground" />
                   {score !== null && (
                     <span className={`text-sm font-bold tabular-nums ${scoreColor}`}>
                       {Math.round(score)}%
@@ -120,11 +123,13 @@ export default async function StudyPage() {
                     <span className="text-xs font-semibold text-[oklch(0.45_0.15_200)] bg-[oklch(0.62_0.18_200)]/10 px-2 py-0.5 rounded-full">Suggested</span>
                   )}
                   {masteredDomains.includes(d.domain) && (
-                    <span className="text-xs font-bold text-[oklch(0.45_0.18_150)] bg-[oklch(0.96_0.04_150)] px-2 py-0.5 rounded-full">
-                      🏆 Mastered
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-[oklch(0.45_0.18_150)] bg-[oklch(0.96_0.04_150)] px-2 py-0.5 rounded-full">
+                      <Trophy className="w-3 h-3" /> Mastered
                     </span>
                   )}
-                  <span className="text-xs text-muted-foreground">⚡ 25+ XP</span>
+                  <span className="inline-flex items-center gap-0.5 text-xs text-muted-foreground">
+                    <Zap className="w-3 h-3" /> 25+ XP
+                  </span>
                   <span className="ml-auto text-xs font-semibold text-primary group-hover:underline">Start →</span>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/lib/dal/auth'
 import { getAllCandidates } from '@/lib/dal/hospital'
 import { TierBadge } from '@/components/student/TierBadge'
+import { Brain } from '@/lib/icons'
 
 function ScoreMiniBar({ label, score, tier }: { label: string; score: number | null; tier: number }) {
   const pct = score != null ? Math.min(100, Math.max(0, Math.round(score))) : 0
@@ -131,7 +132,7 @@ export default async function CandidatePipelinePage() {
                       <TierBadge tier={c.readiness_tier as 1 | 2 | 3} />
                       {c.judgment_score !== null && (
                         <div className="text-center">
-                          <p className="text-xs text-muted-foreground">🧠 Judgment</p>
+                          <p className="text-xs text-muted-foreground flex items-center justify-center gap-0.5"><Brain className="w-3.5 h-3.5" /> Judgment</p>
                           <p className={`text-sm font-bold tabular-nums ${
                             c.judgment_score >= 75 ? 'text-[oklch(0.45_0.18_150)]'
                             : c.judgment_score >= 55 ? 'text-[oklch(0.55_0.18_80)]'

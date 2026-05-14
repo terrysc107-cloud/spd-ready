@@ -1,5 +1,10 @@
 import Link from 'next/link'
 import { Logo } from '@/components/brand/Logo'
+import {
+  Building2, GraduationCap, BookOpen, BarChart3,
+  Target, Zap, Flame, TrendingUp, Brain,
+  ClipboardList, RefreshCw,
+} from '@/lib/icons'
 
 export default function LandingPage() {
   return (
@@ -82,7 +87,7 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="rounded-xl border-2 border-destructive/20 bg-destructive/5 p-6">
-              <p className="text-2xl mb-3">🏥</p>
+              <Building2 className="w-8 h-8 mb-3 text-destructive/60" />
               <h3 className="font-bold text-base mb-2">Hospitals are hesitant</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Departments are short-staffed and can&apos;t afford to babysit unprepared externs.
@@ -91,7 +96,7 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="rounded-xl border-2 border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)] p-6">
-              <p className="text-2xl mb-3">🎓</p>
+              <GraduationCap className="w-8 h-8 mb-3 text-[oklch(0.55_0.18_80)]" />
               <h3 className="font-bold text-base mb-2">Students can&apos;t get placed</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Students finish programs with knowledge but no verified credential a hospital
@@ -119,32 +124,32 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
+            {([
               {
                 step: '01',
-                icon: '📚',
+                icon: <BookOpen className="w-8 h-8" />,
                 title: 'Study across 8 domains',
                 body: 'Students work through technical domains — decontamination, sterilization, instrument ID, sterility assurance, and more — plus a dedicated Judgment & Professional Standards track. Instant feedback after every answer. XP, streaks, and mastery badges keep them engaged.',
                 color: 'border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5',
               },
               {
                 step: '02',
-                icon: '📊',
+                icon: <BarChart3 className="w-8 h-8" />,
                 title: 'Earn two verified scores',
                 body: 'The readiness assessment scores students across six weighted dimensions and issues an overall readiness score. The Judgment track adds a separate Judgment Readiness Score — measuring how students think under pressure, not just what they know.',
                 color: 'border-primary/30 bg-primary/5',
               },
               {
                 step: '03',
-                icon: '🏥',
+                icon: <Building2 className="w-8 h-8" />,
                 title: 'Connect with hospitals',
-                body: 'Tier 1 students surface automatically in the coordinator\'s candidate pipeline, ranked by score with full readiness breakdowns. Coordinators see both scores side by side — technical readiness and professional judgment — before making any placement decision.',
+                body: "Tier 1 students surface automatically in the coordinator's candidate pipeline, ranked by score with full readiness breakdowns. Coordinators see both scores side by side — technical readiness and professional judgment — before making any placement decision.",
                 color: 'border-[oklch(0.64_0.18_150)]/30 bg-[oklch(0.64_0.18_150)]/5',
               },
-            ].map(({ step, icon, title, body, color }) => (
+            ] as const).map(({ step, icon, title, body, color }) => (
               <div key={step} className={`rounded-xl border-2 p-6 ${color} relative`}>
                 <span className="absolute top-4 right-4 text-xs font-bold text-muted-foreground/40">{step}</span>
-                <div className="text-3xl mb-4">{icon}</div>
+                <div className="mb-4 text-muted-foreground/70">{icon}</div>
                 <h3 className="font-bold text-base mb-2">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
               </div>
@@ -168,7 +173,7 @@ export default function LandingPage() {
             {/* Readiness Score */}
             <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📋</span>
+                <ClipboardList className="w-7 h-7 text-primary" />
                 <div>
                   <p className="font-bold">Readiness Score</p>
                   <p className="text-xs text-muted-foreground">6 weighted dimensions</p>
@@ -197,7 +202,7 @@ export default function LandingPage() {
             {/* Judgment Score */}
             <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">🧠</span>
+                <Brain className="w-7 h-7 text-[oklch(0.42_0.15_200)]" />
                 <div>
                   <p className="font-bold">Judgment Readiness Score</p>
                   <p className="text-xs text-muted-foreground">8 professional judgment categories</p>
@@ -240,40 +245,40 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
+            {([
               {
-                icon: '🎯',
+                icon: <Target className="w-6 h-6" />,
                 title: '8 study domains',
-                body: '7 technical domains covering every core SPD function, plus a Judgment & Professional Standards track with advanced scenario questions.',
+                body: "7 technical domains covering every core SPD function, plus a Judgment & Professional Standards track with advanced scenario questions.",
               },
               {
-                icon: '⚡',
+                icon: <Zap className="w-6 h-6" />,
                 title: 'Instant feedback',
-                body: 'Every answer shows why it\'s right or wrong with a real-world explanation. You learn the standard, not just the answer.',
+                body: "Every answer shows why it's right or wrong with a real-world explanation. You learn the standard, not just the answer.",
               },
               {
-                icon: '🔥',
+                icon: <Flame className="w-6 h-6" />,
                 title: 'Streaks & XP',
-                body: 'Daily study streaks, experience points, and domain mastery badges keep you sharp and motivated — because getting placed requires being genuinely ready.',
+                body: "Daily study streaks, experience points, and domain mastery badges keep you sharp and motivated — because getting placed requires being genuinely ready.",
               },
               {
-                icon: '📈',
+                icon: <TrendingUp className="w-6 h-6" />,
                 title: 'Track your progress',
                 body: 'See your best score per domain, your readiness tier, and exactly how many points stand between you and Tier 1.',
               },
               {
-                icon: '🧠',
+                icon: <Brain className="w-6 h-6" />,
                 title: 'Judgment track',
                 body: 'Scenario-based questions test how you respond under pressure — missed instruments, supervisor pressure, falsified records. The situations that reveal character.',
               },
               {
-                icon: '🏥',
+                icon: <Building2 className="w-6 h-6" />,
                 title: 'Visible to coordinators',
                 body: 'Once you hit Tier 1, your scored profile surfaces automatically in the hospital candidate pipeline. Your work does the talking.',
               },
-            ].map(({ icon, title, body }) => (
+            ] as const).map(({ icon, title, body }) => (
               <div key={title} className="rounded-xl border-2 border-border bg-card p-5 space-y-2">
-                <p className="text-2xl">{icon}</p>
+                <div className="text-muted-foreground/70">{icon}</div>
                 <p className="font-bold text-sm">{title}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
               </div>
@@ -302,30 +307,30 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              {[
+              {([
                 {
-                  icon: '📊',
+                  icon: <BarChart3 className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Ranked candidate pipeline',
                   body: 'Tier 1 students surface automatically, sorted by readiness score. See technical knowledge and judgment readiness side by side before you commit to a placement.',
                 },
                 {
-                  icon: '🧠',
+                  icon: <Brain className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Judgment score as a signal',
-                  body: 'A student who scores 90% technical and 55% judgment tells you something a resume never could. You see the full picture — who knows the work, and who can be trusted to act safely when no one is watching.',
+                  body: "A student who scores 90% technical and 55% judgment tells you something a resume never could. You see the full picture — who knows the work, and who can be trusted to act safely when no one is watching.",
                 },
                 {
-                  icon: '📋',
+                  icon: <ClipboardList className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Full readiness breakdown',
                   body: 'Every candidate profile shows all six scored dimensions, strengths, growth areas, shift availability, location, transportation, and environment preference. One screen. Every decision input.',
                 },
                 {
-                  icon: '🔄',
+                  icon: <RefreshCw className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'A consistent pipeline',
                   body: 'Students are always studying, always improving. When one cohort gets placed, the next is already building their scores. The pipeline never runs dry.',
                 },
-              ].map(({ icon, title, body }) => (
+              ] as const).map(({ icon, title, body }) => (
                 <div key={title} className="flex gap-4">
-                  <span className="text-2xl shrink-0 mt-0.5">{icon}</span>
+                  {icon}
                   <div>
                     <p className="font-bold text-sm mb-1">{title}</p>
                     <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
@@ -367,7 +372,9 @@ export default function LandingPage() {
               </div>
               <div className="border-t pt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-muted-foreground">🧠 Judgment Score</p>
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Brain className="w-3.5 h-3.5" /> Judgment Score
+                  </p>
                   <p className="font-bold text-[oklch(0.45_0.18_150)]">79%</p>
                 </div>
                 <div className="flex gap-1">

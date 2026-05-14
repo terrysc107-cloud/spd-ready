@@ -5,6 +5,7 @@ import { readStore } from '@/lib/local-db/store'
 import { DOMAIN_META, type TrackDomain } from '@/lib/local-db/track-questions'
 import { getDomainProgress } from '@/lib/dal/study'
 import { Button } from '@/components/ui/button'
+import { DomainIcon, Zap, Trophy, Flame } from '@/lib/icons'
 
 export default async function StudyResultsPage({
   params,
@@ -66,17 +67,27 @@ export default async function StudyResultsPage({
       {xpEarned !== null && (
         <div className="rounded-xl bg-[oklch(0.32_0.09_222)] text-white px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">⚡</span>
+            <Zap className="w-6 h-6 text-yellow-300 shrink-0" />
             <div>
               <p className="font-bold text-sm">+{xpEarned} XP earned</p>
-              {masteryUnlocked && <p className="text-xs text-white/70">🏆 Domain mastery unlocked!</p>}
-              {streakMilestone && streak !== null && <p className="text-xs text-white/70">🔥 {streak}-day streak milestone!</p>}
+              {masteryUnlocked && (
+                <p className="text-xs text-white/70 flex items-center gap-1">
+                  <Trophy className="w-3.5 h-3.5" /> Domain mastery unlocked!
+                </p>
+              )}
+              {streakMilestone && streak !== null && (
+                <p className="text-xs text-white/70 flex items-center gap-1">
+                  <Flame className="w-3.5 h-3.5" /> {streak}-day streak milestone!
+                </p>
+              )}
             </div>
           </div>
           {streak !== null && (
             <div className="text-right">
               <p className="text-xs text-white/60">Streak</p>
-              <p className="font-bold text-lg">🔥 {streak}</p>
+              <p className="font-bold text-lg flex items-center justify-end gap-1">
+                <Flame className="w-5 h-5 text-orange-300" /> {streak}
+              </p>
             </div>
           )}
         </div>
@@ -84,8 +95,8 @@ export default async function StudyResultsPage({
 
       {/* Score card */}
       <div className="rounded-2xl border-2 bg-card p-8 text-center space-y-4">
-        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-          {meta.icon} {meta.label} · Session Complete
+        <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center justify-center gap-1.5">
+          <DomainIcon name={meta.icon} className="w-4 h-4" /> {meta.label} · Session Complete
         </p>
 
         {/* Score ring */}
@@ -132,7 +143,9 @@ export default async function StudyResultsPage({
         <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5 p-5 flex items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-[oklch(0.42_0.15_200)] mb-1">Study next</p>
-            <p className="font-bold text-sm">{nextDomain.icon} {nextDomain.label}</p>
+            <p className="font-bold text-sm flex items-center gap-1.5">
+              <DomainIcon name={nextDomain.icon} className="w-4 h-4 text-[oklch(0.42_0.15_200)]" /> {nextDomain.label}
+            </p>
             <p className="text-xs text-muted-foreground mt-0.5">
               {nextDomain.sessions_completed === 0
                 ? 'Not started yet'

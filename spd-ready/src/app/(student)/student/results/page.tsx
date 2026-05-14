@@ -5,6 +5,7 @@ import { getStudentProfile } from '@/lib/dal/student'
 import { getLatestCompletedAssessment } from '@/lib/dal/assessment'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
 import { Button } from '@/components/ui/button'
+import { CheckCircle2, Zap, BookOpen } from '@/lib/icons'
 
 // Per-tier next steps copy
 const TIER_NEXT_STEPS: Record<1 | 2 | 3, { heading: string; steps: string[] }> = {
@@ -117,7 +118,7 @@ export default async function ResultsPage() {
             tier === 2 ? 'text-[oklch(0.55_0.18_80)] border-[oklch(0.85_0.12_80)]' :
             'text-destructive border-destructive/40'
           }`}>
-            {tier === 1 ? '✅' : tier === 2 ? '⚡' : '📚'}
+            {tier === 1 ? <CheckCircle2 className="w-4 h-4" /> : tier === 2 ? <Zap className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
             Tier {tier} — {tier === 1 ? 'Placement Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
@@ -166,7 +167,7 @@ export default async function ResultsPage() {
       {/* ── Strengths + Growth ─── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="rounded-xl border-2 tier-1-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.45_0.18_150)] mb-3 flex items-center gap-2">✅ Top Strengths</h3>
+          <h3 className="font-bold text-sm text-[oklch(0.45_0.18_150)] mb-3 flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Top Strengths</h3>
           <div className="space-y-2">
             {strengths.length > 0 ? strengths.map(key => (
               <div key={key} className="flex items-center justify-between">
@@ -177,7 +178,7 @@ export default async function ResultsPage() {
           </div>
         </div>
         <div className="rounded-xl border-2 tier-2-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.55_0.18_80)] mb-3 flex items-center gap-2">⚡ Growth Areas</h3>
+          <h3 className="font-bold text-sm text-[oklch(0.55_0.18_80)] mb-3 flex items-center gap-2"><Zap className="w-4 h-4" /> Growth Areas</h3>
           <div className="space-y-2">
             {growthAreas.length > 0 ? growthAreas.map(key => (
               <div key={key}>
