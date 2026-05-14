@@ -32,10 +32,28 @@
 - Direction selected: "Premium Clinical" — editorial light theme, Fraunces display + Geist sans, Lucide icons, no emoji in product chrome, formalized token layer, aurora hero treatment, app-shell unification across student + hospital.
 - Career-prep elements (interview prep, career roadmap, professional readiness) deferred to PR 4 — scope decided after audit approval. See `.planning/ui-audit/CAREER-PREP-SCOPING.md`.
 
-### Output of this session
+### Output of session 1 (audit)
 - `.planning/ui-audit/AUDIT.md` — Scout + Design Auditor + Flow Architect findings, severity-ranked
 - `.planning/ui-audit/DESIGN-SYSTEM-PROPOSAL.md` — Premium Clinical proposal with tokens, components, migration plan
-- `.planning/ui-audit/CAREER-PREP-SCOPING.md` — placeholder for the PR 4 scope decision
+- `.planning/ui-audit/CAREER-PREP-PLAN.md` — full build plan for all 3 career-prep modules
+
+### 2026-05-14 — User picks confirmed
+- **Direction:** Premium Clinical (editorial light theme — confirmed)
+- **Dark mode:** Removed entirely. `.dark` block and `@custom-variant dark` deleted from globals.css. Brand identity now lives in a single semantic surface palette.
+- **Career prep:** All three modules in scope. Sequencing approved: Interview Prep → Professional Readiness → Career Roadmap. Career prep ships AFTER UI premium upgrade so screens are built on the new design system.
+
+### 2026-05-14 — PR 1 foundation landed
+- `src/styles/tokens.css` — full Premium Clinical token system (brand scale, accent scale, tier semantic, neutrals, status, fluid type, shadows, motion, radius)
+- `src/app/globals.css` — `@theme inline` exposes all tokens as Tailwind utilities. Dark mode removed. Added `.aurora` decorative hero class with grain + drifting radial gradients (motion-reduced fallback included).
+- `src/app/layout.tsx` — Fraunces display font added via `next/font/google` with SOFT + opsz axes. Wired to `--font-fraunces` and consumed by `--font-display`.
+- `src/lib/icons.ts` — Lucide barrel. All future icon imports go through this file (never directly from `lucide-react`).
+- `src/components/ui/` — added Dialog, Tooltip, Tabs, DropdownMenu, Avatar, Skeleton, Alert, Table primitives following the existing Base UI + shadcn-style conventions.
+
+### Deferred (PR 2)
+- `motion` library (needs new dep, will install when AppShell entrance animations land)
+- `sonner` (toast — defer to when we wire form success states)
+- `cmdk` / Command primitive (defer to when CommandPalette is built)
+- Sheet primitive (defer — Dialog can stand in for now)
 
 ## Rules
 
