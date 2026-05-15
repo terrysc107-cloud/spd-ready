@@ -201,14 +201,6 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
         )}
       </div>
 
-      {/* Confidence tap (before answering) */}
-      {!answered && (
-        <ConfidenceTapPrompt
-          value={confTaps[question.id] ?? null}
-          onSelect={(v) => setConfTaps(prev => ({ ...prev, [question.id]: v }))}
-        />
-      )}
-
       {/* Answer choices */}
       <div className="space-y-3">
         {(['A', 'B', 'C', 'D'] as const).map(choice => (
@@ -223,6 +215,14 @@ export function StudyQuiz({ domain, domainLabel, questions }: Props) {
           </button>
         ))}
       </div>
+
+      {/* Confidence tap (after picking an answer, before submitting) */}
+      {!answered && (
+        <ConfidenceTapPrompt
+          value={confTaps[question.id] ?? null}
+          onSelect={(v) => setConfTaps(prev => ({ ...prev, [question.id]: v }))}
+        />
+      )}
 
       {/* Submit / Next */}
       {!answered ? (
