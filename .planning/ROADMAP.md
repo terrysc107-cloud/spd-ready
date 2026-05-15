@@ -114,7 +114,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-04-21 |
 | 2. Student Core Loop | 3/3 | Complete | 2026-04-21 |
-| 3. Hospital Core Loop | 0/? | Not started | — |
-| 4. Feedback, Admin, and Demo Data | 0/? | Not started | — |
-| 5. Polish, Email, and Analytics | 0/? | Not started | — |
+| 3. Hospital Core Loop | 1/1 | Complete | 2026-05-15 |
+| 4. Feedback, Admin, and Demo Data | 1/1 | Complete | 2026-05-15 |
+| 5. Polish, Email, and Analytics | 1/1 | Complete | 2026-05-15 |
 | 6. Learning Engine + Intern Companion | 6/6 | Complete | 2026-04-25 |

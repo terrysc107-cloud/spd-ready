@@ -18,6 +18,8 @@ export async function POST() {
   const s6Id = 'stu-6666-6666-6666-666666666666'
   const s7Id = 'stu-7777-7777-7777-777777777777'
   const s8Id = 'stu-8888-8888-8888-888888888888'
+  const s9Id = 'stu-9999-9999-9999-999999999999'
+  const s10Id = 'stu-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
 
   // ── Openings ─────────────────────────────────────────────────
   const o1Id = 'open-1111-1111-1111-111111111111'
@@ -33,6 +35,13 @@ export async function POST() {
   const a6Id = 'app-6666-6666-6666-666666666666'
   const a7Id = 'app-7777-7777-7777-777777777777'
   const a8Id = 'app-8888-8888-8888-888888888888'
+  const a9Id = 'app-9999-9999-9999-999999999999'
+  const a10Id = 'app-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+  const a11Id = 'app-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+  const a12Id = 'app-cccc-cccc-cccc-cccccccccccc'
+  const a13Id = 'app-dddd-dddd-dddd-dddddddddddd'
+  const a14Id = 'app-eeee-eeee-eeee-eeeeeeeeeeee'
+  const a15Id = 'app-ffff-ffff-ffff-ffffffffffff'
 
   const store: Store = {
     users: {
@@ -47,6 +56,8 @@ export async function POST() {
       [s6Id]: { id: s6Id, email: 'david@demo.com', password: '12345678', role: 'student' },
       [s7Id]: { id: s7Id, email: 'emma@demo.com', password: '12345678', role: 'student' },
       [s8Id]: { id: s8Id, email: 'jasmine@demo.com', password: '12345678', role: 'student' },
+      [s9Id]: { id: s9Id, email: 'marcus@demo.com', password: '12345678', role: 'student' },
+      [s10Id]: { id: s10Id, email: 'sofia@demo.com', password: '12345678', role: 'student' },
     },
 
     hospital_profiles: {
@@ -311,6 +322,48 @@ export async function POST() {
         created_at: now,
         updated_at: now,
       },
+      [s9Id]: {
+        user_id: s9Id,
+        first_name: 'Marcus',
+        last_name: 'Thompson',
+        city: 'Sacramento',
+        state: 'CA',
+        travel_radius: 40,
+        cert_status: 'in_progress',
+        program_name: 'Sacramento City College SPD',
+        expected_completion_date: '2026-07-01',
+        shift_availability: ['days', 'weekends'],
+        transportation_reliable: true,
+        preferred_environment: 'acute_care',
+        readiness_score: 43,
+        readiness_tier: 3,
+        strengths_json: ['reliability', 'behavior'],
+        growth_areas_json: ['technical', 'process'],
+        profile_complete: true,
+        created_at: now,
+        updated_at: now,
+      },
+      [s10Id]: {
+        user_id: s10Id,
+        first_name: 'Sofia',
+        last_name: 'Mendoza',
+        city: 'San Antonio',
+        state: 'TX',
+        travel_radius: 25,
+        cert_status: 'crcst',
+        program_name: 'Alamo Colleges SPD Program',
+        expected_completion_date: '2026-05-20',
+        shift_availability: ['days', 'flexible'],
+        transportation_reliable: true,
+        preferred_environment: 'ambulatory',
+        readiness_score: 84,
+        readiness_tier: 1,
+        strengths_json: ['technical', 'behavior'],
+        growth_areas_json: ['instrument', 'situational'],
+        profile_complete: true,
+        created_at: now,
+        updated_at: now,
+      },
     },
 
     assessments: {
@@ -355,6 +408,12 @@ export async function POST() {
         started_at: now, submitted_at: now,
         overall_score: 76, technical_score: 73, situational_score: 80,
         process_score: 78, behavior_score: 74, instrument_score: 70, reliability_score: 72,
+      },
+      [`assess-${s10Id}`]: {
+        id: `assess-${s10Id}`, student_user_id: s10Id, status: 'completed',
+        started_at: now, submitted_at: now,
+        overall_score: 84, technical_score: 88, situational_score: 79,
+        process_score: 83, behavior_score: 88, instrument_score: 76, reliability_score: 82,
       },
     },
 
@@ -412,6 +471,49 @@ export async function POST() {
         hospital_notes: '',
         submitted_at: now,
       },
+      // Additional applications — cross-opening, varied statuses, total = 15
+      [a9Id]: {
+        id: a9Id, externship_id: o1Id, student_user_id: s6Id,
+        fit_score: 62, status: 'rejected',
+        hospital_notes: 'Shift preference did not align with morning opening.',
+        submitted_at: now,
+      },
+      [a10Id]: {
+        id: a10Id, externship_id: o2Id, student_user_id: s2Id,
+        fit_score: 79, status: 'accepted',
+        hospital_notes: 'Strong situational judgment scores. Evening shift is a great match.',
+        submitted_at: now,
+      },
+      [a11Id]: {
+        id: a11Id, externship_id: o3Id, student_user_id: s10Id,
+        fit_score: 90, status: 'accepted',
+        hospital_notes: 'Top Tier 1 student in TX — ambulatory preference aligns perfectly.',
+        submitted_at: now,
+      },
+      [a12Id]: {
+        id: a12Id, externship_id: o1Id, student_user_id: s3Id,
+        fit_score: 55, status: 'rejected',
+        hospital_notes: 'Out of state — fit score below threshold for this opening.',
+        submitted_at: now,
+      },
+      [a13Id]: {
+        id: a13Id, externship_id: o2Id, student_user_id: s8Id,
+        fit_score: 68, status: 'under_review',
+        hospital_notes: '',
+        submitted_at: now,
+      },
+      [a14Id]: {
+        id: a14Id, externship_id: o3Id, student_user_id: s6Id,
+        fit_score: 48, status: 'waitlisted',
+        hospital_notes: 'CA student applying to TX opening — geographic mismatch.',
+        submitted_at: now,
+      },
+      [a15Id]: {
+        id: a15Id, externship_id: o1Id, student_user_id: s8Id,
+        fit_score: 58, status: 'applied',
+        hospital_notes: '',
+        submitted_at: now,
+      },
     },
 
     feedback: {},
@@ -440,7 +542,9 @@ export async function GET() {
       hospital_umc: { email: 'umcspd@demo.com', password: 'any' },
       hospital_riverside: { email: 'riverside@demo.com', password: 'any' },
       student_tier1: { email: 'maria@demo.com', password: 'any' },
+      student_tier1_tx: { email: 'sofia@demo.com', password: 'any' },
       student_tier2: { email: 'carlos@demo.com', password: 'any' },
+      student_tier3: { email: 'marcus@demo.com', password: 'any' },
     },
   })
 }

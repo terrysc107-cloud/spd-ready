@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { TierBadge } from '@/components/student/TierBadge'
+import { CATEGORY_LABELS } from '@/lib/dal/scoring'
 
 const STATUS_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
   applied: 'secondary',
@@ -113,6 +114,15 @@ export default async function OpeningDetailPage({
                         <p className="text-xs text-muted-foreground mb-1">Fit score</p>
                         <FitScoreBar score={application.fit_score} />
                       </div>
+                      {(student.strengths_json ?? []).length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {(student.strengths_json as string[]).map(s => (
+                            <span key={s} className="inline-flex items-center rounded-full bg-green-50 border border-green-200 px-2 py-0.5 text-xs text-green-700">
+                              {CATEGORY_LABELS[s as keyof typeof CATEGORY_LABELS] ?? s}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     <Link href={`/hospital/openings/${id}/candidates/${application.id}`}>
                       <Button size="sm" variant="outline">Review</Button>

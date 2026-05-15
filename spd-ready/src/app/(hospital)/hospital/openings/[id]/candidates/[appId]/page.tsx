@@ -1,6 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import { getCurrentUser } from '@/lib/dal/auth'
-import { getHospitalProfile, getApplicationForCandidate } from '@/lib/dal/hospital'
+import { getHospitalProfile, getApplicationForCandidate, getFeedbackForApplication } from '@/lib/dal/hospital'
 import { updateApplicationStatusAction } from '@/actions/hospital'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { TierBadge } from '@/components/student/TierBadge'
 import { CategoryScoreBar } from '@/components/student/CategoryScoreBar'
-import { CATEGORY_LABELS } from '@/lib/dal/scoring'
+import { CATEGORY_LABELS, generateCandidateNarrative } from '@/lib/dal/scoring'
 import Link from 'next/link'
 import { readStore } from '@/lib/local-db/store'
 
@@ -56,6 +56,10 @@ export default async function CandidateProfilePage({
 
   const { application, opening, student } = data
   if (!student || !opening || opening.hospital_user_id !== user.id) notFound()
+
+  const existingFeedback = application.status === 'accepted'
+    ? await getFeedbackForApplication(appId)
+    : null
 
   // Get assessment category scores from store
   const store = readStore()
@@ -168,6 +172,44 @@ export default async function CandidateProfilePage({
         </CardContent>
       </Card>
 
+      {/* Narrative Summary (CAND-03) */}
+      {strengths.length > 0 && (
+        <Card>
+          <CardHeader><CardTitle>Candidate Summary</CardTitle></CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {generateCandidateNarrative(strengths, growthAreas)}
+            </p>
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              {strengths.length > 0 && (
+                <div>
+                  <p className="text-xs font-medium text-green-700 mb-1">Top Strengths</p>
+                  <ul className="space-y-0.5">
+                    {strengths.map(s => (
+                      <li key={s} className="text-xs text-muted-foreground">
+                        · {CATEGORY_LABELS[s as keyof typeof CATEGORY_LABELS] ?? s}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {growthAreas.length > 0 && (
+                <div>
+                  <p className="text-xs font-medium text-amber-700 mb-1">Growth Areas</p>
+                  <ul className="space-y-0.5">
+                    {growthAreas.map(g => (
+                      <li key={g} className="text-xs text-muted-foreground">
+                        · {CATEGORY_LABELS[g as keyof typeof CATEGORY_LABELS] ?? g}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Decision */}
       <Card>
         <CardHeader>
@@ -199,6 +241,15 @@ export default async function CandidateProfilePage({
               </form>
             ))}
           </div>
+          {application.status === 'accepted' && (
+            <div className="pt-2 border-t">
+              <Link href={`/hospital/openings/${openingId}/candidates/${appId}/feedback`}>
+                <Button size="sm" variant="outline" className="w-full">
+                  {existingFeedback ? 'View Placement Feedback' : 'Leave Post-Placement Feedback'}
+                </Button>
+              </Link>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

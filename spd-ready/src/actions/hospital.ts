@@ -3,12 +3,15 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { requireRole } from '@/lib/dal/auth'
+import { sendPlacementEmail } from '@/lib/email'
+import { readStore } from '@/lib/local-db/store'
 import {
   upsertHospitalProfile,
   createOpening,
   updateOpeningStatus,
   updateApplicationStatus,
   applyToOpening,
+  submitFeedback,
 } from '@/lib/dal/hospital'
 
 // ── upsertHospitalProfileAction ───────────────────────────────
@@ -91,8 +94,51 @@ export async function updateApplicationStatusAction(formData: FormData): Promise
 
   if (!appId || !status) return
   await updateApplicationStatus(appId, status, notes)
+
+  // Send email notification on terminal status changes (PLATFORM-02)
+  if (status === 'accepted' || status === 'waitlisted' || status === 'rejected') {
+    const store = readStore()
+    const app = store.applications[appId]
+    const opening = app ? store.openings[app.externship_id] : null
+    const studentProfile = app ? store.student_profiles[app.student_user_id] : null
+    const studentUser = app ? store.users[app.student_user_id] : null
+    const hospitalProfile = opening ? store.hospital_profiles[opening.hospital_user_id] : null
+
+    if (studentUser && studentProfile && opening && hospitalProfile) {
+      await sendPlacementEmail({
+        to: studentUser.email,
+        studentName: studentProfile.first_name,
+        status,
+        openingTitle: opening.title,
+        siteName: hospitalProfile.site_name,
+      })
+    }
+  }
+
   revalidatePath(`/hospital/openings/${openingId}`)
   redirect(`/hospital/openings/${openingId}`)
+}
+
+// ── submitFeedbackAction ──────────────────────────────────────
+
+export async function submitFeedbackAction(formData: FormData): Promise<void> {
+  await requireRole('hospital')
+  const appId = formData.get('app_id') as string
+  const openingId = formData.get('opening_id') as string
+  if (!appId) return
+
+  await submitFeedback(appId, {
+    attendance_score: parseInt((formData.get('attendance_score') as string) ?? '3', 10),
+    coachability_score: parseInt((formData.get('coachability_score') as string) ?? '3', 10),
+    professionalism_score: parseInt((formData.get('professionalism_score') as string) ?? '3', 10),
+    communication_score: parseInt((formData.get('communication_score') as string) ?? '3', 10),
+    quality_score: parseInt((formData.get('quality_score') as string) ?? '3', 10),
+    recommended: formData.get('recommended') === 'true',
+    notes: (formData.get('notes') as string) ?? '',
+  })
+
+  revalidatePath(`/hospital/openings/${openingId}/candidates/${appId}`)
+  redirect(`/hospital/openings/${openingId}/candidates/${appId}?feedback=submitted`)
 }
 
 // ── applyToOpeningAction (student) ────────────────────────────

@@ -259,6 +259,39 @@ export async function getOpenOpenings(): Promise<Array<DemoOpening & { hospital_
   }).sort((a, b) => b.created_at.localeCompare(a.created_at))
 }
 
+// ── Hospital: submit post-placement feedback ─────────────────
+
+export type FeedbackInput = {
+  attendance_score: number
+  coachability_score: number
+  professionalism_score: number
+  communication_score: number
+  quality_score: number
+  recommended: boolean
+  notes: string
+}
+
+export async function submitFeedback(appId: string, input: FeedbackInput): Promise<void> {
+  await requireRole('hospital')
+  const store = readStore()
+  const app = store.applications[appId]
+  if (!app) return
+  const id = crypto.randomUUID()
+  store.feedback[id] = {
+    id,
+    application_id: appId,
+    ...input,
+    created_at: new Date().toISOString(),
+  }
+  writeStore(store)
+}
+
+export const getFeedbackForApplication = cache(async (appId: string) => {
+  await requireRole('hospital')
+  const store = readStore()
+  return Object.values(store.feedback).find(f => f.application_id === appId) ?? null
+})
+
 // ── Student-facing: apply to opening ────────────────────────
 
 export async function applyToOpening(openingId: string): Promise<{ error?: string }> {
