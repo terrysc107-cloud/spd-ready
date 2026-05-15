@@ -5,7 +5,6 @@ import { submitFeedbackAction } from '@/actions/hospital'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import Link from 'next/link'
 
 const RATING_DIMENSIONS = [
@@ -121,7 +120,13 @@ export default async function FeedbackPage({
 
               <div className="space-y-1.5">
                 <Label htmlFor="notes">Additional notes (optional)</Label>
-                <Textarea id="notes" name="notes" placeholder="Anything else the program coordinator should know…" rows={3} />
+                <textarea
+                  id="notes"
+                  name="notes"
+                  rows={3}
+                  placeholder="Anything else the program coordinator should know..."
+                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                />
               </div>
 
               <Button type="submit" className="w-full">Submit Feedback</Button>
