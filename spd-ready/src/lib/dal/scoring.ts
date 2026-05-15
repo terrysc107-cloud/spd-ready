@@ -112,3 +112,17 @@ export function computeFitScore(params: {
   const total = tierScore * 0.35 + geoScore * 0.25 + schedScore * 0.25 + envScore * 0.15
   return Math.round(total)
 }
+
+/**
+ * Generate a template-string narrative summary for a candidate profile.
+ * CAND-03: "This candidate shows strong [top] and [second], with moderate need for coaching in [bottom]."
+ */
+export function generateCandidateNarrative(
+  strengths: string[],
+  growthAreas: string[]
+): string {
+  const top = CATEGORY_LABELS[strengths[0] as CategoryKey] ?? strengths[0] ?? 'core competencies'
+  const second = CATEGORY_LABELS[strengths[1] as CategoryKey] ?? strengths[1] ?? 'secondary skills'
+  const bottom = CATEGORY_LABELS[growthAreas[0] as CategoryKey] ?? growthAreas[0] ?? 'select areas'
+  return `This candidate shows strong ${top} and ${second}, with moderate need for coaching in ${bottom}.`
+}
