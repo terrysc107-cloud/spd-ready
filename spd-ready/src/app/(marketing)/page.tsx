@@ -1,5 +1,10 @@
 import Link from 'next/link'
 import { Logo } from '@/components/brand/Logo'
+import {
+  Building2, GraduationCap, BookOpen, BarChart3,
+  Target, Zap, Flame, TrendingUp, Brain,
+  ClipboardList, RefreshCw,
+} from '@/lib/icons'
 
 export default function LandingPage() {
   return (
@@ -29,12 +34,12 @@ export default function LandingPage() {
         </div>
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-xs font-medium text-white/80 mb-8 backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.62_0.18_200)] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             Built for sterile processing students and the hospitals that hire them
           </div>
           <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-tight">
             The placement gap<br />
-            <span className="text-[oklch(0.75_0.18_190)]">ends here.</span>
+            <span className="text-accent-light">ends here.</span>
           </h1>
           <p className="mt-6 text-lg text-white/75 max-w-2xl mx-auto leading-relaxed">
             SPD Ready verifies student readiness before they walk into a department.
@@ -82,7 +87,7 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="rounded-xl border-2 border-destructive/20 bg-destructive/5 p-6">
-              <p className="text-2xl mb-3">🏥</p>
+              <Building2 className="w-8 h-8 mb-3 text-destructive/60" />
               <h3 className="font-bold text-base mb-2">Hospitals are hesitant</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Departments are short-staffed and can&apos;t afford to babysit unprepared externs.
@@ -90,8 +95,8 @@ export default function LandingPage() {
                 stop taking interns altogether. The pipeline dries up.
               </p>
             </div>
-            <div className="rounded-xl border-2 border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)] p-6">
-              <p className="text-2xl mb-3">🎓</p>
+            <div className="rounded-xl border-2 border-tier2-border bg-tier2-bg p-6">
+              <GraduationCap className="w-8 h-8 mb-3 text-tier2-fg" />
               <h3 className="font-bold text-base mb-2">Students can&apos;t get placed</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Students finish programs with knowledge but no verified credential a hospital
@@ -100,8 +105,8 @@ export default function LandingPage() {
               </p>
             </div>
           </div>
-          <div className="mt-8 rounded-xl border-2 border-[oklch(0.75_0.12_150)] bg-[oklch(0.96_0.04_150)] p-6 text-center">
-            <p className="font-bold text-[oklch(0.35_0.15_150)]">
+          <div className="mt-8 rounded-xl border-2 border-tier1-border bg-tier1-bg p-6 text-center">
+            <p className="font-bold text-tier1-fg-dark">
               SPD Ready fixes both sides at once — verified readiness profiles for students, a trusted candidate pipeline for hospitals.
             </p>
           </div>
@@ -119,32 +124,32 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
+            {([
               {
                 step: '01',
-                icon: '📚',
+                icon: <BookOpen className="w-8 h-8" />,
                 title: 'Study across 8 domains',
                 body: 'Students work through technical domains — decontamination, sterilization, instrument ID, sterility assurance, and more — plus a dedicated Judgment & Professional Standards track. Instant feedback after every answer. XP, streaks, and mastery badges keep them engaged.',
-                color: 'border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5',
+                color: 'border-accent/30 bg-accent/5',
               },
               {
                 step: '02',
-                icon: '📊',
+                icon: <BarChart3 className="w-8 h-8" />,
                 title: 'Earn two verified scores',
                 body: 'The readiness assessment scores students across six weighted dimensions and issues an overall readiness score. The Judgment track adds a separate Judgment Readiness Score — measuring how students think under pressure, not just what they know.',
                 color: 'border-primary/30 bg-primary/5',
               },
               {
                 step: '03',
-                icon: '🏥',
+                icon: <Building2 className="w-8 h-8" />,
                 title: 'Connect with hospitals',
-                body: 'Tier 1 students surface automatically in the coordinator\'s candidate pipeline, ranked by score with full readiness breakdowns. Coordinators see both scores side by side — technical readiness and professional judgment — before making any placement decision.',
-                color: 'border-[oklch(0.64_0.18_150)]/30 bg-[oklch(0.64_0.18_150)]/5',
+                body: "Tier 1 students surface automatically in the coordinator's candidate pipeline, ranked by score with full readiness breakdowns. Coordinators see both scores side by side — technical readiness and professional judgment — before making any placement decision.",
+                color: 'border-tier1/30 bg-tier1/5',
               },
-            ].map(({ step, icon, title, body, color }) => (
+            ] as const).map(({ step, icon, title, body, color }) => (
               <div key={step} className={`rounded-xl border-2 p-6 ${color} relative`}>
                 <span className="absolute top-4 right-4 text-xs font-bold text-muted-foreground/40">{step}</span>
-                <div className="text-3xl mb-4">{icon}</div>
+                <div className="mb-4 text-muted-foreground/70">{icon}</div>
                 <h3 className="font-bold text-base mb-2">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
               </div>
@@ -168,7 +173,7 @@ export default function LandingPage() {
             {/* Readiness Score */}
             <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📋</span>
+                <ClipboardList className="w-7 h-7 text-primary" />
                 <div>
                   <p className="font-bold">Readiness Score</p>
                   <p className="text-xs text-muted-foreground">6 weighted dimensions</p>
@@ -195,9 +200,9 @@ export default function LandingPage() {
             </div>
 
             {/* Judgment Score */}
-            <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/30 bg-[oklch(0.62_0.18_200)]/5 p-6 space-y-4">
+            <div className="rounded-xl border-2 border-accent/30 bg-accent/5 p-6 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">🧠</span>
+                <Brain className="w-7 h-7 text-accent-fg" />
                 <div>
                   <p className="font-bold">Judgment Readiness Score</p>
                   <p className="text-xs text-muted-foreground">8 professional judgment categories</p>
@@ -213,7 +218,7 @@ export default function LandingPage() {
                   { label: 'Professionalism', desc: 'Stays composed and communicates well' },
                 ].map(({ label, desc }) => (
                   <div key={label} className="flex items-start gap-2 text-sm">
-                    <span className="text-[oklch(0.42_0.15_200)] font-bold shrink-0">·</span>
+                    <span className="text-accent-fg font-bold shrink-0">·</span>
                     <div>
                       <span className="font-medium">{label}</span>
                       <span className="text-muted-foreground"> — {desc}</span>
@@ -240,40 +245,40 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
+            {([
               {
-                icon: '🎯',
+                icon: <Target className="w-6 h-6" />,
                 title: '8 study domains',
-                body: '7 technical domains covering every core SPD function, plus a Judgment & Professional Standards track with advanced scenario questions.',
+                body: "7 technical domains covering every core SPD function, plus a Judgment & Professional Standards track with advanced scenario questions.",
               },
               {
-                icon: '⚡',
+                icon: <Zap className="w-6 h-6" />,
                 title: 'Instant feedback',
-                body: 'Every answer shows why it\'s right or wrong with a real-world explanation. You learn the standard, not just the answer.',
+                body: "Every answer shows why it's right or wrong with a real-world explanation. You learn the standard, not just the answer.",
               },
               {
-                icon: '🔥',
+                icon: <Flame className="w-6 h-6" />,
                 title: 'Streaks & XP',
-                body: 'Daily study streaks, experience points, and domain mastery badges keep you sharp and motivated — because getting placed requires being genuinely ready.',
+                body: "Daily study streaks, experience points, and domain mastery badges keep you sharp and motivated — because getting placed requires being genuinely ready.",
               },
               {
-                icon: '📈',
+                icon: <TrendingUp className="w-6 h-6" />,
                 title: 'Track your progress',
                 body: 'See your best score per domain, your readiness tier, and exactly how many points stand between you and Tier 1.',
               },
               {
-                icon: '🧠',
+                icon: <Brain className="w-6 h-6" />,
                 title: 'Judgment track',
                 body: 'Scenario-based questions test how you respond under pressure — missed instruments, supervisor pressure, falsified records. The situations that reveal character.',
               },
               {
-                icon: '🏥',
+                icon: <Building2 className="w-6 h-6" />,
                 title: 'Visible to coordinators',
                 body: 'Once you hit Tier 1, your scored profile surfaces automatically in the hospital candidate pipeline. Your work does the talking.',
               },
-            ].map(({ icon, title, body }) => (
+            ] as const).map(({ icon, title, body }) => (
               <div key={title} className="rounded-xl border-2 border-border bg-card p-5 space-y-2">
-                <p className="text-2xl">{icon}</p>
+                <div className="text-muted-foreground/70">{icon}</div>
                 <p className="font-bold text-sm">{title}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
               </div>
@@ -302,30 +307,30 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              {[
+              {([
                 {
-                  icon: '📊',
+                  icon: <BarChart3 className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Ranked candidate pipeline',
                   body: 'Tier 1 students surface automatically, sorted by readiness score. See technical knowledge and judgment readiness side by side before you commit to a placement.',
                 },
                 {
-                  icon: '🧠',
+                  icon: <Brain className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Judgment score as a signal',
-                  body: 'A student who scores 90% technical and 55% judgment tells you something a resume never could. You see the full picture — who knows the work, and who can be trusted to act safely when no one is watching.',
+                  body: "A student who scores 90% technical and 55% judgment tells you something a resume never could. You see the full picture — who knows the work, and who can be trusted to act safely when no one is watching.",
                 },
                 {
-                  icon: '📋',
+                  icon: <ClipboardList className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'Full readiness breakdown',
                   body: 'Every candidate profile shows all six scored dimensions, strengths, growth areas, shift availability, location, transportation, and environment preference. One screen. Every decision input.',
                 },
                 {
-                  icon: '🔄',
+                  icon: <RefreshCw className="w-6 h-6 shrink-0 mt-0.5 text-muted-foreground/70" />,
                   title: 'A consistent pipeline',
                   body: 'Students are always studying, always improving. When one cohort gets placed, the next is already building their scores. The pipeline never runs dry.',
                 },
-              ].map(({ icon, title, body }) => (
+              ] as const).map(({ icon, title, body }) => (
                 <div key={title} className="flex gap-4">
-                  <span className="text-2xl shrink-0 mt-0.5">{icon}</span>
+                  {icon}
                   <div>
                     <p className="font-bold text-sm mb-1">{title}</p>
                     <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
@@ -344,8 +349,8 @@ export default function LandingPage() {
                   <span className="inline-block mt-2 text-xs font-medium bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">Cert in progress</span>
                 </div>
                 <div className="text-right">
-                  <p className="text-3xl font-bold text-[oklch(0.45_0.18_150)]">84%</p>
-                  <span className="inline-block text-xs font-bold text-[oklch(0.45_0.18_150)] bg-[oklch(0.96_0.04_150)] px-2 py-0.5 rounded-full">Tier 1 — Ready</span>
+                  <p className="text-3xl font-bold text-tier1-fg">84%</p>
+                  <span className="inline-block text-xs font-bold text-tier1-fg bg-tier1-bg px-2 py-0.5 rounded-full">Tier 1 — Ready</span>
                 </div>
               </div>
               <div className="space-y-2">
@@ -360,15 +365,17 @@ export default function LandingPage() {
                       <span className="font-medium">{score}%</span>
                     </div>
                     <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                      <div className="h-full rounded-full bg-[oklch(0.55_0.18_150)]" style={{ width: `${score}%` }} />
+                      <div className="h-full rounded-full bg-tier1" style={{ width: `${score}%` }} />
                     </div>
                   </div>
                 ))}
               </div>
               <div className="border-t pt-4 flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-muted-foreground">🧠 Judgment Score</p>
-                  <p className="font-bold text-[oklch(0.45_0.18_150)]">79%</p>
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Brain className="w-3.5 h-3.5" /> Judgment Score
+                  </p>
+                  <p className="font-bold text-tier1-fg">79%</p>
                 </div>
                 <div className="flex gap-1">
                   <span className="text-xs bg-muted px-2 py-0.5 rounded-full">Days</span>
@@ -406,7 +413,7 @@ export default function LandingPage() {
                 score: '75%+',
                 desc: 'Immediately visible in the hospital candidate pipeline. Eligible to apply to all open externship positions. The goal every student is working toward.',
                 cls: 'tier-1-bg',
-                dot: 'bg-[oklch(0.55_0.18_150)]',
+                dot: 'bg-tier1',
                 textCls: 'tier-1',
               },
               {
@@ -415,7 +422,7 @@ export default function LandingPage() {
                 score: '55–74%',
                 desc: 'Strong foundational knowledge with targeted growth areas. Eligible for mentorship placements. Improvement tracks unlock automatically to close the gap to Tier 1.',
                 cls: 'tier-2-bg',
-                dot: 'bg-[oklch(0.65_0.18_80)]',
+                dot: 'bg-tier2',
                 textCls: 'tier-2',
               },
               {
@@ -424,7 +431,7 @@ export default function LandingPage() {
                 score: 'Below 55%',
                 desc: 'Not yet eligible for placement. Receives a focused study plan across weak domains. Study tracks, streaks, and judgment scenarios build the foundation back up.',
                 cls: 'tier-3-bg',
-                dot: 'bg-[oklch(0.577_0.245_27.325)]',
+                dot: 'bg-destructive',
                 textCls: 'tier-3',
               },
             ].map(({ tier, label, score, desc, cls, dot, textCls }) => (

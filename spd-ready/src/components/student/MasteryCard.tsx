@@ -4,9 +4,9 @@ import type { DomainSummary } from '@/lib/dal/learning'
 
 export function MasteryCard({ d }: { d: DomainSummary }) {
   const masteryColor =
-    d.avg_mastery >= 80 ? 'oklch(0.55 0.18 150)' :
-    d.avg_mastery >= 50 ? 'oklch(0.65 0.18 80)' :
-    'oklch(0.577 0.245 27)'
+    d.avg_mastery >= 80 ? 'var(--tier1)' :
+    d.avg_mastery >= 50 ? 'var(--tier2)' :
+    'var(--destructive)'
   return (
     <Link href={`/student/learning/${d.domain}`} className="block group">
       <div className="rounded-xl border-2 border-border bg-card p-5 h-full flex flex-col gap-3 transition-all group-hover:shadow-md group-hover:border-primary/40">

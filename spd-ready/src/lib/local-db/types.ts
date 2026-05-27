@@ -26,13 +26,13 @@ export type LearningDomainMeta = {
 }
 
 export const LEARNING_DOMAIN_META: Record<LearningDomain, LearningDomainMeta> = {
-  foundational: { key: 'foundational', label: 'Foundational Knowledge', description: 'Instrument ID, terminology, OSHA, AAMI ST79, infection prevention', icon: '📚' },
-  decontamination: { key: 'decontamination', label: 'Decontamination', description: 'PPE, manual cleaning, enzymatics, ultrasonics, dirty-to-clean workflow', icon: '🧼' },
-  high_level_disinfection: { key: 'high_level_disinfection', label: 'High-Level Disinfection', description: 'Chemical sterilants, MEC, contact time, scope reprocessing', icon: '🧪' },
-  iap: { key: 'iap', label: 'Inspection, Assembly & Packaging', description: 'Inspection, count sheets, peel pouches, sequential wrap, tip protectors', icon: '📦' },
-  sterilization: { key: 'sterilization', label: 'Sterilization', description: 'Steam, pre-vac, parameters, BIs, CIs, Bowie-Dick, release criteria', icon: '⚗️' },
-  sterile_storage: { key: 'sterile_storage', label: 'Sterile Storage & Distribution', description: 'Event-related sterility, transport, stock rotation, package integrity', icon: '🏪' },
-  spd_judgment: { key: 'spd_judgment', label: 'SPD Judgment', description: 'Applied judgment under pressure — accountability, escalation, safety ownership', icon: '🧠' },
+  foundational: { key: 'foundational', label: 'Foundational Knowledge', description: 'Instrument ID, terminology, OSHA, AAMI ST79, infection prevention', icon: 'BookOpen' },
+  decontamination: { key: 'decontamination', label: 'Decontamination', description: 'PPE, manual cleaning, enzymatics, ultrasonics, dirty-to-clean workflow', icon: 'Droplets' },
+  high_level_disinfection: { key: 'high_level_disinfection', label: 'High-Level Disinfection', description: 'Chemical sterilants, MEC, contact time, scope reprocessing', icon: 'TestTube' },
+  iap: { key: 'iap', label: 'Inspection, Assembly & Packaging', description: 'Inspection, count sheets, peel pouches, sequential wrap, tip protectors', icon: 'Package' },
+  sterilization: { key: 'sterilization', label: 'Sterilization', description: 'Steam, pre-vac, parameters, BIs, CIs, Bowie-Dick, release criteria', icon: 'FlaskConical' },
+  sterile_storage: { key: 'sterile_storage', label: 'Sterile Storage & Distribution', description: 'Event-related sterility, transport, stock rotation, package integrity', icon: 'Warehouse' },
+  spd_judgment: { key: 'spd_judgment', label: 'SPD Judgment', description: 'Applied judgment under pressure — accountability, escalation, safety ownership', icon: 'Brain' },
 }
 
 // Per D-21: 8 error categories from OhioHealth case study

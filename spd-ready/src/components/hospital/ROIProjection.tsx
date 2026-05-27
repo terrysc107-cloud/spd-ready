@@ -15,7 +15,7 @@ export function ROIProjection({ roi }: { roi: CohortROI }) {
         </div>
         <div className="border-t-2 border-border pt-4">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Projected annual savings</p>
-          <p className="text-4xl font-bold tabular-nums text-[oklch(0.45_0.18_150)]">{fmtUsd(roi.projected_savings_usd)}</p>
+          <p className="text-4xl font-bold tabular-nums text-tier1-fg">{fmtUsd(roi.projected_savings_usd)}</p>
         </div>
       </div>
 
@@ -29,7 +29,7 @@ export function ROIProjection({ roi }: { roi: CohortROI }) {
                   <p className="font-medium text-sm">{c.label}</p>
                   <p className="text-xs text-muted-foreground">{c.projected_events_avoided} events avoided</p>
                 </div>
-                <p className="text-lg font-bold tabular-nums text-[oklch(0.45_0.18_150)]">{fmtUsd(c.projected_savings_usd)}</p>
+                <p className="text-lg font-bold tabular-nums text-tier1-fg">{fmtUsd(c.projected_savings_usd)}</p>
               </li>
             ))}
           </ul>

@@ -6,7 +6,9 @@ import { seedDemoStudents } from '@/lib/local-db/seed-demo'
 import { writeStore } from '@/lib/local-db/store'
 import { TierBadge } from '@/components/student/TierBadge'
 import { CategoryScoreBar } from '@/components/student/CategoryScoreBar'
+import { ScoreRing } from '@/components/data/ScoreRing'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
+import { Brain } from '@/lib/icons'
 
 function EnvLabel(env: string): string {
   const map: Record<string, string> = {
@@ -72,13 +74,6 @@ export default async function CandidateProfilePage({
   const score = Math.round(profile.readiness_score ?? 0)
   const tier = (profile.readiness_tier ?? 3) as 1 | 2 | 3
 
-  const ringColor =
-    tier === 1
-      ? 'oklch(0.55 0.18 150)'
-      : tier === 2
-        ? 'oklch(0.65 0.18 80)'
-        : 'oklch(0.55 0.18 25)'
-
   const categories: Array<{ key: string; score: number | null }> = [
     { key: 'technical', score: latest?.technical_score ?? null },
     { key: 'situational', score: latest?.situational_score ?? null },
@@ -106,18 +101,7 @@ export default async function CandidateProfilePage({
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
           {/* Score ring */}
           <div className="flex-shrink-0 flex flex-col items-center gap-3">
-            <div
-              className="w-28 h-28 rounded-full flex items-center justify-center"
-              style={{
-                background: `conic-gradient(${ringColor} ${score * 3.6}deg, oklch(0.90 0.02 220) 0deg)`,
-                padding: '4px',
-              }}
-            >
-              <div className="w-full h-full rounded-full bg-white flex flex-col items-center justify-center">
-                <p className="text-2xl font-bold tabular-nums">{score}%</p>
-                <p className="text-xs text-muted-foreground">Readiness</p>
-              </div>
-            </div>
+            <ScoreRing score={score} tier={tier} size="md" label="Readiness" />
             <TierBadge tier={tier} size="default" />
           </div>
 
@@ -166,12 +150,12 @@ export default async function CandidateProfilePage({
       {/* Judgment readiness */}
       <div className={`rounded-xl border-2 p-5 flex items-center justify-between ${
         judgmentScore === null ? 'border-border bg-muted/20'
-        : judgmentScore >= 75 ? 'border-[oklch(0.75_0.12_150)] bg-[oklch(0.96_0.04_150)]'
-        : judgmentScore >= 55 ? 'border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)]'
+        : judgmentScore >= 75 ? 'border-tier1-border bg-tier1-bg'
+        : judgmentScore >= 55 ? 'border-tier2-border bg-tier2-bg'
         : 'border-destructive/30 bg-destructive/5'
       }`}>
         <div>
-          <p className="font-bold text-sm">🧠 Judgment Readiness Score</p>
+          <p className="font-bold text-sm flex items-center gap-1.5"><Brain className="w-4 h-4" /> Judgment Readiness Score</p>
           <p className="text-xs text-muted-foreground mt-0.5">
             {judgmentScore === null
               ? 'Student has not completed the judgment track yet'
@@ -182,15 +166,15 @@ export default async function CandidateProfilePage({
               : 'Needs coaching — low scores on judgment scenarios'}
           </p>
           {judgmentScore !== null && judgmentScore < 75 && (
-            <p className="text-xs font-medium text-[oklch(0.55_0.18_80)] mt-1">
+            <p className="text-xs font-medium text-tier2-fg mt-1">
               Recommend: review escalation, safety ownership, and accountability scenarios
             </p>
           )}
         </div>
         <p className={`text-3xl font-bold tabular-nums shrink-0 ${
           judgmentScore === null ? 'text-muted-foreground text-base'
-          : judgmentScore >= 75 ? 'text-[oklch(0.45_0.18_150)]'
-          : judgmentScore >= 55 ? 'text-[oklch(0.55_0.18_80)]'
+          : judgmentScore >= 75 ? 'text-tier1-fg'
+          : judgmentScore >= 55 ? 'text-tier2-fg'
           : 'text-destructive'
         }`}>
           {judgmentScore !== null ? `${Math.round(judgmentScore)}%` : '—'}
@@ -234,7 +218,7 @@ export default async function CandidateProfilePage({
           )}
           {growthAreas.length > 0 && (
             <div className="rounded-xl border bg-white shadow-sm p-5">
-              <h3 className="font-semibold text-sm text-amber-600 mb-2">Growth Areas</h3>
+              <h3 className="font-semibold text-sm text-tier2-fg mb-2">Growth Areas</h3>
               <ul className="space-y-1">
                 {growthAreas.map(g => (
                   <li key={g} className="text-sm">

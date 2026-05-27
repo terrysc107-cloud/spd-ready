@@ -1,11 +1,13 @@
 'use client'
 
+import { HelpCircle, Smile, Dumbbell } from '@/lib/icons'
+import type { LucideIcon } from 'lucide-react'
 import type { ConfidenceTap } from '@/lib/local-db/types'
 
-const OPTIONS: { value: ConfidenceTap; label: string; emoji: string }[] = [
-  { value: 'not_sure', label: 'Not sure', emoji: '🤔' },
-  { value: 'pretty_sure', label: 'Pretty sure', emoji: '🙂' },
-  { value: 'certain', label: 'Certain', emoji: '💪' },
+const OPTIONS: { value: ConfidenceTap; label: string; Icon: LucideIcon }[] = [
+  { value: 'not_sure', label: 'Not sure', Icon: HelpCircle },
+  { value: 'pretty_sure', label: 'Pretty sure', Icon: Smile },
+  { value: 'certain', label: 'Certain', Icon: Dumbbell },
 ]
 
 type Props = {
@@ -31,7 +33,7 @@ export function ConfidenceTapPrompt({ value, onSelect, disabled }: Props) {
                 : 'border-border bg-background hover:border-primary/40'
             } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
-            <span className="block text-lg mb-0.5">{opt.emoji}</span>
+            <opt.Icon className="w-5 h-5 mx-auto mb-0.5" />
             <span className="block text-xs">{opt.label}</span>
           </button>
         ))}
