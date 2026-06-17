@@ -2,6 +2,23 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* ============================================================
+   Design language — "premium enterprise, warm depth (not dry)"
+   Depth comes from ELEVATION on a warm off-white canvas, not from
+   saturated fills. Elevation tiers:
+     E0 page    : bg-background (off-white; never pure-white page)
+     E1 card    : bg-card ring-1 ring-foreground/10 rounded-xl shadow-sm
+     E2 metric  : + shadow-md            (StatCard, hero readiness)
+     E3 hero    : .brand-gradient + blur-circle glassmorphism (one/screen)
+     E4 overlay : shadow-lg              (dialog, toast)
+   Color roles: --primary = structure (sidebar-active, primary btn, key #s);
+     --accent = ONE highlight per view (focus, "next", active); --muted =
+     neutrals; --destructive = errors only; chart-1..5 = data-viz only;
+     .tier-1/2/3 = universal status/severity scale; --sidebar-* = shell only.
+   Iconography: manager/compliance = lucide only (status via StatusPill);
+     tech = emoji ok for domain/streak/celebration, lucide for functional.
+   ============================================================ */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
