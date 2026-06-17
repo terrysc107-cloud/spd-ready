@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'SPD Ready',
-  description: 'Sterile processing readiness, placement, and feedback platform',
+  title: 'SPD Ready — Staff Competency & Survey Readiness',
+  description:
+    'Standardized SPD staff training, competency validation, and survey-ready evidence for sterile processing departments.',
 }
 
 export default function RootLayout({

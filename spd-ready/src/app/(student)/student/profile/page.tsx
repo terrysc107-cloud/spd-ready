@@ -102,10 +102,10 @@ export default async function ProfilePage({
 
       {!profile.readiness_tier && (
         <div className="rounded-md border border-primary/20 bg-primary/5 p-4 text-sm">
-          <p className="font-medium text-primary">Ready to take the readiness assessment?</p>
-          <p className="text-muted-foreground mt-1">Complete the 30-question assessment to receive your readiness score and tier placement.</p>
-          <Link href="/student/assessment" className="mt-3 inline-block">
-            <Button size="sm">Start Assessment</Button>
+          <p className="font-medium text-primary">Ready to build your competency?</p>
+          <p className="text-muted-foreground mt-1">Train across the SPD domains — your mastery feeds each competency your manager assigns.</p>
+          <Link href="/student/learning" className="mt-3 inline-block">
+            <Button size="sm">Start Training</Button>
           </Link>
         </div>
       )}

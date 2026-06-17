@@ -59,7 +59,7 @@ export default async function ResultsPage() {
   ])
 
   if (!assessment || assessment.status !== 'completed') {
-    redirect('/student/assessment')
+    redirect('/student/learning')
   }
 
   // Tier is stored in student_profiles (not student_assessments — no readiness_tier column there)
@@ -228,13 +228,11 @@ export default async function ResultsPage() {
 
       {/* ── CTA / Retake ─── */}
       <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-        {tier !== 3 && (
-          <Link href="/student/openings" className="w-full sm:w-auto">
-            <Button className="w-full" size="lg">Browse Externship Openings →</Button>
-          </Link>
-        )}
-        <Link href="/student/assessment" className="w-full sm:w-auto">
-          <Button variant="outline" size="lg" className="w-full">Retake Assessment</Button>
+        <Link href="/competency/my" className="w-full sm:w-auto">
+          <Button className="w-full" size="lg">View My Competencies →</Button>
+        </Link>
+        <Link href="/student/learning" className="w-full sm:w-auto">
+          <Button variant="outline" size="lg" className="w-full">Continue Training</Button>
         </Link>
         <Link href="/student/dashboard" className="w-full sm:w-auto">
           <Button variant="ghost" size="lg" className="w-full">Back to Dashboard</Button>

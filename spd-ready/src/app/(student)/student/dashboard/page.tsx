@@ -137,10 +137,10 @@ export default async function StudentDashboardPage() {
               <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
                 <span className="text-4xl">📊</span>
               </div>
-              <p className="font-semibold text-sm">Not yet assessed</p>
-              <p className="text-xs text-muted-foreground mt-1">Take the 30-question readiness assessment</p>
-              <Link href="/student/assessment" className="mt-4 w-full">
-                <Button size="sm" className="w-full">Start Assessment</Button>
+              <p className="font-semibold text-sm">Keep training</p>
+              <p className="text-xs text-muted-foreground mt-1">Build mastery across the SPD domains</p>
+              <Link href="/student/learning" className="mt-4 w-full">
+                <Button size="sm" className="w-full">Start Training</Button>
               </Link>
             </>
           ) : (
@@ -161,32 +161,32 @@ export default async function StudentDashboardPage() {
         <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             {
-              icon: '🏥',
-              title: 'Browse Openings',
-              desc: 'View externship positions matched to your location and availability.',
-              href: '/student/openings',
-              disabled: !profile?.readiness_tier || profile.readiness_tier === 3,
-            },
-            {
-              icon: '📁',
-              title: 'My Applications',
-              desc: 'Track the status of your externship applications.',
-              href: '/student/applications',
+              icon: '🎓',
+              title: 'Continue Training',
+              desc: 'Build mastery across the SPD domains — your training feeds competency automatically.',
+              href: '/student/learning',
               disabled: false,
             },
             {
-              icon: '✏️',
+              icon: '✅',
+              title: 'My Competencies',
+              desc: 'See the competencies your manager assigned and their validation status.',
+              href: '/competency/my',
+              disabled: false,
+            },
+            {
+              icon: '📊',
+              title: 'My Results',
+              desc: 'Review your readiness score and domain breakdown.',
+              href: '/student/results',
+              disabled: false,
+            },
+            {
+              icon: '👤',
               title: 'Edit Profile',
-              desc: 'Update your location, availability, and certification status.',
-              href: '/student/onboarding',
+              desc: 'Update your details, certification status, and availability.',
+              href: '/student/profile',
               disabled: false,
-            },
-            {
-              icon: '📝',
-              title: 'Retake Assessment',
-              desc: 'Improve your score and move up a readiness tier.',
-              href: '/student/assessment',
-              disabled: !profile?.profile_complete,
             },
           ].map(({ icon, title, desc, href, disabled }) => (
             <div key={href} className={`rounded-xl border bg-card p-5 flex flex-col ${disabled ? 'opacity-50' : 'hover:shadow-md transition-shadow'}`}>

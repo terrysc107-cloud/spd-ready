@@ -51,7 +51,7 @@ export function Logo({ href = '/', size = 'md', variant = 'dark' }: LogoProps) {
         </span>
         {size !== 'sm' && (
           <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${variant === 'light' ? 'text-white/50' : 'text-[oklch(0.55_0.08_220)]'}`}>
-            Readiness Platform
+            SPD Competency
           </span>
         )}
       </div>
