@@ -1,6 +1,6 @@
 import { cache } from 'react'
 import { readStore } from '@/lib/local-db/store'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getConceptMastery, getDueForReview } from '@/lib/dal/mastery'
 import { getAllDomainAssessments, likertToPct, deltaPp } from '@/lib/dal/likert'
 import { LEARNING_DOMAINS, LEARNING_DOMAIN_META } from '@/lib/local-db/types'
@@ -25,7 +25,7 @@ export type DomainSummary = {
 }
 
 export const getDomainSummaries = cache(async (): Promise<DomainSummary[]> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return []
   const [masteries, assessments] = await Promise.all([
     getConceptMastery(user.id),
@@ -62,7 +62,7 @@ function buildSummary(domain: LearningDomain, masteries: ConceptMastery[], asses
 }
 
 export const getDomainSummary = cache(async (domain: LearningDomain): Promise<DomainSummary | null> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return null
   const [masteries, assessments] = await Promise.all([
     getConceptMastery(user.id),
@@ -72,14 +72,14 @@ export const getDomainSummary = cache(async (domain: LearningDomain): Promise<Do
 })
 
 export const getDomainConceptMastery = cache(async (domain: LearningDomain): Promise<ConceptMastery[]> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return []
   const all = await getConceptMastery(user.id)
   return all.filter(m => m.domain === domain)
 })
 
 export const getDueReviewQueue = cache(async (): Promise<ConceptMastery[]> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return []
   return getDueForReview(user.id)
 })
@@ -90,7 +90,7 @@ export type AssignmentWithCoordinator = ModuleAssignment & {
 }
 
 export const getAssignmentsForStudent = cache(async (): Promise<AssignmentWithCoordinator[]> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return []
   const store = readStore()
   const all = Object.values(store.module_assignments).filter(a => a.student_user_id === user.id && a.completed_at === null)

@@ -1,5 +1,5 @@
 import { cache } from 'react'
-import { readStore, writeStore } from '@/lib/local-db/store'
+import { createClient } from '@/lib/supabase/server'
 import type { ConceptMastery, ConceptId, LearningDomain, ConfidenceTap } from '@/lib/local-db/types'
 
 export const MASTERY_WEIGHTS = {
@@ -34,9 +34,8 @@ export function computeRecencyDecay(lastReviewedAt: string, now: Date = new Date
 }
 
 // D-07: confidence_calibration component update
-// Input: prior calibration (0..100), current attempt's correct flag and confidence tap
 // Rewards: (certain + correct) +6; (not_sure + wrong) +3; (pretty_sure + correct) +3; (pretty_sure + wrong) -1
-// Penalty: (certain + wrong) -12 (2x weight per "specifics" block — high-conf+wrong is dangerous)
+// Penalty: (certain + wrong) -12 (high-conf+wrong is dangerous)
 // Neutral: (not_sure + correct) 0
 export function updateCalibration(prior: number, correct: boolean, tap: ConfidenceTap | null): number {
   let delta = 0
@@ -69,7 +68,53 @@ function srComponent(intervalDays: number): number {
   return Math.round(((idx + 1) / SR_INTERVALS_DAYS.length) * 100)
 }
 
-// Single-attempt mastery update. Reads-modifies-writes one ConceptMastery row.
+// ============================================================
+// Persistence (Supabase spd_ready.concept_mastery)
+// Rows are keyed by staff_id = auth.users.id. The TS ConceptMastery
+// type uses `user_id`; we map staff_id -> user_id at the boundary.
+// ============================================================
+
+type ConceptMasteryRow = {
+  id: string
+  staff_id: string
+  concept_id: string
+  domain: string
+  quiz_accuracy: number
+  confidence_calibration: number
+  spaced_repetition: number
+  context_variety: number
+  recency_decay: number
+  mastery_score: number
+  review_interval_days: number
+  next_review_at: string
+  last_reviewed_at: string
+  attempts: number
+  distinct_questions_seen: number
+  updated_at: string
+}
+
+function mapRow(r: ConceptMasteryRow): ConceptMastery {
+  return {
+    id: r.id,
+    user_id: r.staff_id,
+    concept_id: r.concept_id,
+    domain: r.domain as LearningDomain,
+    quiz_accuracy: r.quiz_accuracy,
+    confidence_calibration: r.confidence_calibration,
+    spaced_repetition: r.spaced_repetition,
+    context_variety: r.context_variety,
+    recency_decay: r.recency_decay,
+    mastery_score: r.mastery_score,
+    review_interval_days: r.review_interval_days,
+    next_review_at: r.next_review_at,
+    last_reviewed_at: r.last_reviewed_at,
+    attempts: r.attempts,
+    distinct_questions_seen: r.distinct_questions_seen,
+    updated_at: r.updated_at,
+  }
+}
+
+// Single-attempt mastery update. Read-modify-write one concept_mastery row.
 export async function applyAttempt(params: {
   userId: string
   conceptId: ConceptId
@@ -80,74 +125,86 @@ export async function applyAttempt(params: {
   confidenceTap: ConfidenceTap | null
 }): Promise<ConceptMastery> {
   const { userId, conceptId, domain, questionId, correct, partial, confidenceTap } = params
-  const store = readStore()
-  const userMasteries = store.concept_mastery[userId] ?? []
-  let row = userMasteries.find(m => m.concept_id === conceptId)
+  const supabase = await createClient()
   const nowIso = new Date().toISOString()
 
-  if (!row) {
-    row = {
-      id: crypto.randomUUID(),
-      user_id: userId,
-      concept_id: conceptId,
-      domain,
-      quiz_accuracy: 0,
-      confidence_calibration: 50,  // neutral start
-      spaced_repetition: 0,
-      context_variety: 0,
-      recency_decay: 100,
-      mastery_score: 0,
-      review_interval_days: 0,
-      next_review_at: nowIso,
-      last_reviewed_at: nowIso,
-      attempts: 0,
-      distinct_questions_seen: 0,
-      updated_at: nowIso,
-    }
-    userMasteries.push(row)
+  const { data: existing } = await supabase
+    .from('concept_mastery')
+    .select('*')
+    .eq('staff_id', userId)
+    .eq('concept_id', conceptId)
+    .maybeSingle<ConceptMasteryRow>()
+
+  // Seed defaults for a brand-new concept row
+  const prior = existing ?? {
+    quiz_accuracy: 0,
+    confidence_calibration: 50,  // neutral start
+    spaced_repetition: 0,
+    context_variety: 0,
+    recency_decay: 100,
+    review_interval_days: 0,
+    attempts: 0,
+    distinct_questions_seen: 0,
   }
 
-  // Update components
-  const newAttempts = row.attempts + 1
+  const newAttempts = prior.attempts + 1
   const credit = correct ? 1 : partial ? 0.5 : 0
-  const newAccuracy = Math.round(((row.quiz_accuracy / 100) * row.attempts + credit) / newAttempts * 100)
+  const newAccuracy = Math.round(((prior.quiz_accuracy / 100) * prior.attempts + credit) / newAttempts * 100)
 
-  // Distinct questions for THIS concept — approximate by incrementing per attempt (D-10 v1 clarification)
-  const newDistinct = row.distinct_questions_seen + 1
+  const newDistinct = prior.distinct_questions_seen + 1
   const newVariety = Math.min(100, newDistinct * 10)  // 10 distinct questions = 100
 
   const treatAsCorrect = correct || partial
-  const sr = advanceSpacedRepetition(row.review_interval_days || 0, treatAsCorrect)
+  const sr = advanceSpacedRepetition(prior.review_interval_days || 0, treatAsCorrect)
   const newSrComponent = srComponent(sr.nextIntervalDays)
 
-  const newCalibration = updateCalibration(row.confidence_calibration, correct, confidenceTap)
+  const newCalibration = updateCalibration(prior.confidence_calibration, correct, confidenceTap)
   const newRecency = 100  // just reviewed
 
-  row.quiz_accuracy = newAccuracy
-  row.confidence_calibration = newCalibration
-  row.spaced_repetition = newSrComponent
-  row.context_variety = newVariety
-  row.recency_decay = newRecency
-  row.review_interval_days = sr.nextIntervalDays
-  row.next_review_at = sr.nextReviewAt
-  row.last_reviewed_at = nowIso
-  row.attempts = newAttempts
-  row.distinct_questions_seen = newDistinct
-  row.mastery_score = computeMasteryScore(row)
-  row.updated_at = nowIso
-  // Suppress unused locals lint
-  void questionId
+  const components = {
+    quiz_accuracy: newAccuracy,
+    confidence_calibration: newCalibration,
+    spaced_repetition: newSrComponent,
+    context_variety: newVariety,
+    recency_decay: newRecency,
+  }
 
-  store.concept_mastery[userId] = userMasteries
-  writeStore(store)
-  return row
+  const upsertRow = {
+    staff_id: userId,
+    concept_id: conceptId,
+    domain,
+    ...components,
+    mastery_score: computeMasteryScore(components),
+    review_interval_days: sr.nextIntervalDays,
+    next_review_at: sr.nextReviewAt,
+    last_reviewed_at: nowIso,
+    attempts: newAttempts,
+    distinct_questions_seen: newDistinct,
+    updated_at: nowIso,
+  }
+  void questionId  // reserved for future per-question variety tracking
+
+  const { data, error } = await supabase
+    .from('concept_mastery')
+    .upsert(upsertRow, { onConflict: 'staff_id,concept_id' })
+    .select('*')
+    .single<ConceptMasteryRow>()
+
+  if (error || !data) throw new Error(`applyAttempt failed: ${error?.message ?? 'no row returned'}`)
+  return mapRow(data)
 }
 
 // Read APIs
 
 export const getConceptMastery = cache(async (userId: string): Promise<ConceptMastery[]> => {
-  const store = readStore()
-  const rows = store.concept_mastery[userId] ?? []
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('concept_mastery')
+    .select('*')
+    .eq('staff_id', userId)
+    .returns<ConceptMasteryRow[]>()
+
+  const rows = (data ?? []).map(mapRow)
   // Apply recency decay at read time (D-09: maintained, not completed)
   const now = new Date()
   return rows.map(r => {
@@ -162,5 +219,7 @@ export const getConceptMastery = cache(async (userId: string): Promise<ConceptMa
 export async function getDueForReview(userId: string): Promise<ConceptMastery[]> {
   const all = await getConceptMastery(userId)
   const now = Date.now()
-  return all.filter(m => new Date(m.next_review_at).getTime() <= now).sort((a, b) => a.next_review_at.localeCompare(b.next_review_at))
+  return all
+    .filter(m => new Date(m.next_review_at).getTime() <= now)
+    .sort((a, b) => a.next_review_at.localeCompare(b.next_review_at))
 }
