@@ -3,7 +3,8 @@ import { requireAppRole, MANAGER_ROLES } from '@/lib/dal/auth'
 import { getAssignmentForValidation } from '@/lib/dal/competency'
 import { getStaffMember } from '@/lib/dal/org'
 import { ValidateForm, type ValidateItem } from '@/components/competency/ValidateForm'
-import { Badge } from '@/components/ui/badge'
+import { PageHeader } from '@/components/ui/page-header'
+import { StatusPill, type CompetencyStatus } from '@/components/ui/status-pill'
 
 export default async function ValidatePage({
   params,
@@ -19,10 +20,10 @@ export default async function ValidatePage({
   const staff = await getStaffMember(assignment.staff_id)
 
   const trainingByItem = new Map(
-    observations.filter(o => o.source === 'training').map(o => [o.item_id, o])
+    observations.filter((o) => o.source === 'training').map((o) => [o.item_id, o])
   )
 
-  const validateItems: ValidateItem[] = items.map(i => {
+  const validateItems: ValidateItem[] = items.map((i) => {
     const t = trainingByItem.get(i.id)
     return {
       id: i.id,
@@ -33,18 +34,23 @@ export default async function ValidatePage({
     }
   })
 
+  const prefilled = validateItems.filter((i) => i.trainingResult != null).length
+
   return (
-    <div className="space-y-5">
-      <header className="space-y-1">
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl font-semibold">{template.name}</h1>
-          <Badge variant="secondary" className="capitalize">{assignment.status.replace(/_/g, ' ')}</Badge>
+    <div className="space-y-6">
+      <PageHeader
+        title={template.name}
+        eyebrow={`Validating ${staff?.name ?? 'staff member'}`}
+        description="Engine-derived results are pre-filled from the tech's training — override per item, then sign off."
+        actions={<StatusPill status={assignment.status as CompetencyStatus} />}
+      />
+
+      {prefilled > 0 && (
+        <div className="rounded-xl bg-muted/50 px-4 py-2.5 text-sm text-muted-foreground">
+          Engine pre-filled <span className="font-medium text-foreground tabular-nums">{prefilled}</span> of{' '}
+          <span className="tabular-nums">{validateItems.length}</span> items from training mastery.
         </div>
-        <p className="text-muted-foreground text-sm">
-          Validating <span className="font-medium text-foreground">{staff?.name ?? 'staff member'}</span>.
-          Engine-derived results are pre-filled — override per item, then sign off.
-        </p>
-      </header>
+      )}
 
       <ValidateForm assignmentId={assignmentId} items={validateItems} />
     </div>

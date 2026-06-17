@@ -4,6 +4,9 @@ import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { validateCompetencyAction, type ManagerItemResult } from '@/actions/competency'
 import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { useToast } from '@/components/ui/toast'
+import { cn } from '@/lib/utils'
 
 export type ValidateItem = {
   id: string
@@ -13,62 +16,68 @@ export type ValidateItem = {
   masteryScore: number | null
 }
 
-const RESULTS: ManagerItemResult['result'][] = ['pass', 'fail', 'na']
+type Result = ManagerItemResult['result']
+const RESULTS: Result[] = ['pass', 'fail', 'na']
+
+const activeCls: Record<Result, string> = {
+  pass: 'bg-[oklch(0.55_0.18_150)] text-white ring-transparent',
+  fail: 'bg-destructive text-white ring-transparent',
+  na: 'bg-muted text-foreground ring-border',
+}
+
+const selectCls =
+  'mt-1.5 h-9 w-full rounded-lg border border-input bg-card px-3 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
 
 export function ValidateForm({ assignmentId, items }: { assignmentId: string; items: ValidateItem[] }) {
   const router = useRouter()
+  const { toast } = useToast()
   // Manager result prefilled from the training-derived result (engine feeds the default)
-  const [results, setResults] = useState<Record<string, ManagerItemResult['result']>>(
-    Object.fromEntries(items.map(i => [i.id, i.trainingResult ?? 'na']))
+  const [results, setResults] = useState<Record<string, Result>>(
+    Object.fromEntries(items.map((i) => [i.id, i.trainingResult ?? 'na']))
   )
   const [method, setMethod] = useState<'training_auto' | 'direct_observation' | 'audit'>('direct_observation')
-  const [msg, setMsg] = useState<string | null>(null)
   const [pending, start] = useTransition()
 
   function submit() {
-    setMsg(null)
-    const perItem: ManagerItemResult[] = items.map(i => ({ item_id: i.id, result: results[i.id] }))
+    const perItem: ManagerItemResult[] = items.map((i) => ({ item_id: i.id, result: results[i.id] }))
     start(async () => {
       try {
         const res = await validateCompetencyAction(assignmentId, perItem, method)
-        setMsg(`Signed off — outcome: ${res.outcome.toUpperCase()} ✓`)
+        toast(`Signed off — ${res.outcome.toUpperCase()}`, res.outcome === 'pass' ? 'success' : 'error')
         router.refresh()
       } catch (e) {
-        setMsg(e instanceof Error ? e.message : 'Failed to sign off')
+        toast(e instanceof Error ? e.message : 'Failed to sign off', 'error')
       }
     })
   }
 
   return (
-    <div className="space-y-4">
-      <div className="rounded-lg border divide-y">
-        {items.map(i => (
-          <div key={i.id} className="flex items-center justify-between gap-4 px-4 py-3">
-            <div>
-              <p className="font-medium text-sm">{i.label}</p>
+    <div className="space-y-5">
+      <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+        {items.map((i) => (
+          <div key={i.id} className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-sm font-medium">{i.label}</p>
               <p className="text-xs text-muted-foreground">
                 {i.evidence_type === 'observation'
                   ? 'Observation only'
                   : i.masteryScore != null
-                    ? `Training mastery: ${i.masteryScore}% → ${i.trainingResult ?? '—'}`
+                    ? `Training mastery ${i.masteryScore}% → ${i.trainingResult ?? '—'}`
                     : 'No training data yet'}
               </p>
             </div>
-            <div className="flex gap-1">
-              {RESULTS.map(r => (
+            <div className="flex shrink-0 gap-1.5">
+              {RESULTS.map((r) => (
                 <button
                   key={r}
                   type="button"
-                  onClick={() => setResults(prev => ({ ...prev, [i.id]: r }))}
-                  className={`px-2.5 py-1 rounded-md text-xs font-medium capitalize border transition-colors ${
+                  onClick={() => setResults((prev) => ({ ...prev, [i.id]: r }))}
+                  className={cn(
+                    'rounded-lg px-3 py-1 text-xs font-medium capitalize ring-1 ring-inset transition-colors',
                     results[i.id] === r
-                      ? r === 'pass'
-                        ? 'bg-green-600 text-white border-green-600'
-                        : r === 'fail'
-                          ? 'bg-red-600 text-white border-red-600'
-                          : 'bg-muted text-foreground border-muted-foreground/30'
-                      : 'bg-white text-muted-foreground hover:bg-muted'
-                  }`}
+                      ? activeCls[r]
+                      : 'bg-card text-muted-foreground ring-border hover:bg-muted'
+                  )}
                 >
                   {r}
                 </button>
@@ -78,23 +87,23 @@ export function ValidateForm({ assignmentId, items }: { assignmentId: string; it
         ))}
       </div>
 
-      <label className="block text-sm font-medium max-w-xs">
-        Validation method
+      <div className="max-w-xs">
+        <Label htmlFor="vf-method">Validation method</Label>
         <select
-          className="mt-1 w-full rounded-md border px-3 py-2 bg-white"
+          id="vf-method"
+          className={selectCls}
           value={method}
-          onChange={e => setMethod(e.target.value as typeof method)}
+          onChange={(e) => setMethod(e.target.value as typeof method)}
         >
           <option value="direct_observation">Direct observation</option>
           <option value="audit">Audit-based</option>
           <option value="training_auto">Accept training result</option>
         </select>
-      </label>
+      </div>
 
       <Button onClick={submit} disabled={pending}>
         {pending ? 'Signing off…' : 'Sign off competency'}
       </Button>
-      {msg && <p className="text-sm font-medium">{msg}</p>}
     </div>
   )
 }

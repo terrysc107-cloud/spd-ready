@@ -49,3 +49,13 @@ export const getStaffMember = cache(async (staffId: string): Promise<StaffMember
     .maybeSingle<StaffMember>()
   return data ?? null
 })
+
+// RLS scopes organizations to the caller's org, so a bare select returns just it.
+export const getMyOrg = cache(async (): Promise<{ id: string; name: string } | null> => {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('organizations')
+    .select('id, name')
+    .maybeSingle<{ id: string; name: string }>()
+  return data ?? null
+})
