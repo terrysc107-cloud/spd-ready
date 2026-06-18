@@ -4,14 +4,17 @@ import { requireAppRole, MANAGER_ROLES } from '@/lib/dal/auth'
 import { getStaffMember, getDepartments } from '@/lib/dal/org'
 import { getAssignmentsForStaff, getTemplates, getEvidenceReport } from '@/lib/dal/competency'
 import { getMindsetProfileForStaff } from '@/lib/dal/mindset'
+import { getOrgAudits } from '@/lib/dal/audits'
+import { AUDIT_CATEGORY_BY_KEY } from '@/lib/audit-remediation'
 import { MINDSET_DIMENSIONS, ARCHETYPE_BY_ID } from '@/lib/mindset-model'
 import { PageHeader } from '@/components/ui/page-header'
 import { StatusPill, type CompetencyStatus } from '@/components/ui/status-pill'
 import { EmptyState } from '@/components/ui/empty-state'
 import { RadarChart } from '@/components/ui/radar-chart'
 import { ManagerMindsetAdjust } from '@/components/competency/ManagerMindsetAdjust'
+import { AuditForm } from '@/components/competency/AuditForm'
 import { Button } from '@/components/ui/button'
-import { ArrowLeftIcon, BadgeCheckIcon, ClipboardListIcon } from 'lucide-react'
+import { ArrowLeftIcon, BadgeCheckIcon, ClipboardListIcon, ShieldAlertIcon } from 'lucide-react'
 
 const MINDSET_RADAR_LABELS = ['Safety', 'Standards', 'Thinking', 'Escalation', 'Accountability', 'Teamwork']
 
@@ -28,13 +31,15 @@ export default async function StaffDetailPage({
   const staff = await getStaffMember(staffId)
   if (!staff) notFound()
 
-  const [assignments, templates, departments, allEvidence, mindset] = await Promise.all([
+  const [assignments, templates, departments, allEvidence, mindset, allAudits] = await Promise.all([
     getAssignmentsForStaff(staffId),
     getTemplates(),
     getDepartments(),
     getEvidenceReport(),
     getMindsetProfileForStaff(staffId),
+    getOrgAudits(),
   ])
+  const staffAudits = allAudits.filter((a) => a.staff_id === staffId)
   const mindsetArchetype = mindset ? (ARCHETYPE_BY_ID[mindset.archetype] ?? null) : null
   const tmplName = new Map(templates.map((t) => [t.id, t.name]))
   const deptName = new Map(departments.map((d) => [d.id, d.name]))
@@ -132,6 +137,37 @@ export default async function StaffDetailPage({
                 initialNote={mindset.managerAdjustment?.note ?? null}
               />
             </div>
+          </div>
+        )}
+      </section>
+
+      {/* Audits & remediation */}
+      <section className="space-y-3">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-heading text-base font-medium flex items-center gap-2">
+            <ShieldAlertIcon className="size-4 text-muted-foreground" /> Audits &amp; Remediation
+          </h2>
+          <Link href="/competency/audits" className="text-xs font-medium text-primary hover:underline">All audits →</Link>
+        </div>
+        <AuditForm staffId={staffId} staffName={staff.name ?? 'this tech'} />
+        {staffAudits.length > 0 && (
+          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+            {staffAudits.map((a) => {
+              const cat = AUDIT_CATEGORY_BY_KEY[a.category]
+              const done = a.status === 'closed'
+              const remediated = a.assignment?.status === 'completed'
+              return (
+                <div key={a.id} className="flex items-start justify-between gap-3 px-4 py-3">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{cat?.label ?? a.category} <span className="text-xs font-normal text-muted-foreground">· {a.severity}</span></p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{a.finding}</p>
+                  </div>
+                  <span className={`shrink-0 text-xs font-semibold ${done ? 'text-[oklch(0.45_0.18_150)]' : remediated ? 'text-[oklch(0.55_0.18_80)]' : 'text-[oklch(0.42_0.15_200)]'}`}>
+                    {done ? '✓ Closed' : remediated ? 'Awaiting sign-off' : a.module_title ? 'Assigned' : 'Open'}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         )}
       </section>

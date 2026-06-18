@@ -109,6 +109,31 @@ export const getStudyQuestionsForDomain = cache(
   }
 )
 
+/** Fetch specific active study questions by id (for a module's check quiz),
+ * mapped to TrackQuestion and returned in the order requested. */
+export const getStudyQuestionsByIds = cache(
+  async (ids: string[]): Promise<TrackQuestion[]> => {
+    if (ids.length === 0) return []
+    try {
+      const supabase = await createClient()
+      const { data, error } = await supabase
+        .from('questions')
+        .select('*')
+        .eq('kind', 'study')
+        .in('id', ids)
+        .returns<QuestionRow[]>()
+      if (error) throw error
+      if (data && data.length > 0) {
+        const byId = new Map(data.map(r => [r.id, mapStudy(r)]))
+        return ids.map(id => byId.get(id)).filter((q): q is TrackQuestion => !!q)
+      }
+    } catch {
+      // fall through
+    }
+    return []
+  }
+)
+
 /** Active readiness-assessment questions (the 6-category bank). */
 export const getActiveAssessmentQuestions = cache(
   async (): Promise<AssessmentQuestion[]> => {

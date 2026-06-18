@@ -1,5 +1,31 @@
 # SPD Ready — Handoff
 
+## PHASE 4 checkpoint — 2026-06-18 (Claude) — Learning Modules + Adaptive Feed + Audit→Remediation DONE + verified live
+
+**Terry's central thesis shipped: the app is now the single defensible hub that sets one standard for every tech and feeds each tech only what they're weak on.** Branch `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`. **Gates: typecheck clean · 51/51 tests · build green (30 routes).** Verified end-to-end with Playwright across tech + manager (incl. RLS).
+
+**Step 0 (done):** promoted `judgment-batch-1` → 16 SPD_JUDGMENT drafts now ACTIVE (study track 30→46). Baseline SJT (`/student/baseline`) now draws from the **DB** judgment bank (filter to judgment_type) with static fallback.
+
+**Phase A — Learning Modules (educational content type):**
+- Migrations **016_learning** (`learning_modules` global content + `module_completions` staff-owned) + **017_learning_rls** (mirrors 013 questions-RLS + concept_mastery patterns). Applied to live DB via MCP.
+- DAL `src/lib/dal/learning-modules.ts` (getActiveModules / getModuleBySlug / getModuleCompletions / **recordModuleCompletion** / **recommendModules**); `getStudyQuestionsByIds` added to `questions.ts`.
+- `ModuleViewer.tsx` — lesson sections (text + image `<img>` + sandboxed YouTube/Vimeo iframe / `<video>`; external links only, no upload infra) → check quiz that **reuses `recordAttemptAction`** so every check feeds mastery → competency, unchanged. Route `/student/learning/module/[slug]` + browse index `/student/learning/modules`.
+- Authoring loop: `scripts/seed-modules.ts` + `scripts/promote-modules.ts <slug|all>`. **8 research-grounded modules (42 check Qs)** authored by subagent (ST79/ST91/ST108, OSHA BBP, AORN), `scripts/content/modules-batch-1.json` → seeded as drafts → **promoted to active**. Slugs: decon-ppe-safety, manual-cleaning, instrument-inspection, tray-assembly-count-sheets, biological-indicators-documentation, sterile-storage-event-related, cart-and-load-audits, spd-self-audit.
+
+**Phase B — Adaptive "Recommended for you":** pure `src/lib/dal/learning-modules-logic.ts::rankModulesByWeakness` (7 unit tests) ranks active modules by the tech's weakest/due concepts (weak instruments + strong decon ⇒ inspection ranks first, decon drops — the literal brief). Surfaced on `/student/learning` + dashboard. **Playwright-verified: tech1 (decon 63%) got inspection/assembly/self-audit ranked above decon.**
+
+**Phase C — Audit → Remediation (the defensible loop):**
+- Migration **018_audits** (`audits` citation + Supabase `module_assignments`, RLS: tech reads own / managers full). Applied to live DB.
+- `src/lib/audit-remediation.ts` = explicit, tunable category→module map (ppe→decon-ppe-safety, inspection→instrument-inspection, …). DAL `src/lib/dal/audits.ts` + actions `src/actions/audits.ts`.
+- Manager flow: **Record audit** on staff detail (`AuditForm`) → auto-creates the remediation `module_assignment` + sets audit `remediation_assigned`. Tech flow: module shows **⚠️ Required** on learning + dashboard; completing it marks the assignment `completed`. Manager closes on `/competency/audits` (`CloseAuditButton`) → audit `closed` + assignment `validated`. (Tech updates only its own assignment row under RLS; audit sign-off stays manager-only — "remediated" is derived.)
+- **Full loop Playwright + DB verified:** manager cited PPE (major) on Taylor Tech → `decon-ppe-safety` auto-assigned → tech saw Required + completed → audit "Remediated · awaiting sign-off" → manager signed off → `audit_status=closed, validated_by=Morgan Manager, assign_status=validated`. Also confirmed module checks raised `concept-iap-inspection` mastery to 86 (5 attempts) + wrote `module_completions`.
+
+**Locked decisions (from Terry):** media = external links now (no Storage); authoring = Claude-generates → human promote; built all three in one pass.
+
+**Owner actions pending:** (1) paste real photo/video URLs into the 8 module `sections` (currently null media) — edit `modules-batch-1.json` + re-seed/promote, or future authoring UI; (2) decide more module batches / non-judgment concepts; (3) the 589 older Phase-1 drafts still un-triaged; (4) service_role key rotation still deferred. **Commit made locally on the branch; NOT pushed (awaiting Terry).**
+
+---
+
 ## PHASE 3 checkpoint — 2026-06-18 (Claude) — Research-grounded generation loop (judgment-first) DONE
 
 **The generation loop runs end-to-end and produced its first batch: 16 new SPD_JUDGMENT scenarios, loaded as DRAFTS.** Committed on `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`.
@@ -600,6 +626,54 @@ Clean working tree or not a git repo.
 ### Git status
 ```
 ?? spd-ready/scripts/load-generated.ts
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 08:19:12 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 1eb1a71 Phase 3: research-grounded generation loop (judgment-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 11:25:58 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 1eb1a71 Phase 3: research-grounded generation loop (judgment-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
 ```
 
 ### Summary

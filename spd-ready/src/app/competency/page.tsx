@@ -50,9 +50,14 @@ export default async function CompetencyOverviewPage() {
         title="Department readiness"
         description="Train, validate, and prove competency — one verifiable record."
         actions={
-          <Link href="/competency/assign">
-            <Button className="bg-white text-primary hover:bg-white/90">Assign competency</Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link href="/competency/audits">
+              <Button variant="outline" className="border-white/40 bg-transparent text-white hover:bg-white/10">Audits</Button>
+            </Link>
+            <Link href="/competency/assign">
+              <Button className="bg-white text-primary hover:bg-white/90">Assign competency</Button>
+            </Link>
+          </div>
         }
       />
 

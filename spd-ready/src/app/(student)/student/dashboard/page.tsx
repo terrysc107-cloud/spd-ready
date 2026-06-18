@@ -4,6 +4,8 @@ import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getDomainProgress, getStreakData, getXPRecord, getJudgmentScore } from '@/lib/dal/study'
 import { getMindsetProfile } from '@/lib/dal/mindset'
+import { recommendModules } from '@/lib/dal/learning-modules'
+import { getRequiredModulesForStaff } from '@/lib/dal/audits'
 import { ARCHETYPE_BY_ID } from '@/lib/mindset-model'
 import { Button } from '@/components/ui/button'
 
@@ -11,14 +13,17 @@ export default async function StudentDashboardPage() {
   const user = await getAuthUser()
   if (!user) redirect('/login')
 
-  const [profile, domainProgress, streakData, xpRecord, judgmentScore, mindset] = await Promise.all([
+  const [profile, domainProgress, streakData, xpRecord, judgmentScore, mindset, required, recommended] = await Promise.all([
     getStudentProfile(),
     getDomainProgress(),
     getStreakData(user.id),
     getXPRecord(user.id),
     getJudgmentScore(user.id),
     getMindsetProfile(user.id),
+    getRequiredModulesForStaff(user.id),
+    recommendModules(user.id, 2),
   ])
+  const topReco = recommended.filter((m) => !required.some((r) => r.module_id === m.id))[0] ?? null
   const archetype = mindset ? (ARCHETYPE_BY_ID[mindset.archetype] ?? null) : null
   const score = profile?.readiness_score ? Math.round(profile.readiness_score) : null
   const tier = profile?.readiness_tier as 1 | 2 | 3 | null
@@ -133,6 +138,44 @@ export default async function StudentDashboardPage() {
           </span>
         </div>
       </Link>
+
+      {/* Required remediation modules (audit loop) */}
+      {required.length > 0 && (
+        <div className="space-y-2">
+          {required.slice(0, 3).map((r) => (
+            <Link key={r.assignment_id} href={`/student/learning/module/${r.slug}`} className="block group">
+              <div className="rounded-xl border-2 border-[oklch(0.577_0.245_27)]/40 bg-[oklch(0.577_0.245_27)]/5 p-4 flex items-center justify-between gap-3 transition-shadow hover:shadow-md">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-2xl">⚠️</span>
+                  <div className="min-w-0">
+                    <p className="font-bold text-sm">Required: {r.title}</p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {r.finding ? `Cited: ${r.finding}` : 'Assigned by your manager'}
+                    </p>
+                  </div>
+                </div>
+                <span className="flex-shrink-0 text-sm font-semibold text-[oklch(0.45_0.18_27)] group-hover:translate-x-0.5 transition-transform">Review →</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Recommended next module (adaptive feed) */}
+      {topReco && (
+        <Link href={`/student/learning/module/${topReco.slug}`} className="block group">
+          <div className="rounded-xl border-2 border-border bg-card p-4 flex items-center justify-between gap-3 transition-shadow hover:shadow-md">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="text-2xl">🎯</span>
+              <div className="min-w-0">
+                <p className="font-bold text-sm">Recommended: {topReco.title}</p>
+                <p className="text-xs text-muted-foreground truncate">{topReco.recommendationReason}</p>
+              </div>
+            </div>
+            <span className="flex-shrink-0 text-sm font-semibold text-primary group-hover:translate-x-0.5 transition-transform">Start →</span>
+          </div>
+        </Link>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Score / Assessment card */}

@@ -1,0 +1,970 @@
+[
+  {
+    "slug": "decon-ppe-safety",
+    "domain": "decontamination",
+    "concept_ids": ["concept-decon-ppe"],
+    "title": "PPE and Personal Safety in the Decontamination Area",
+    "summary": "Establishes the personal protective equipment required in decontamination and the safe donning, doffing, and dirty-to-clean workflow that protects the technician under OSHA's Bloodborne Pathogens standard.",
+    "objectives": [
+      "Identify the full set of PPE required for work in the decontamination area",
+      "Apply the correct sequence for donning and doffing PPE without self-contamination",
+      "Explain the dirty-to-clean traffic and workflow that keeps contamination contained",
+      "Connect decontamination PPE practice to OSHA Bloodborne Pathogens requirements and exposure control"
+    ],
+    "estimated_minutes": 9,
+    "difficulty": "foundational",
+    "sections": [
+      {
+        "heading": "Why the Decontamination Area Is a Regulated Hazard Zone",
+        "body": "Every instrument that arrives in decontamination is treated as contaminated with blood, body fluids, and potentially infectious organisms. Under the OSHA Bloodborne Pathogens standard (29 CFR 1910.1030), the employer must provide and the technician must use personal protective equipment whenever there is a reasonable expectation of exposure to blood or other potentially infectious material. In a sterile processing department, that expectation is constant in the decontamination area, so PPE is not optional and is not a judgment call made case by case.\n\nThe purpose of PPE in this setting is twofold. First, it protects the technician's skin, mucous membranes, and clothing from splash, spray, aerosol, and direct contact with soil. Second, it helps contain contamination so it is not carried out of the decontamination area into clean spaces, break rooms, or the rest of the facility. Because both goals matter, PPE has to be selected correctly, worn fully, and removed in a way that does not transfer contamination back onto the wearer.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "The Required PPE for Decontamination",
+        "body": "Standard PPE for the decontamination area includes a fluid-resistant (liquid-resistant) gown or jumpsuit that covers the torso and arms, gloves appropriate for the task, and face protection. The gown must be long enough and resistant enough to keep splashes off the technician's clothing and skin during sink work and instrument handling. General-purpose exam gloves are common, but heavier or longer-cuff utility gloves are often used for sink and brushing tasks where punctures and prolonged wet contact are likely. Glove cuffs should extend over the cuffs of the gown so no skin is exposed at the wrist.\n\nFace protection guards the eyes, nose, and mouth from splash and aerosol. This is typically a full-length face shield worn with a fluid-resistant mask, or goggles plus a mask. A surgical mask alone does not protect the eyes, and safety glasses alone do not protect the mucous membranes of the nose and mouth, so face protection has to cover all of these exposure routes. A fluid-resistant or fluid-impervious shoe cover or dedicated decontamination footwear and a hair covering round out the typical decontamination ensemble.\n\nThe specific combination is driven by the task and the facility's exposure control plan, but the principle is consistent: if a task can generate splash or aerosol, the technician needs eye, nose, mouth, skin, and clothing protection in place before that task begins, not after the first splash.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Donning, Doffing, and the Dirty-to-Clean Workflow",
+        "body": "PPE is donned before entering the decontamination work area and before touching any soiled item. A practical donning order is gown first, then mask and face protection, then gloves last so the glove cuffs seal over the gown cuffs. The goal of donning is simple: be fully protected before any contamination is possible.\n\nDoffing is where most self-contamination happens, because the outside surfaces of the PPE are now considered contaminated. The doffing principle is to keep the contaminated outer surface contained and to remove items so that clean hands never touch dirty surfaces. Gloves are typically removed first, peeling each one inside out so the contaminated surface is turned inward, then the gown is removed by pulling it away from the body and rolling it contaminated-side-in, and face protection is removed last by handling the clean strap or band rather than the front. Hand hygiene is performed after PPE removal and is the final step that protects the technician once the barriers are off.\n\nThe physical layout reinforces this. Sterile processing follows a one-directional, dirty-to-clean flow: soiled items enter decontamination, are cleaned, and only then move toward the clean preparation and packaging area, never the reverse. Technicians do not walk from decontamination into clean areas in soiled PPE, and contaminated items are not carried backward into the clean side. This separation, supported by physical barriers and dedicated PPE, is what keeps the contamination contained to the area designed to handle it.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "A technician is about to begin manual cleaning at the decontamination sink. Which combination of PPE is appropriate before starting?",
+        "options": {
+          "A": "Exam gloves only, since the instruments will be submerged",
+          "B": "A fluid-resistant gown, gloves, and a surgical mask, with no eye protection",
+          "C": "A fluid-resistant gown, gloves, and face protection covering the eyes, nose, and mouth",
+          "D": "Safety glasses and a gown, with gloves donned only if a splash occurs"
+        },
+        "correct": "C",
+        "partial_credit": "B",
+        "explanation": "Sink and brushing tasks generate splash and aerosol, so OSHA's Bloodborne Pathogens standard and SPD practice require protection of skin, clothing, and all mucous membranes before the task begins. That means a fluid-resistant gown, gloves, and face protection (face shield or goggles plus a fluid-resistant mask). A mask without eye protection (B) is defensible but incomplete; gloves only (A) and reactive gloving (D) leave the technician exposed.",
+        "difficulty": "foundational",
+        "concept_id": "concept-decon-ppe",
+        "real_world_standard": "OSHA 29 CFR 1910.1030",
+        "standard_refs": []
+      },
+      {
+        "stem": "When doffing PPE after decontamination work, why are gloves typically removed first and peeled inside out?",
+        "options": {
+          "A": "Because gloves are the least contaminated item and should be saved",
+          "B": "Because the most contaminated items are removed in a way that contains the dirty surface and protects clean skin and hands",
+          "C": "Because the gown must stay on until hand hygiene is complete",
+          "D": "Because gloves cannot be removed once the face shield is off"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Doffing assumes the outer surfaces of PPE are contaminated. Removing the heavily soiled gloves first and turning them inside out contains the contaminated surface and prevents transfer to clean skin, supporting the keep-dirty-in, clean-out principle.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-ppe",
+        "real_world_standard": "OSHA 29 CFR 1910.1030",
+        "standard_refs": []
+      },
+      {
+        "stem": "A technician needs to carry a tray of cleaned instruments from decontamination toward the prep and pack area. What is the correct practice?",
+        "options": {
+          "A": "Walk directly through in the same gown and gloves used at the soiled sink to save time",
+          "B": "Doff contaminated PPE and perform hand hygiene before moving to the clean side, maintaining the one-directional dirty-to-clean flow",
+          "C": "Carry the tray back through decontamination first to double-check it",
+          "D": "Remove only the gloves and keep the soiled gown on into the clean area"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "SPD workflow is one-directional from dirty to clean. Soiled PPE is not worn into clean areas; the technician doffs contaminated PPE and performs hand hygiene before crossing, which keeps contamination contained to the decontamination area.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-ppe",
+        "real_world_standard": "OSHA 29 CFR 1910.1030",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why should glove cuffs extend over the cuffs of a fluid-resistant gown during donning?",
+        "options": {
+          "A": "To make the gloves easier to remove later",
+          "B": "To leave the wrist exposed for better dexterity",
+          "C": "To eliminate exposed skin at the wrist so splash and fluid cannot reach it",
+          "D": "It does not matter as long as both are worn"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Overlapping the glove cuff over the gown cuff closes the gap at the wrist, removing an exposed-skin route for splash and fluid contact during cleaning tasks.",
+        "difficulty": "foundational",
+        "concept_id": "concept-decon-ppe",
+        "real_world_standard": "OSHA 29 CFR 1910.1030",
+        "standard_refs": []
+      },
+      {
+        "stem": "Under the OSHA Bloodborne Pathogens standard, who is responsible for providing the PPE used in the decontamination area, and at what cost to the technician?",
+        "options": {
+          "A": "The technician must purchase their own PPE",
+          "B": "The employer must provide appropriate PPE at no cost to the employee",
+          "C": "PPE is provided only when an exposure incident has already occurred",
+          "D": "PPE is optional and provided only on request"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The OSHA Bloodborne Pathogens standard requires the employer to provide and maintain appropriate PPE at no cost to the employee, and to ensure it is used where occupational exposure is reasonably anticipated, as it is throughout decontamination.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-ppe",
+        "real_world_standard": "OSHA 29 CFR 1910.1030",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "manual-cleaning",
+    "domain": "decontamination",
+    "concept_ids": ["concept-decon-manual-cleaning"],
+    "title": "Manual Cleaning of Surgical Instruments",
+    "summary": "Establishes the manual cleaning process from point-of-use treatment through enzymatic soak, brushing below the waterline, lumen flushing, water quality, and cleaning verification, so that instruments are truly clean before any further processing.",
+    "objectives": [
+      "Explain why point-of-use treatment is the first step of effective cleaning",
+      "Perform manual cleaning with correct enzymatic soaking, brushing, and lumen flushing technique",
+      "Describe why brushing must be done below the waterline and why water quality matters",
+      "Verify cleaning effectiveness before an instrument advances to inspection and disinfection or sterilization"
+    ],
+    "estimated_minutes": 11,
+    "difficulty": "intermediate",
+    "sections": [
+      {
+        "heading": "Cleaning Starts at the Point of Use",
+        "body": "Cleaning is the single most important step in instrument reprocessing because no disinfection or sterilization process can be trusted on an item that is still soiled. Organic soil such as blood, tissue, and protein can shield microorganisms from a sterilant and can interfere with the cleaning chemistry itself. For that reason, the cleaning process actually begins in the operating room or procedure area, not in the decontamination sink.\n\nPoint-of-use treatment means keeping soil from drying onto the instruments after the case. This is done by removing gross soil, keeping instruments moist with an approved product or covering, and transporting them promptly to decontamination. Dried-on blood and tissue are dramatically harder to remove and can become baked on during later processing, so the few minutes spent on point-of-use treatment prevents hours of difficulty and, more importantly, prevents instruments from reaching the patient still contaminated.\n\nBy the time a set arrives in decontamination, the technician should be able to count on it having been kept moist. When that has not happened, the technician adjusts cleaning accordingly, often with a longer enzymatic soak, and recognizes that visibly dried, caked soil is a signal to clean more carefully, not less.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Enzymatic Soak, Brushing, and Lumen Flushing",
+        "body": "Manual cleaning typically begins with an enzymatic detergent soak prepared at the correct dilution and water temperature per the product's instructions for use. Enzymatic solutions break down protein, blood, and other organic soil so that friction and rinsing can carry it away. Concentration, temperature, and contact time all matter, and the technician follows the chemistry manufacturer's directions rather than estimating.\n\nFriction is what actually removes soil, so brushing is central. Instruments are disassembled per their instructions for use, box locks and hinges are opened, and brushes appropriate to the device are used to scrub serrations, jaws, ratchets, and crevices where soil hides. A critical safety rule is that brushing must be done below the waterline. Lifting a soiled instrument or brush above the surface while scrubbing creates splash and aerosol that can spread contamination to the technician and the surrounding area, so the scrubbing action stays submerged.\n\nLumens, channels, and cannulated instruments require dedicated attention. They are brushed with a correctly sized brush passed fully through the lumen and then flushed thoroughly so that the brush dislodges soil and the flush carries it out. A lumen that is only flushed but never brushed, or brushed with a brush that is too small, can retain biofilm and soil that no later step will reliably remove. The brush itself must be the right diameter and length and must be inspected or replaced so it does not become a source of contamination.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Water Quality, Rinsing, and Cleaning Verification",
+        "body": "Water is the most-used utility in the department, and its quality affects cleaning outcomes. Utility water is generally acceptable for the initial washing and rinsing stages, while the final rinse often calls for higher-purity (treated) water to prevent mineral deposits, spotting, and residue that can stain instruments, interfere with later steps, or leave deposits in lumens. Following the device and detergent instructions for use, along with the facility's water management guidance aligned to AAMI ST108, keeps water from becoming a hidden source of residue or contamination.\n\nThorough rinsing removes both loosened soil and detergent residue. Residual detergent can interfere with downstream processes and can cause patient harm, so rinsing is not a quick pass but a deliberate step, with special attention to lumens, hinges, and any surface that held cleaning solution.\n\nFinally, cleaning must be verified, not assumed. Visual inspection, often under a lighted magnifier, is the baseline check for every instrument. Many departments add cleaning verification tools such as ATP bioluminescence testing or protein and soil detection tests as part of a quality program to confirm that the cleaning process is working. If an item is not verifiably clean, it does not advance; it is recleaned. The standard is that an instrument must be clean before it can be inspected, packaged, and sterilized, because cleaning is the foundation everything else depends on.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "A set arrives in decontamination with blood that has clearly dried and caked onto the instruments. What does this most directly indicate about the process?",
+        "options": {
+          "A": "The instruments are fine and can be sent straight to the washer",
+          "B": "Point-of-use treatment was inadequate, and the technician should clean more carefully, typically with a longer enzymatic soak",
+          "C": "The instruments should be discarded",
+          "D": "Dried soil is easier to remove and requires no special handling"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Keeping instruments moist at the point of use prevents soil from drying on. Dried, caked soil signals a point-of-use breakdown and is much harder to remove, so the technician compensates with more thorough cleaning, such as an extended enzymatic soak, before advancing the set.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-manual-cleaning",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why must brushing of soiled instruments be performed below the waterline?",
+        "options": {
+          "A": "It keeps the brush bristles softer",
+          "B": "It speeds up the enzymatic reaction",
+          "C": "It prevents splash and aerosol that would spread contamination to the technician and the area",
+          "D": "It is only a preference and has no safety basis"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Scrubbing under the surface of the solution contains the soil and prevents the splash and aerosolization that occur when a soiled instrument or brush is lifted and scrubbed above the water, protecting the technician and the environment.",
+        "difficulty": "foundational",
+        "concept_id": "concept-decon-manual-cleaning",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A cannulated instrument with a long lumen was flushed with the enzymatic solution but not brushed because no correctly sized brush was available. What is the appropriate action?",
+        "options": {
+          "A": "Send it forward; flushing is sufficient for lumens",
+          "B": "Obtain the correct brush and brush the lumen fully, then flush, before the instrument advances",
+          "C": "Use a brush that is slightly too small to save time",
+          "D": "Mark it clean and document an exception"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Lumens require mechanical friction from a correctly sized brush passed fully through the channel, followed by flushing. Flushing alone can leave soil and biofilm behind, and a brush that is too small will not contact the lumen wall. The instrument is not advanced until it is properly brushed and flushed.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-manual-cleaning",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why is higher-purity (treated) water often specified for the final rinse rather than ordinary utility water?",
+        "options": {
+          "A": "Treated water cleans the soil faster",
+          "B": "Utility water is never acceptable at any stage of cleaning",
+          "C": "Treated final-rinse water reduces mineral deposits, spotting, and residue that can stain instruments or remain in lumens",
+          "D": "It changes the pH of the enzymatic detergent"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Utility water is generally acceptable for washing and initial rinsing, but a higher-purity final rinse helps prevent mineral deposits, spotting, and residue that can affect instruments and lumens. This water-quality approach aligns with AAMI ST108 guidance for water used in processing.",
+        "difficulty": "advanced",
+        "concept_id": "concept-decon-manual-cleaning",
+        "real_world_standard": "AAMI ST108",
+        "standard_refs": []
+      },
+      {
+        "stem": "After manual cleaning, the most basic and universally required method to verify that an instrument is clean before it advances is:",
+        "options": {
+          "A": "Assuming it is clean because the enzymatic soak was used",
+          "B": "Visual inspection, commonly under a lighted magnifier",
+          "C": "A biological indicator test",
+          "D": "Checking the sterilizer printout"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Visual inspection, often aided by a lighted magnifier, is the baseline cleaning verification performed on every instrument. Tools such as ATP or protein tests can supplement it, but an instrument that is not verifiably clean must be recleaned, not advanced. A biological indicator monitors sterilization, not cleaning.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-decon-manual-cleaning",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "instrument-inspection",
+    "domain": "iap",
+    "concept_ids": ["concept-iap-inspection"],
+    "title": "Instrument Inspection Under Magnification",
+    "summary": "Establishes how to inspect cleaned instruments under magnified lighting for residual soil, moisture, and damage, how to functionally test devices, and when an instrument must be removed from service.",
+    "objectives": [
+      "Inspect instruments under a lighted magnifier for residual bioburden, moisture, and damage",
+      "Evaluate box locks, hinges, jaws, ratchets, and lumens for function and integrity",
+      "Perform appropriate functional testing for common instrument types",
+      "Decide correctly when an instrument must be removed from service or returned for recleaning"
+    ],
+    "estimated_minutes": 10,
+    "difficulty": "intermediate",
+    "sections": [
+      {
+        "heading": "Inspection Is a Distinct Quality Gate",
+        "body": "Inspection sits between cleaning and assembly, and it is its own deliberate quality checkpoint, not a glance while picking up an instrument. After cleaning, every instrument should be inspected under good lighting and magnification, typically a lighted magnifier, to catch what the naked eye misses. The inspector is looking for three categories of problem: residual soil or bioburden, residual moisture, and physical damage or wear.\n\nResidual soil is a cleaning failure. If blood, tissue, protein, or any debris is found, the instrument is not clean and cannot proceed; it is returned to decontamination for recleaning. Catching this at inspection is a safety backstop, because a soiled instrument cannot be reliably sterilized and represents a direct patient risk. Inspection therefore protects the patient even when an earlier step did not fully succeed.\n\nResidual moisture matters too. Moisture left in lumens, box locks, or crevices can interfere with sterilization, contribute to wet packs, and promote corrosion and staining. Instruments should be inspected dry, and persistent moisture is addressed before the instrument advances.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Inspecting the Working Parts",
+        "body": "Different instrument features fail in different ways, so inspection follows the instrument's anatomy. Box locks and hinges are checked for trapped soil and for smooth, full movement. Jaws and tips are examined for alignment, chips, cracks, and wear; ratchets are checked so they hold at each tooth and do not spring open under tension. Serrations and teeth are inspected for embedded debris. Insulated devices, such as electrosurgical instruments, are inspected for breaks or damage in the insulation that could cause patient injury.\n\nLumens and cannulated instruments deserve special scrutiny because their interiors are hard to clean and hard to see. They are inspected for patency and for retained soil or moisture, using magnification, illumination, and channel inspection methods where available. A lumen that cannot be confirmed clean and patent is sent back for recleaning rather than assumed acceptable.\n\nThroughout, the inspector watches for corrosion, pitting, staining, cracks, and any structural compromise. Some staining is cosmetic, but pitting, cracking, and corrosion can indicate damage that affects function and cleanability, and these findings change how the instrument is handled.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Functional Testing and Removal From Service",
+        "body": "Inspection is not only visual. Many instruments require functional testing to confirm they still perform as intended. Scissors are tested for a clean cut through appropriate test material, needle holders for a secure grip on a needle without slippage, clamps and forceps for proper jaw alignment and closure, and ratcheted instruments for reliable holding at each position. Instruments with moving parts may be lubricated with an approved instrument lubricant per the facility's process so they operate smoothly and resist wear.\n\nWhen an instrument fails inspection, the response depends on the finding. If the problem is residual soil or moisture, the instrument is returned to decontamination for recleaning. If the problem is damage that affects safety or function, such as cracked jaws, misaligned tips, dull cutting edges, damaged insulation, a sprung ratchet, or a non-patent lumen, the instrument is removed from service. Removed instruments are tagged or segregated and routed for repair or replacement so they cannot accidentally be assembled into a set and used on a patient.\n\nThe governing principle is that only an instrument that is clean, dry, intact, and functional advances to assembly. When the inspector is unsure, the safe default is to hold the instrument and escalate rather than to pass a questionable device forward.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "Under the lighted magnifier, a technician finds a small amount of dried tissue lodged in the serrations of a clamp. What is the correct action?",
+        "options": {
+          "A": "Wipe it off with a dry cloth and continue assembling the set",
+          "B": "Return the instrument to decontamination for recleaning, because residual soil means it is not clean",
+          "C": "Place it in the set and let the sterilizer handle the residue",
+          "D": "Spray it with lubricant and move on"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Residual soil found at inspection is a cleaning failure. A soiled instrument cannot be reliably sterilized, so it must go back to decontamination for recleaning. Sterilization cannot compensate for soil, and wiping or lubricating does not make it clean.",
+        "difficulty": "foundational",
+        "concept_id": "concept-iap-inspection",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why is residual moisture in box locks or lumens a problem at the inspection stage?",
+        "options": {
+          "A": "It has no effect and can be ignored",
+          "B": "It can interfere with sterilization, contribute to wet packs, and promote corrosion and staining",
+          "C": "It improves lubrication of the hinge",
+          "D": "It only matters for plastic instruments"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Instruments should be inspected dry. Trapped moisture can interfere with the sterilization process, contribute to wet packs, and promote corrosion and staining, so it must be addressed before the instrument advances.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-inspection",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A pair of surgical scissors passes visual inspection but fails to cut cleanly through the test material. What is the appropriate disposition?",
+        "options": {
+          "A": "Include them in the set since they look fine",
+          "B": "Remove them from service and route them for repair or replacement",
+          "C": "Sharpen them at the workstation and include them",
+          "D": "Document the failure but assemble them anyway"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Functional testing is part of inspection. Scissors that do not cut cleanly are not functional, so they are removed from service and routed for repair or replacement, not assembled into a set where they could fail during surgery.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-inspection",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "During inspection of an insulated electrosurgical instrument, the technician notices a small break in the insulation. Why is this a remove-from-service finding?",
+        "options": {
+          "A": "It only affects the appearance of the instrument",
+          "B": "Damaged insulation can cause unintended energy transfer and patient injury during use",
+          "C": "Insulation damage improves conductivity and is acceptable",
+          "D": "It can be covered with tape and used"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "A break in the insulation of an energized device can allow unintended energy transfer and cause patient burns or injury. Such an instrument is removed from service for repair or replacement; it is not taped or used.",
+        "difficulty": "advanced",
+        "concept_id": "concept-iap-inspection",
+        "real_world_standard": "AORN Guidelines",
+        "standard_refs": []
+      },
+      {
+        "stem": "An instrument is removed from service for a cracked jaw. What handling step prevents it from reaching a patient?",
+        "options": {
+          "A": "Leaving it on the assembly table for later",
+          "B": "Returning it to the same set so it stays with its tray",
+          "C": "Tagging or segregating it and routing it for repair or replacement so it cannot be assembled into a set",
+          "D": "Placing it directly into the sterilizer for safekeeping"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "A removed instrument must be clearly tagged or segregated and routed to repair or replacement so it cannot accidentally be assembled into a set and used. Leaving it on the table or returning it to its tray risks it being put back into service.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-inspection",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "tray-assembly-count-sheets",
+    "domain": "iap",
+    "concept_ids": ["concept-iap-count-sheets"],
+    "title": "Tray Assembly to the Count Sheet",
+    "summary": "Establishes how to assemble instrument sets accurately to the count sheet, sequence and protect contents, respect weight and density limits, place internal chemical indicators correctly, and choose between peel pouches and wrap.",
+    "objectives": [
+      "Assemble a set accurately and completely to its count sheet",
+      "Sequence instruments and protect delicate tips and devices during assembly",
+      "Apply weight and density limits and configure trays to support sterilant penetration and drying",
+      "Place an internal chemical indicator correctly and choose an appropriate packaging method"
+    ],
+    "estimated_minutes": 10,
+    "difficulty": "intermediate",
+    "sections": [
+      {
+        "heading": "Building the Set to the Count Sheet",
+        "body": "The count sheet (also called a tray list or instrument list) is the authoritative record of what belongs in a set, including the exact instruments, quantities, and any special components. Assembling to the count sheet means the finished tray matches that record precisely, which supports accurate surgical counts, predictable case setups, and traceability. A set that is missing instruments, has extras, or contains substitutions can delay or disrupt a procedure and undermines the count process that protects the patient from retained items.\n\nDuring assembly the technician verifies each instrument against the list, confirms it is the correct item, and confirms it passed cleaning and inspection. Instruments are arranged in a logical, consistent order, often grouped by type or by the order of use, so the surgical team can find what they need quickly and so counts at the field go smoothly. When a count sheet is inaccurate or an instrument is unavailable, the technician follows the facility's process to resolve and document it rather than quietly improvising.\n\nAccuracy here is a patient-safety function as much as an efficiency one. The assembled set is what the operating room trusts, and the count sheet is how that trust is verified at the field, so disciplined assembly to the sheet is non-negotiable.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Sequencing, Protection, Weight, and Density",
+        "body": "How a tray is built affects whether it can be sterilized and dried. Instruments with hinges, box locks, and ratchets are placed in the open or unlocked position so the sterilant can reach all surfaces; a clamp left closed shields the surfaces inside the jaws. Heavier instruments are generally positioned so they do not crush or trap lighter ones, and instruments are distributed to allow the sterilant to circulate rather than packed into a solid mass.\n\nDelicate and sharp items need protection. Fine tips, microsurgical instruments, lensed devices, and sharp edges are protected with tip protectors, stringers, mats, or appropriate organizers so they are not damaged and so they do not damage other instruments or create a safety hazard. Protective accessories must themselves be compatible with the sterilization process and must not block sterilant contact.\n\nWeight and density limits matter for both sterilization and ergonomics. Excessively heavy or densely packed trays can prevent adequate sterilant penetration and contribute to wet packs because they hold heat and moisture, and they pose a lifting hazard. Departments follow manufacturer instructions and recognized limits for set weight and configuration so that every tray can actually be sterilized and dried, and so staff are not injured handling it.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Internal Chemical Indicators and Packaging Choice",
+        "body": "An internal chemical indicator is placed inside each package so that, when the package is opened at the point of use, staff can confirm the sterilant reached the interior. The internal indicator is positioned in the area of the set considered most challenging for the sterilant to reach, so that if it shows the correct result the rest of the package can be trusted. An external indicator, such as indicator tape or an indicator on the pouch, distinguishes processed from unprocessed packages but does not confirm internal conditions, so both serve different roles.\n\nPackaging method is chosen to fit the contents. Rigid sterilization container systems and wraps are used for instrument sets and trays, with wrap applied so the package can be opened aseptically and so it maintains a sterile barrier. Peel pouches are intended for small, lightweight, single or few items, not for heavy sets, and must be sized so the item is not crowded and the seals are intact. When double pouching, the inner pouch is not folded to fit and is oriented so it can be read and so the sterilant can reach the contents.\n\nThe overarching aim of packaging is to allow sterilant penetration during the cycle, maintain the sterile barrier during storage and transport, and permit aseptic presentation at the point of use. A package that cannot be opened without contaminating the contents, or that cannot be penetrated by the sterilant, defeats the entire process even if everything inside was perfectly clean.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "While assembling a set, a technician finds the count sheet calls for an instrument that is not available and cannot be located. What is the appropriate response?",
+        "options": {
+          "A": "Substitute a similar instrument without noting it, to keep the set complete",
+          "B": "Leave the set short and say nothing",
+          "C": "Follow the facility's process to resolve and document the discrepancy rather than quietly improvising",
+          "D": "Add an extra of a different instrument to make up the count"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "The count sheet is the authoritative record and supports accurate surgical counts and case setup. Unannounced substitutions or quiet shortages undermine that trust. The technician resolves and documents the discrepancy through the facility's process.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-count-sheets",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why are hinged instruments such as clamps and scissors placed in the open or unlocked position during tray assembly?",
+        "options": {
+          "A": "To make the tray look organized",
+          "B": "So the sterilant can contact all surfaces, including those that would be shielded inside closed jaws or a locked ratchet",
+          "C": "Because closed instruments are heavier",
+          "D": "To save space in the tray"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "A closed or locked instrument shields the surfaces inside its jaws and box lock from the sterilant. Placing instruments open and unlocked allows the sterilant to reach all surfaces, which is required for effective sterilization.",
+        "difficulty": "foundational",
+        "concept_id": "concept-iap-count-sheets",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Where should the internal chemical indicator be placed within an instrument set?",
+        "options": {
+          "A": "On the outside of the wrap next to the indicator tape",
+          "B": "In the area of the set considered most challenging for the sterilant to reach",
+          "C": "Wherever there is the most empty space",
+          "D": "It is optional if external indicator tape is used"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The internal chemical indicator is placed in the location most difficult for the sterilant to reach. If it shows the correct result there, conditions throughout the package can be trusted. External tape only distinguishes processed from unprocessed and does not confirm internal conditions.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-count-sheets",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A heavy orthopedic set is consistently coming out with visible moisture (wet packs). Which assembly factor is a likely contributor?",
+        "options": {
+          "A": "The set is too light and loosely packed",
+          "B": "Excessive weight and dense packing, which hold heat and moisture and impede drying",
+          "C": "Too many internal chemical indicators",
+          "D": "Using a rigid container instead of a pouch"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Excessively heavy and densely packed trays retain heat and moisture and impede sterilant penetration and drying, which contributes to wet packs. Respecting weight and density limits and distributing instruments helps prevent this.",
+        "difficulty": "advanced",
+        "concept_id": "concept-iap-count-sheets",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Which item is most appropriately packaged in a peel pouch rather than a wrapped tray or rigid container?",
+        "options": {
+          "A": "A heavy multi-level orthopedic instrument set",
+          "B": "A single small, lightweight instrument that fits without crowding and allows intact seals",
+          "C": "A densely packed general surgery tray",
+          "D": "A full laparotomy set"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Peel pouches are intended for small, lightweight, single or few items, sized so the contents are not crowded and the seals stay intact. Heavy or dense sets belong in wraps or rigid containers, not pouches.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-iap-count-sheets",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "biological-indicators-documentation",
+    "domain": "sterilization",
+    "concept_ids": ["concept-steril-bi-ci"],
+    "title": "Biological and Chemical Indicators, Load Release, and Documentation",
+    "summary": "Establishes how biological and chemical indicators monitor sterilization, how implant loads are handled, the criteria for releasing a load, and how lot control, documentation, and recall procedures protect patients.",
+    "objectives": [
+      "Differentiate the roles of chemical indicators and biological indicators in sterilization monitoring",
+      "Place a biological indicator in a process challenge device and run, incubate, and read it correctly",
+      "Apply the special monitoring and release rules for implant loads",
+      "State load release criteria and execute lot control, documentation, and recall when a monitor fails"
+    ],
+    "estimated_minutes": 12,
+    "difficulty": "advanced",
+    "sections": [
+      {
+        "heading": "Chemical and Biological Indicators Do Different Jobs",
+        "body": "Sterilization monitoring uses layered tools because no single indicator confirms everything. Chemical indicators (CIs) respond to one or more sterilization conditions, such as time, temperature, and the presence of steam, with a visible change. An external CI, like indicator tape or a pouch indicator, distinguishes a processed package from an unprocessed one. An internal CI placed inside the package confirms that the sterilant penetrated to the interior. Integrating and multi-variable indicators (commonly referred to as higher-class indicators, such as Type 5 integrating indicators and Type 6 emulating indicators) react to multiple parameters and give a more demanding check.\n\nBiological indicators (BIs) are different in kind. A BI contains a known population of highly resistant bacterial spores, and it is the only monitor that directly verifies the sterilization process actually killed microorganisms. Because they test lethality rather than physical conditions, BIs are the most definitive routine check available and are central to confirming that a sterilizer is performing.\n\nThe practical takeaway is that chemical indicators give immediate, parameter-based feedback at the package level, while biological indicators give a microbiological proof of lethality. Both are used together, and one does not replace the other.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "BI Placement, Frequency, Incubation, and Reading",
+        "body": "Routine BI monitoring is performed by placing the BI inside a process challenge device (PCD), a test pack that presents a defined, difficult challenge to the sterilant. The PCD is positioned in the part of the chamber considered most difficult to sterilize, commonly the lowest, coolest area near the drain, so that passing there gives confidence in the rest of the load. AAMI ST79 calls for routine sterilizer monitoring with a PCD containing a BI at least weekly, preferably daily, and recommends monitoring every load, with the requirement that loads containing implants always be monitored.\n\nAfter the cycle, the BI is incubated according to the manufacturer's instructions, along with a non-processed control BI from the same lot to confirm the spores were viable and the incubator and reading are working. A processed BI that shows no growth, paired with a control that does show growth, indicates a successful kill. Modern rapid-readout BIs shorten incubation to a few hours or less, which is especially valuable for implant loads.\n\nReading and recording the result is part of the process. The technician documents the BI result, the control result, the sterilizer and cycle, and the load information, so the outcome is traceable. A positive (growth) processed BI is a monitoring failure that triggers an immediate response.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Implant Loads, Load Release, Lot Control, and Recall",
+        "body": "Implants get the strictest handling because a failure reaches deep into a patient. AAMI ST79 recommends that every implant load be monitored with a PCD containing a BI and a Type 5 integrating indicator, and that the implant be quarantined until the BI result is confirmed negative. Rapid-readout BIs are used to shorten this hold time. The rule with no routine exception is that implants are not released for use until the BI result is read as negative; emergency release of an implant before the BI result is a documented exception reserved for true emergencies and is not normal practice.\n\nFor every load, release depends on meeting the release criteria: the physical cycle parameters on the printout or chart are correct, the chemical indicators show acceptable results, the package integrity is intact, and any biological monitoring for that load is acceptable. If any of these fail, the load is not released. Each load is identified with a load control label or lot number that ties the items to the specific sterilizer, cycle, and date, which is what makes traceability and recall possible.\n\nWhen a BI is positive or a monitor fails, the technician follows the recall procedure: the sterilizer is taken out of service pending evaluation, and items processed since the last negative BI are located and recalled using the lot control records. Affected loads are quarantined and reprocessed, and the event is documented and escalated. Because every load was labeled and logged, the department can identify exactly which items are involved and where they went, which is the entire point of lot control and documentation.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "Which monitoring tool is the only one that directly verifies the sterilization process killed microorganisms?",
+        "options": {
+          "A": "External chemical indicator tape",
+          "B": "Internal chemical indicator",
+          "C": "Biological indicator containing resistant spores",
+          "D": "The sterilizer's digital temperature display"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "A biological indicator contains a known population of highly resistant spores and is the only routine monitor that directly verifies lethality. Chemical indicators confirm that certain physical conditions were met but do not prove microbial kill.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Where in the sterilizer chamber is the BI process challenge device typically placed for routine monitoring, and why?",
+        "options": {
+          "A": "On the top shelf, because heat rises and that is easiest",
+          "B": "In the area considered most difficult to sterilize, commonly the lowest, coolest area near the drain",
+          "C": "Outside the chamber, taped to the door",
+          "D": "Wherever there is space in the load"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The PCD is positioned in the location most challenging for the sterilant, commonly the lower front near the drain. If sterilization succeeds in the hardest spot, the rest of the load can be trusted.",
+        "difficulty": "advanced",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A load contains an orthopedic implant. According to AAMI ST79, what is the correct monitoring and release practice?",
+        "options": {
+          "A": "Release the implant as soon as the chemical indicator passes; no BI is needed",
+          "B": "Monitor with a PCD containing a BI and a Type 5 integrating indicator, and quarantine the implant until the BI is confirmed negative",
+          "C": "Release the implant immediately and read the BI the next week",
+          "D": "Skip monitoring because implants are pre-sterilized by the manufacturer"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "AAMI ST79 recommends every implant load be monitored with a PCD containing a BI and a Type 5 integrating indicator, with the implant quarantined until the BI result is negative. Rapid-readout BIs shorten the hold. Releasing before a negative BI is a documented emergency exception only.",
+        "difficulty": "advanced",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why is a non-processed control BI incubated alongside the processed BI from the same lot?",
+        "options": {
+          "A": "To double the number of tests for documentation",
+          "B": "To confirm the spores were viable and that the incubator and reading method are working, so a no-growth processed result is meaningful",
+          "C": "Because the control replaces the need to read the processed BI",
+          "D": "To shorten the incubation time"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The control BI, which is not sterilized, must show growth to confirm the spores were viable and the incubation and reading are valid. Only then does a no-growth processed BI reliably indicate a successful kill rather than a dead lot or a faulty incubator.",
+        "difficulty": "advanced",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A processed BI from this morning's load shows growth (a positive result). What does the recall procedure require?",
+        "options": {
+          "A": "Ignore it if the chemical indicators all passed",
+          "B": "Take the sterilizer out of service, then locate and recall items processed since the last negative BI using the lot control records, quarantining and reprocessing them",
+          "C": "Release all loads and retest only the next day",
+          "D": "Discard only the BI and rerun nothing"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "A positive processed BI is a sterilization failure. The sterilizer is removed from service pending evaluation, and using lot control records the department recalls items processed since the last negative BI, quarantines and reprocesses them, and documents and escalates the event. Passing chemical indicators do not override a positive BI.",
+        "difficulty": "advanced",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Before releasing a routine (non-implant) load, which set of conditions must be satisfied?",
+        "options": {
+          "A": "Only that the door opened without error",
+          "B": "Only that the external tape changed color",
+          "C": "Correct physical cycle parameters on the printout, acceptable chemical indicator results, intact package integrity, and acceptable biological monitoring for that load",
+          "D": "Only that the load is still warm"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Load release depends on multiple criteria together: the physical cycle parameters were met, chemical indicators are acceptable, package integrity is intact, and any biological monitoring for the load is acceptable. A single indicator, like tape changing color, is not sufficient to release a load.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-bi-ci",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "sterile-storage-event-related",
+    "domain": "sterile_storage",
+    "concept_ids": ["concept-storage-event-related"],
+    "title": "Sterile Storage and Event-Related Sterility",
+    "summary": "Establishes the event-related approach to maintaining sterility, the package-integrity inspection done before every use, the storage conditions that protect sterile items, and FIFO stock rotation and safe handling.",
+    "objectives": [
+      "Explain event-related sterility and how it differs from a fixed expiration mindset",
+      "Inspect package integrity before use and recognize events that compromise sterility",
+      "Describe storage conditions for distance, temperature, and humidity that protect sterile inventory",
+      "Apply FIFO stock rotation and safe handling and transport of sterile items"
+    ],
+    "estimated_minutes": 9,
+    "difficulty": "foundational",
+    "sections": [
+      {
+        "heading": "Event-Related Sterility",
+        "body": "Most facilities maintain sterility on an event-related basis rather than a strictly time-related one. Event-related sterility means a properly processed, packaged, and stored item is considered sterile until an event compromises the package, rather than expiring purely because a date passed. The events that matter are things that breach or threaten the sterile barrier: a tear, a hole, a wet or stained package, a broken seal, a compromised filter or container, or any sign the package was dropped, crushed, or contaminated.\n\nThis approach is supported by evidence that sterility is maintained by the integrity of the barrier and the conditions of storage, not by the calendar alone. It places the responsibility on the technician and the end user to evaluate each package's condition rather than to rely on a printed date as the sole criterion. Some items still carry manufacturer or facility expiration dates that must be honored, and those dates are respected in addition to event-related judgment, not instead of it.\n\nThe practical mindset is that every sterile package is sterile until something happens to it. The technician's job in storage is to prevent those somethings from happening and to catch them when they do.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Inspecting Integrity and Controlling the Storage Environment",
+        "body": "Because sterility is event-related, package integrity is inspected before every use and during handling. The technician checks that wraps are intact with no holes, tears, or thin spots; that seals on pouches are complete and unopened; that there is no moisture, water staining, or discoloration; and that container filters, valves, and locks are intact and that the external chemical indicator shows the item was processed. Any package that fails these checks is considered unsterile and is removed from use and reprocessed, regardless of any date on it.\n\nThe storage environment itself protects the inventory. Sterile items are stored in a clean, dry, low-traffic area with controlled temperature and humidity; commonly cited conditions keep temperature and relative humidity within a controlled range and limit humidity in sterile storage to help prevent moisture problems. Items are kept off the floor and away from surfaces where contamination collects. Frequently referenced spacing places the bottom shelf well above the floor (often cited as about 8 to 10 inches), keeps items a set distance below the ceiling and sprinkler heads (often cited as about 18 inches from sprinklers), and keeps items off outside walls (often cited as about 2 inches) so air can circulate and condensation is avoided.\n\nThese conditions and distances are not arbitrary. Moisture is the enemy of a sterile barrier, dust and contamination settle on items too close to floors and walls, and adequate spacing supports air circulation, cleaning, and protection from sprinkler discharge.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Stock Rotation, Handling, and Transport",
+        "body": "Even with event-related sterility, departments rotate stock using FIFO, first in, first out, so older inventory is used before newer inventory. Newly processed items are placed behind existing stock so the front of the shelf is always the next to be used. FIFO reduces the chance that items sit unused for long periods accumulating handling and dust, and it keeps inventory moving and fresh.\n\nHandling is the most common cause of barrier compromise, so sterile items are handled minimally and gently. Excessive handling, sliding packages against rough surfaces, overpacking shelves, and crushing items under heavier ones all create the events that destroy sterility. Items are picked up rather than dragged, shelves are not overfilled, and heavy items are not stacked on lighter packages.\n\nTransport extends the same protection beyond the storeroom. Sterile items moved to point of use are protected from contamination, moisture, and physical damage, often in covered or enclosed carts, and are kept separate from soiled items and traffic that could compromise them. The sterility achieved in the sterilizer is only useful if it survives storage, handling, and transport all the way to the patient, so each of these steps is treated as part of maintaining sterility, not as an afterthought.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "Under an event-related sterility approach, when is a properly processed and stored package considered no longer sterile?",
+        "options": {
+          "A": "Exactly 30 days after processing, regardless of condition",
+          "B": "When an event compromises the package, such as a tear, wet package, broken seal, or contamination",
+          "C": "Only when the manufacturer recalls the product",
+          "D": "Never, once it has been sterilized"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Event-related sterility holds that an item stays sterile until an event compromises the barrier, such as a tear, moisture, a broken seal, or contamination, rather than expiring on a fixed date. Any manufacturer or facility expiration dates are still honored in addition to this.",
+        "difficulty": "foundational",
+        "concept_id": "concept-storage-event-related",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A technician pulls a wrapped tray and notices a faint water stain on the wrap, though there are no visible holes. What is the correct action?",
+        "options": {
+          "A": "Use it, since there are no holes",
+          "B": "Wipe the stain and place it back on the shelf",
+          "C": "Consider it unsterile and remove it from use for reprocessing",
+          "D": "Use it only if the chemical indicator passed"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Moisture or water staining indicates the sterile barrier may have been compromised, because moisture provides a path for microorganisms. A wet or stained package is considered unsterile and is removed from use and reprocessed, regardless of whether a hole is visible.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-storage-event-related",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why are sterile items kept a defined distance off the floor, away from outside walls, and below sprinkler heads?",
+        "options": {
+          "A": "Purely to make the room look organized",
+          "B": "To support air circulation, avoid dust and contamination near floors and walls, prevent condensation, and protect items from sprinkler discharge",
+          "C": "Because the shelves cannot be built any other way",
+          "D": "To make items harder to reach"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Spacing requirements protect the sterile barrier: keeping items off the floor and walls avoids dust and contamination that collect there, distance below sprinklers protects from water discharge, and spacing supports air circulation and prevents condensation.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-storage-event-related",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "When restocking newly processed sets onto a storage shelf that already holds the same item, FIFO requires the technician to:",
+        "options": {
+          "A": "Place the new sets in front so they are used first",
+          "B": "Place the new sets behind the existing stock so older inventory is used first",
+          "C": "Mix new and old randomly",
+          "D": "Replace all existing stock with the new sets"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "FIFO (first in, first out) means newer stock goes behind older stock so the older inventory is used first. This keeps inventory moving and reduces the chance items sit unused, accumulating handling and dust.",
+        "difficulty": "foundational",
+        "concept_id": "concept-storage-event-related",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Which storage or handling practice is most likely to create an event that compromises sterility?",
+        "options": {
+          "A": "Picking packages up rather than dragging them",
+          "B": "Storing items in a clean, dry, controlled-humidity area",
+          "C": "Overpacking shelves and stacking heavy items on lighter packages",
+          "D": "Rotating stock by FIFO"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Excessive handling, overpacking, and crushing lighter packages under heavier items are the kinds of events that breach the sterile barrier. Gentle handling, controlled storage conditions, and FIFO rotation all protect sterility.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-storage-event-related",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "cart-and-load-audits",
+    "domain": "sterilization",
+    "concept_ids": ["concept-steril-steam-cycle"],
+    "title": "Load Configuration, Case-Cart Audits, and Reading the Printout",
+    "summary": "Establishes how to configure a sterilizer load correctly, audit case carts before delivery, document loads, recognize and prevent wet packs, and read a sterilizer printout to confirm the cycle met its parameters.",
+    "objectives": [
+      "Configure a sterilizer load for proper sterilant circulation and drying",
+      "Audit a case cart for completeness and integrity before delivery",
+      "Identify common causes of wet packs and how load configuration affects them",
+      "Read a sterilizer printout and confirm the cycle met its required parameters"
+    ],
+    "estimated_minutes": 10,
+    "difficulty": "intermediate",
+    "sections": [
+      {
+        "heading": "Configuring the Load for Sterilant Circulation and Drying",
+        "body": "How a load is arranged in the sterilizer determines whether steam can reach every surface and whether items come out dry. The guiding principle is to allow the sterilant to circulate freely and to allow condensate to drain. Wrapped trays are placed flat and are not stacked on top of one another, because stacking traps steam and condensate between trays and blocks penetration and drying. Items are spaced so steam can move between them rather than packed solidly against each other or the chamber walls.\n\nPeel pouches are positioned on edge, paper side to plastic side, so that steam can enter and air and condensate can escape; laying pouches flat or stacking them flat impedes drying and sterilant contact. Rigid containers are arranged per their instructions for use. Heavy items and trays are generally placed on lower shelves so condensate dripping from them does not fall onto and wet packages below, and basins and concave items are tilted or positioned so water drains rather than pooling.\n\nThe load is also kept within the chamber's capacity and configured to match the cycle selected. Overloading and improper arrangement are among the most common reasons a cycle that ran to completion still produces unacceptable results, so load configuration is treated as part of running the cycle, not as casual stacking.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Case-Cart Audits and Load Documentation",
+        "body": "Before a case cart leaves the department, it is audited against the case requirements to confirm it is complete, correct, and made up of items that are genuinely ready for use. The audit verifies that the right sets and supplies are present in the right quantities, that each item shows evidence of having been processed (external indicators and intact packaging), and that no package has lost its integrity. Catching a wet pack, a torn wrap, a missing set, or an unprocessed item at the cart audit prevents a problem from reaching the operating room mid-case.\n\nLoad documentation makes the whole process traceable. Each sterilization load is recorded with the sterilizer identification, cycle, date and time, the load contents or a list of items, the operator, and the monitoring results, and each package or item carries a load control label tying it back to that record. This is what allows a specific item to be traced to the load that processed it and, if a problem is later found, allows the affected items to be located and recalled.\n\nCart audits and documentation work together. The audit is the last live check before delivery, and the documentation is the durable record that supports release decisions, recalls, and quality review. Skipping either one removes a safeguard that exists specifically to keep an unsuitable item from reaching a patient.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Wet Packs and Reading the Printout",
+        "body": "A wet pack is a package that comes out of the sterilizer with visible moisture inside or out, and it is treated as a failure because moisture provides a path for microorganisms to reach the contents, meaning sterility cannot be assured. Common causes trace back to load and process factors: overloaded or improperly arranged loads, stacked wrapped trays, excessively heavy or dense sets, inadequate drying time, condensate dripping from items above, cold trays loaded into the chamber, and removing or handling loads before they have cooled and dried. Because most of these are controllable at load configuration, preventing wet packs is largely a matter of correct loading, appropriate set weight, and adequate dry and cool-down time.\n\nThe sterilizer printout or chart is the physical-monitoring record that confirms the cycle actually achieved its parameters. The technician reads it to verify that the required temperature was reached and held for the required exposure time, that the appropriate pressure was achieved, and that the cycle completed all phases, including conditioning, exposure, and drying, without an abort or alarm. The specific time and temperature depend on the cycle and the sterilizer, so the technician confirms the printout matches the parameters required for the cycle that was selected and the items being processed.\n\nThe printout is one of the load release criteria, alongside chemical and biological monitoring and package integrity. A cycle that did not reach and hold its required temperature for the full exposure time, or that aborted, has not met its parameters, and the load is not released regardless of how it looks. Reading the printout is therefore a deliberate verification step, and an unreadable, incomplete, or out-of-parameter printout is a stop, not a formality.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "How should wrapped instrument trays be arranged in a steam sterilizer load?",
+        "options": {
+          "A": "Stacked directly on top of one another to fit more in",
+          "B": "Placed flat and not stacked, with space for steam to circulate and condensate to drain",
+          "C": "Packed tightly against the chamber walls",
+          "D": "Wrapped trays should always be placed on the highest shelf"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Wrapped trays are laid flat and not stacked, with spacing so steam can circulate and condensate can drain. Stacking traps steam and moisture between trays and impedes both penetration and drying, which causes wet packs and incomplete sterilization.",
+        "difficulty": "foundational",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "How should peel pouches be positioned in the load, and why?",
+        "options": {
+          "A": "Laid flat and stacked, to maximize shelf use",
+          "B": "On edge, paper side to plastic side, so steam can enter and air and condensate can escape",
+          "C": "Plastic side to plastic side, sealed together",
+          "D": "Position does not matter for pouches"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Peel pouches are placed on edge with paper side facing plastic side so steam can penetrate the paper and air and condensate can escape, supporting both sterilization and drying. Laying pouches flat or stacking them impedes drying and sterilant contact.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "During a case-cart audit before delivery, the technician finds a tray with a visibly wet wrap. What is the correct action?",
+        "options": {
+          "A": "Deliver it; it will dry on the way to the OR",
+          "B": "Remove it from the cart as a wet pack and reprocess it, because moisture means sterility cannot be assured",
+          "C": "Dry the outside with a towel and deliver it",
+          "D": "Deliver it but tell the OR to inspect it themselves"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "A wet pack is a failure because moisture provides a path for microorganisms, so sterility cannot be assured. The item is removed from the cart and reprocessed. Towel-drying the outside does not address moisture that compromised the barrier.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Which of the following is a common, controllable cause of wet packs?",
+        "options": {
+          "A": "Using the correct cycle for the items",
+          "B": "Allowing adequate drying and cool-down time",
+          "C": "Overloaded or improperly arranged loads with stacked trays and inadequate drying time",
+          "D": "Placing heavy trays on lower shelves"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "Overloading, stacking wrapped trays, dense or heavy sets, and inadequate drying time are common, controllable causes of wet packs. Correct cycle selection, adequate drying and cool-down, and placing heavy trays low all help prevent them.",
+        "difficulty": "advanced",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "When reading a sterilizer printout to release a load, what is the technician confirming?",
+        "options": {
+          "A": "Only that the cycle started",
+          "B": "That the required temperature was reached and held for the required exposure time, the appropriate pressure was achieved, and all cycle phases completed without abort or alarm",
+          "C": "Only the date and time the load was run",
+          "D": "Only that the door sealed"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The printout is the physical-monitoring record. The technician verifies the required temperature was reached and held for the full exposure time, the correct pressure was achieved, and all phases completed without an abort or alarm. A cycle that did not meet its parameters is not released.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why is each sterilized package given a load control label that ties it to a specific sterilizer, cycle, and date?",
+        "options": {
+          "A": "To make the package look official",
+          "B": "To enable traceability so a specific item can be linked to its load and located for recall if a problem is later identified",
+          "C": "Because the label replaces the internal chemical indicator",
+          "D": "Only to count how many items were processed that day"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Load control labels create traceability, linking each item to the load that processed it. If a monitoring failure or other problem is later identified, the records allow the department to locate and recall exactly the affected items.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-steril-steam-cycle",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  },
+  {
+    "slug": "spd-self-audit",
+    "domain": "spd_judgment",
+    "concept_ids": ["concept-judgment-accountability"],
+    "title": "The SPD Self-Audit: Accountability Without Drift",
+    "summary": "Establishes the routine self-audit and peer-audit as the central accountability practice of sterile processing, covering what to check, honest self-reporting, escalation when a gap is found, and documented alignment to the standard.",
+    "objectives": [
+      "Explain why routine self-audit and peer-audit are the accountability hub of SPD practice",
+      "Identify the key practice areas a self-audit checks across the workflow",
+      "Apply honest self-reporting and recognize the danger of drift from the standard",
+      "Escalate, document, and correct a gap appropriately when an audit finds one"
+    ],
+    "estimated_minutes": 9,
+    "difficulty": "intermediate",
+    "sections": [
+      {
+        "heading": "Why We Audit Ourselves",
+        "body": "Sterile processing protects patients through a chain of steps, and a failure at any link can reach a patient who never sees the department. Because the consequences are invisible until they are catastrophic, the work cannot rely on the assumption that everyone is doing everything correctly all the time. The routine self-audit and peer-audit exist to verify, on an ongoing basis, that practice actually matches the standard, rather than trusting that it does.\n\nAuditing is not punishment and it is not about catching people; it is about catching gaps before they reach a patient. Human processes drift. Shortcuts that seem harmless accumulate, a step gets skipped under time pressure, a habit forms that no one questioned, and over time the real practice quietly diverges from the written standard. The self-audit is the deliberate check that pulls practice back into alignment before that drift becomes harm.\n\nThis makes the audit the accountability hub of the department. Every other competency, from PPE to documentation, feeds into it, and the audit is where the technician honestly answers whether each of those steps is actually being done to standard. Owning that check, rather than resenting it, is what distinguishes a reliable sterile processing professional.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "What a Self-Audit Checks",
+        "body": "A useful self-audit walks the entire workflow and asks, at each stage, whether practice meets the standard. In decontamination, it checks that the correct PPE is worn and used correctly and that cleaning technique, including point-of-use treatment, enzymatic soaking, brushing below the waterline, and lumen flushing, is being performed properly and verified, not rushed. At inspection and assembly, it checks that instruments are inspected under magnification, that damaged items are removed from service, and that sets are assembled to the count sheet with internal chemical indicators correctly placed.\n\nOn the sterilization side, the audit checks that biological and chemical indicators are run at the correct frequency, placed correctly, incubated and read properly, and documented, and that load release criteria, including printout review, are honored, especially for implant loads. In storage, it checks package integrity inspection, storage conditions and spacing, FIFO rotation, and safe handling and transport. Across all of it, it checks that documentation is complete, accurate, and traceable.\n\nThe checklist is broad on purpose, because the chain is only as strong as its weakest link. A flawless sterilization practice does not save a patient from an instrument that was never truly clean, and perfect cleaning does not help if the load was released on a failed printout. The self-audit is the one routine that looks across the whole chain rather than at a single station.",
+        "image_url": null,
+        "video_url": null
+      },
+      {
+        "heading": "Honest Reporting, Escalation, and No Drift",
+        "body": "An audit only works if it is honest. The temptation, when a technician finds their own gap, is to quietly fix it and move on, or worse, to record that a step was done when it was not. Both undermine the entire purpose of the audit. Honest self-reporting means recording what actually happened, including the gap, so the problem can be understood and prevented, not hidden. A culture that punishes honesty teaches people to hide problems, which is far more dangerous than the original gap. The professional standard is to surface gaps, not bury them.\n\nWhen an audit finds a gap, the response is to contain, escalate, and document. If the gap may have affected items that already moved forward, those items are identified and quarantined or recalled using the load and lot records. The finding is escalated to the appropriate lead or supervisor rather than handled silently, because some gaps require decisions and resources beyond one technician, and because leadership needs visibility to fix the system, not just the instance. The event, the items involved, and the corrective action are documented so there is a record and so the fix can be verified.\n\nThe through-line is no drift. The standard is the standard, and the self-audit is how the department keeps real practice aligned to it day after day. When practice and standard diverge, the answer is never to redefine the standard down to match what is being done; it is to bring practice back up to the standard, document the gap and the correction, and remove whatever allowed the drift. That discipline, applied honestly and routinely, is what makes a sterile processing department genuinely defensible.",
+        "image_url": null,
+        "video_url": null
+      }
+    ],
+    "checks": [
+      {
+        "stem": "What is the primary purpose of the routine self-audit and peer-audit in sterile processing?",
+        "options": {
+          "A": "To find someone to blame when something goes wrong",
+          "B": "To verify on an ongoing basis that practice actually matches the standard and to catch gaps before they reach a patient",
+          "C": "To satisfy paperwork with no effect on practice",
+          "D": "To replace the need for biological indicators"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "The self-audit exists to verify that real practice matches the standard and to catch drift and gaps before they reach a patient. It is an accountability and prevention tool, not a blame mechanism, and it does not replace process monitors like BIs.",
+        "difficulty": "foundational",
+        "concept_id": "concept-judgment-accountability",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "During a self-audit, a technician realizes they skipped reviewing the sterilizer printout before releasing several loads earlier in the shift. What is the most appropriate response?",
+        "options": {
+          "A": "Quietly start reviewing printouts now and say nothing about the earlier loads",
+          "B": "Record that the printouts were reviewed so the log looks complete",
+          "C": "Identify the affected loads, verify the printouts now, escalate the gap, and document the finding and corrective action",
+          "D": "Assume the loads are fine because nothing has gone wrong yet"
+        },
+        "correct": "C",
+        "partial_credit": null,
+        "explanation": "The correct response is to contain, escalate, and document: identify and verify the affected loads, escalate the gap to a lead, and document the finding and correction. Quietly fixing it or falsifying the log hides a real gap and defeats the purpose of the audit.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-judgment-accountability",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Over several months, a unit has gradually started skipping a brushing step that the standard requires, and no one objects because nothing has visibly gone wrong. What does this scenario illustrate?",
+        "options": {
+          "A": "That the standard should be rewritten to match what the unit does",
+          "B": "Drift, where real practice quietly diverges from the standard, which the self-audit exists to catch and correct",
+          "C": "That the brushing step was never necessary",
+          "D": "An acceptable efficiency improvement"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "This is drift: practice slowly diverging from the standard because nothing visibly fails. The self-audit is designed to catch drift and pull practice back to the standard. The answer is to restore the required step, not to lower the standard to match the shortcut.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-judgment-accountability",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "Why is honest self-reporting of a gap considered safer than quietly correcting it and moving on?",
+        "options": {
+          "A": "Because honesty is rewarded with time off",
+          "B": "Because recording the actual gap lets the problem be understood, any affected items be addressed, and the underlying cause be fixed, rather than hidden",
+          "C": "Because hidden gaps never cause harm",
+          "D": "Because supervisors prefer not to know about problems"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "Honest reporting allows the gap to be understood, any affected items to be identified and addressed, and the root cause to be corrected. Hiding a gap may leave already-processed items at risk and lets the underlying cause persist, which is more dangerous than the original error.",
+        "difficulty": "intermediate",
+        "concept_id": "concept-judgment-accountability",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      },
+      {
+        "stem": "A self-audit reveals a cleaning gap that may have affected instruments already sent to storage. Beyond fixing the technique going forward, what must also happen?",
+        "options": {
+          "A": "Nothing else, since the technique is now corrected",
+          "B": "Identify and quarantine or recall the potentially affected items using the load and lot records, escalate, and document",
+          "C": "Wait to see if any patient is harmed before acting",
+          "D": "Remove the audit checklist so it does not flag the issue again"
+        },
+        "correct": "B",
+        "partial_credit": null,
+        "explanation": "A gap that may have affected items already moved forward requires containment: using load and lot records to identify and quarantine or recall the affected items, escalating the finding, and documenting it, in addition to correcting the technique going forward.",
+        "difficulty": "advanced",
+        "concept_id": "concept-judgment-accountability",
+        "real_world_standard": "AAMI ST79",
+        "standard_refs": []
+      }
+    ]
+  }
+]
