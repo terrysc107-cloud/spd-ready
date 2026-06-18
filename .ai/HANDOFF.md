@@ -1,5 +1,24 @@
 # SPD Ready — Handoff
 
+## UI BUILD checkpoint — 2026-06-17 (Claude)
+
+**Task:** Premium UI build (4 phases). Branch `feature/staff-competency-foundation` (pushed). Plan: `/Users/terry/.claude/plans/well-lets-talk-about-iterative-quokka.md`.
+
+**Done & committed/pushed:**
+- **Phase 1 (commit 5ab01b5):** premium app shell — `components/shell/{AppShell,Sidebar}` (dark `--sidebar-*` rail on desktop, mobile bottom-tab bar, role-aware) + ui primitives `page-header, stat-card, progress-ring, status-pill, table/DataTable, empty-state, skeleton, toast`. `(competency)`+`(student)` layouts → thin AppShell wrappers. globals.css elevation doc. **Visually QA'd at 1280px + 390px.**
+- **Phase 2 (commit 6c1ed8b):** manager journey — NEW `/competency` overview (gradient header, StatCards, readiness ring, needs-attention, recent sign-offs), elevated `/competency/staff` (DataTable + rollup), new `/competency/staff/[staffId]`, `/competency/report` evidence packet (+print), restyled assign/validate + forms (Toast). Additive DAL `lib/dal/competency-overview.ts` + `getMyOrg`. **ROUTING FIX:** `(competency)` route group → real `competency/` segment (the group resolved to `/` and collided with marketing; also fixed pre-existing broken `/competency/*` nav links).
+- **Phase 3 partial (commit 0ec5c33):** Logo subtitle + root metadata de-student-ified; killed all dead links to archived `openings/applications/assessment` (dashboard/results/profile) incl. a `redirect()` that pointed at a 404.
+
+**Gates:** `npm run typecheck` clean · `npm run build` succeeds (23 routes) after every phase. NOT visually QA'd with populated data (no Docker/Supabase).
+
+**REMAINING UI work:**
+- Phase 3 (needs live DB to verify): full landing-page rewrite (still student/placement framed), invite-only register, `signInAction`→Supabase `signInWithPassword`, `redirectForRole` (manager→/competency, tech→/student/dashboard), swap tech pages `getCurrentUser`→`requireAppRole(['tech'])`.
+- Phase 4: tech dashboard StatCard/ProgressRing adoption + emoji demotion; retire legacy `admin/dashboard` + `api/seed`.
+
+**To visually QA / verify the populated app:** connect a remote Supabase (`.env.local`), `node --env-file=.env.local scripts/seed-competency.mjs`, then walk manager + tech flows. (No Docker locally.) Shell/primitives were QA'd via a temporary `/preview` page (since removed).
+
+---
+
 ## Latest checkpoint — 2026-06-17 (Claude)
 
 ### Active task
@@ -212,6 +231,31 @@ R  spd-ready/src/app/(student)/student/openings/page.tsx -> spd-ready/src/app/_a
 
 ### Git status
 Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-17 18:28:23 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 0ec5c33 feat(ui): de-student-ify copy + fix dead marketplace links (Phase 3 partial)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+```
 
 ### Summary
 - TODO: What changed?

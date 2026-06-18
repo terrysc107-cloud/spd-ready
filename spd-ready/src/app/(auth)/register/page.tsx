@@ -1,119 +1,36 @@
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { signUpAction } from '@/actions/auth'
 
-// Next.js 16: searchParams is a Promise — must be awaited
-export default async function RegisterPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ role?: string; error?: string }>
-}) {
-  const params = await searchParams
-
-  // Pre-select role from query param (set by landing page CTAs: ?role=student or ?role=hospital)
-  const preselectedRole = params.role === 'hospital' ? 'hospital' : 'student'
-
+export default function RegisterPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl">Create Account</CardTitle>
+        <CardTitle className="text-2xl">Request access</CardTitle>
         <CardDescription>
-          Join SPD Ready as a student or hospital site.
+          SPD Ready is set up per department. Tell us about your team and we&apos;ll get you started.
         </CardDescription>
       </CardHeader>
 
-      <form action={signUpAction}>
-        <CardContent className="space-y-4">
-          {params.error && (
-            <p className="rounded-md bg-destructive/10 px-4 py-2 text-sm text-destructive">
-              Registration failed: {params.error}
-            </p>
-          )}
+      <CardContent className="space-y-4">
+        <div className="rounded-lg border bg-muted/30 p-4 text-sm text-muted-foreground leading-relaxed">
+          We onboard your department, load your competency templates, and create accounts for your
+          managers and technicians. Reach out and we&apos;ll have your team standardized and survey-ready.
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@example.com"
-              required
-              autoComplete="email"
-            />
-          </div>
+        <a href="mailto:hello@spdready.com?subject=SPD%20Ready%20demo%20request" className="block">
+          <Button className="w-full">Email us to get started</Button>
+        </a>
+      </CardContent>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              required
-              autoComplete="new-password"
-              minLength={8}
-            />
-            <p className="text-xs text-muted-foreground">Minimum 8 characters.</p>
-          </div>
-
-          <div className="space-y-2">
-            <Label>I am a</Label>
-            <div className="grid grid-cols-2 gap-3">
-              <label
-                className={`flex cursor-pointer items-center justify-center rounded-md border-2 px-4 py-3 text-sm font-medium transition-colors ${
-                  preselectedRole === 'student'
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value="student"
-                  defaultChecked={preselectedRole === 'student'}
-                  className="sr-only"
-                  required
-                />
-                Student
-              </label>
-              <label
-                className={`flex cursor-pointer items-center justify-center rounded-md border-2 px-4 py-3 text-sm font-medium transition-colors ${
-                  preselectedRole === 'hospital'
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value="hospital"
-                  defaultChecked={preselectedRole === 'hospital'}
-                  className="sr-only"
-                  required
-                />
-                Hospital / Site
-              </label>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Choose carefully — your role determines what you can access.
-            </p>
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex flex-col gap-4">
-          <Button type="submit" className="w-full">
-            Create Account
-          </Button>
-          <p className="text-center text-sm text-muted-foreground">
-            Already have an account?{' '}
-            <Link href="/login" className="text-primary hover:underline">
-              Sign in
-            </Link>
-          </p>
-        </CardFooter>
-      </form>
+      <CardFooter className="flex flex-col gap-4">
+        <p className="text-center text-sm text-muted-foreground">
+          Already have an account?{' '}
+          <Link href="/login" className="text-primary hover:underline">
+            Sign in
+          </Link>
+        </p>
+      </CardFooter>
     </Card>
   )
 }
