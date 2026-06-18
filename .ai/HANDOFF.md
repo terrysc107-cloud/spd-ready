@@ -1,5 +1,28 @@
 # SPD Ready — Handoff
 
+## LIVE checkpoint — 2026-06-18 (Claude) — app wired to Supabase + auth verified end-to-end
+
+**The app is now real and working against a live database.** Branch `feature/staff-competency-foundation` head `6f3c09f` (pushed).
+
+**Database = existing project `ts-micro-saas-hub` (ref `wbznovoufjdlzmjrzsfu`).** Chosen over a new project (org is Pro → new project = +$10/mo) and over sharing crcst (prod) / SPD Intel. It already held SPD Ready's original `public` schema; we added the namespaced `spd_ready` schema beside it.
+- **Migrations 006→011 applied** via Supabase MCP `apply_migration` (history now linear 001→011). 14 `spd_ready` tables, all RLS-enabled with policies.
+- **Gotcha fixed:** PostgREST only exposed `public, graphql_public`. Ran `alter role authenticator set pgrst.db_schemas = 'public, graphql_public, spd_ready'` + `notify pgrst, 'reload schema'` so the app/seed can reach `spd_ready`. (If the platform ever resets this, re-add `spd_ready` under Dashboard → Settings → API → Exposed schemas.)
+- **Seeded** `scripts/seed-competency.mjs`: org "Northland Demo Hospital — SPD", 1 dept, 1 manager + 2 techs, 1 template (Steam Sterilization Basics) + 3 items, 1 assignment → tech1. **Logins:** `manager@demo-spd.test` / `tech1@demo-spd.test` / `tech2@demo-spd.test`, all `Password123!`.
+- **`.env.local`** created (gitignored) with URL + anon key + `SUPABASE_SERVICE_ROLE_KEY=[REDACTED]`. Service_role key is the original (leaked-in-history) one — Terry chose not to rotate yet; rotate in Dashboard → Settings → API when ready and update `.env.local`.
+- **Access-token hook NOT enabled in Auth config — and not needed:** `getAuthUser` + RLS resolve role from the `profiles` table directly. (Enabling it later just removes one profile read.)
+
+**Auth re-home DONE + verified live (commit 6f3c09f):** `signInAction`→`signInWithPassword` + role redirect (manager→/competency, tech→/student/dashboard); `signOutAction`/`resetPasswordAction`→Supabase; dropped dead demo `signUpAction`; (student) layout + 9 tech pages + `dal/student.ts` swapped `getCurrentUser`→`getAuthUser`/`requireAuth`. **Playwright-verified:** manager login → /competency shows 3 staff + "0 of 1 validated" (RLS-scoped); tech login → /student/dashboard shows real identity + empty engine state.
+
+**Gates:** typecheck clean · 26/26 tests · build green (23 routes).
+
+**Known limits / next:**
+- `dal/student.ts` profile read/write is still the local JSON store (`local-db`) — works locally, but the FS is read-only on Vercel; migrate `student_profiles` to `spd_ready` before deploy (out of scope this pass).
+- Tech engine data starts empty (no training yet) — demo the loop by having a tech train (writes to Supabase) then a manager validate.
+- Optional cleanup: retire legacy `admin/dashboard` + `api/seed`; StatCard/ProgressRing refactor of the tech dashboard gamification row.
+- The full populated **validate → evidence** manager path isn't exercised yet (assignment is at `assigned`); walk a tech through training to reach `ready_for_validation`, then sign off.
+
+---
+
 ## UI BUILD checkpoint — 2026-06-18 (Claude) — narrative reposition complete
 
 **Task:** Finish the offline-verifiable UI build. Branch `feature/staff-competency-foundation` (pushed; head `4613291`).
