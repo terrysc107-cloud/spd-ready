@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getDomainSummaries, getDueReviewQueue, getAssignmentsForStudent } from '@/lib/dal/learning'
 import { MasteryCard } from '@/components/student/MasteryCard'
 import { AssignedModuleCard } from '@/components/student/AssignedModuleCard'
@@ -8,7 +8,7 @@ import { LEARNING_DOMAIN_META } from '@/lib/local-db/types'
 import { getConcept } from '@/lib/local-db/concepts'
 
 export default async function LearningDashboardPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const [summaries, dueQueue, assignments] = await Promise.all([

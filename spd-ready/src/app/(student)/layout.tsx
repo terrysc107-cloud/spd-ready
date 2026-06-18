@@ -1,13 +1,12 @@
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { AppShell } from '@/components/shell/AppShell'
 
-// Tech training surface. Still on demo auth for name display; the auth re-home
-// to real Supabase happens in Phase 3. Role is fixed to 'tech' so the shell
-// renders the training nav (no dead marketplace links).
+// Tech training surface. Real Supabase auth; the shell renders the role-aware
+// nav from the signed-in profile (techs get the training nav).
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   return (
-    <AppShell role="tech" name={user?.email ?? null} email={user?.email ?? null}>
+    <AppShell role={user?.role ?? 'tech'} name={user?.name ?? null} email={user?.email ?? null}>
       {children}
     </AppShell>
   )

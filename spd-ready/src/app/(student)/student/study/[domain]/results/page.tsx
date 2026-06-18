@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { readStore } from '@/lib/local-db/store'
 import { DOMAIN_META, type TrackDomain } from '@/lib/local-db/track-questions'
 import { getDomainProgress } from '@/lib/dal/study'
@@ -13,7 +13,7 @@ export default async function StudyResultsPage({
   params: Promise<{ domain: string }>
   searchParams: Promise<{ session?: string; xp?: string; streak?: string; mastery?: string; sm?: string }>
 }) {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const { domain } = await params

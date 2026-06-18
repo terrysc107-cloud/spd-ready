@@ -1,5 +1,5 @@
 import { cache } from 'react'
-import { getCurrentUser, requireRole } from '@/lib/dal/auth'
+import { getAuthUser, requireAuth } from '@/lib/dal/auth'
 import { readStore, writeStore } from '@/lib/local-db/store'
 
 // ── Types ────────────────────────────────────────────────────
@@ -55,7 +55,7 @@ export type ApplicationRow = {
 }
 
 export const getStudentProfile = cache(async (): Promise<StudentProfile | null> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return null
   const store = readStore()
   const profile = store.student_profiles[user.id]
@@ -64,7 +64,7 @@ export const getStudentProfile = cache(async (): Promise<StudentProfile | null> 
 })
 
 export const getApplications = cache(async (): Promise<ApplicationRow[]> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return []
   const store = readStore()
   const apps = Object.values(store.applications).filter(a => a.student_user_id === user.id)
@@ -88,7 +88,7 @@ export const getApplications = cache(async (): Promise<ApplicationRow[]> => {
 })
 
 export async function upsertStudentProfile(input: StudentProfileInput): Promise<void> {
-  const user = await requireRole('student')
+  const user = await requireAuth()
   const store = readStore()
   const now = new Date().toISOString()
   const existing = store.student_profiles[user.id]

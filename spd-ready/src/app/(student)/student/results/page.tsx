@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getLatestCompletedAssessment } from '@/lib/dal/assessment'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
@@ -50,7 +50,7 @@ const CATEGORY_IMPROVEMENT_NOTES: Record<string, string> = {
 }
 
 export default async function ResultsPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const [profile, assessment] = await Promise.all([

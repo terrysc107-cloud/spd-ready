@@ -1,5 +1,5 @@
 import { redirect, notFound } from 'next/navigation'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { DOMAIN_META, TRACK_QUESTIONS, type TrackDomain, getLearningDomain } from '@/lib/local-db/track-questions'
 import { HLD_QUESTIONS } from '@/lib/local-db/hld-questions'
 import { StudyQuiz } from '@/components/student/StudyQuiz'
@@ -11,7 +11,7 @@ export default async function StudyDomainPage({
 }: {
   params: Promise<{ domain: string }>
 }) {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const { domain } = await params

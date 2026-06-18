@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getStudentProfile } from '@/lib/dal/student'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { OnboardingForm } from '@/components/student/OnboardingForm'
 
 export default async function OnboardingPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const profile = await getStudentProfile()

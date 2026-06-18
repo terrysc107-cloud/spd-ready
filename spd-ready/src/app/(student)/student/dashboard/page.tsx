@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getDomainProgress, getStreakData, getXPRecord, getJudgmentScore } from '@/lib/dal/study'
 import { Button } from '@/components/ui/button'
 
 export default async function StudentDashboardPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const [profile, domainProgress, streakData, xpRecord, judgmentScore] = await Promise.all([

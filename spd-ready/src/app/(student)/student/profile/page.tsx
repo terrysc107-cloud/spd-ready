@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getStudentProfile } from '@/lib/dal/student'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { OnboardingForm } from '@/components/student/OnboardingForm'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -15,7 +15,7 @@ export default async function ProfilePage({
   searchParams: Promise<{ edit?: string }>
 }) {
   const params = await searchParams
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const profile = await getStudentProfile()
