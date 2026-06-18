@@ -1,5 +1,27 @@
 # SPD Ready — Handoff
 
+## UI BUILD checkpoint — 2026-06-18 (Claude) — narrative reposition complete
+
+**Task:** Finish the offline-verifiable UI build. Branch `feature/staff-competency-foundation` (pushed; head `4613291`).
+
+**Done & pushed since last checkpoint:**
+- **Landing rewrite (commit 8d095ae):** `(marketing)/page.tsx` fully repositioned student→placement ⇒ **SPD competency / survey-readiness**. New story: hero "One standard for SPD competency", problem (no industry training standard / record falls apart at survey), the **assign→train→auto-feed→validate→prove** loop, the readiness-score engine, a manager **Department Readiness** mock card, a tech process-training section, a **competency-status** explainer (Validated / In Training / Needs Attention). Kept the **OhioHealth ROI section (locked)** + all brand visuals. Removed all `?role=student|hospital` deep links → single **Request a demo / Sign in**. **Visually QA'd at 1280px + 390px** (stacks clean on mobile).
+- **Invite-only register (commit 8d095ae):** `(auth)/register/page.tsx` → "Request access" (mailto CTA), dropped Student/Hospital radio + the demo-store `signUpAction` call.
+- **Tech copy sweep (commit 4613291):** de-placemented dashboard ("Student Portal"→"My Training"; tier "Placement Ready"→"Survey Ready"; judgment/tier-progress copy), results `TIER_NEXT_STEPS` (no externship eligibility/applications), study+learning ("coordinator"→"manager"), onboarding (credential→competency record). Active tech surface now clean of placement framing; `_archive_*` dirs untouched (not routed).
+
+**Gates:** `npm run typecheck` clean · `npm run build` green (23 routes; `/` and `/register` now static) after each commit.
+
+**THE ONE REMAINING UI PIECE — auth re-home (needs a live Supabase project; cannot verify a login flow offline, no Docker):**
+- `signInAction` (`src/actions/auth.ts`) → Supabase `signInWithPassword`.
+- add `redirectForRole(role)` — manager roles→`/competency`, tech→`/student/dashboard`.
+- swap tech pages `getCurrentUser()` (demo cookie) → `requireAppRole(['tech'])`/`requireAuth()`; (student) layout currently still demo-auth.
+- then seed + walk the populated manager↔tech loop end-to-end.
+**To do it:** set `.env.local` (URL + anon + service_role) on a remote project → `node --env-file=.env.local scripts/seed-competency.mjs` → verify.
+
+**Optional later (low value, needs data): retire legacy `admin/dashboard` + `api/seed`; StatCard/ProgressRing refactor of the tech dashboard gamification row.**
+
+---
+
 ## UI BUILD checkpoint — 2026-06-17 (Claude)
 
 **Task:** Premium UI build (4 phases). Branch `feature/staff-competency-foundation` (pushed). Plan: `/Users/terry/.claude/plans/well-lets-talk-about-iterative-quokka.md`.
