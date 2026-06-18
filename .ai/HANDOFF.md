@@ -1,5 +1,24 @@
 # SPD Ready — Handoff
 
+## CONTENT ENGINE checkpoint — 2026-06-18 (Claude) — Phases 0+1 done
+
+Building the content engine + assessment/mindset redesign. Plan: `/Users/terry/.claude/plans/well-lets-talk-about-iterative-quokka.md`. Branch `feature/staff-competency-foundation` head `355385e` (pushed). DB = `wbznovoufjdlzmjrzsfu`.
+
+**Phase 0 — questions moved to DB (commit aa192fd):** migrations `012_questions.sql` (unified `spd_ready.questions`, kind=study|assessment, track_domain for the 8 legacy study tracks + learning_domain/concept_id for the 7-domain framework, content_hash dedup) + `013_questions_rls.sql` (global-content RLS: authenticated read active, managers read drafts, writes service_role only). `src/lib/dal/questions.ts` = single read boundary, maps rows → existing TrackQuestion/AssessmentQuestion shapes, **static fallback** if DB empty. Rewired the quiz page + `getActiveQuestions` + `getDomainProgress`. `scripts/seed-questions.ts` (tsx) seeded the 140 static Q. Added **tsx** devDep for TS content scripts.
+
+**Phase 1 — crcst import (commit 355385e):** `scripts/import-crcst.ts` imported **1,420** SPD Cert Prep Q → **831 active + 589 draft** (0 dups). CRCST 689 → 7 tech domains (off-mission anatomy/micro/medterm/IT/profdev = draft); CER 273 → HLD **active** (HLD bank 10→321); CHL 458 → **draft** (manager/leadership, future track). Active study tracks now: Sterilization 148, Compliance 146, Decon 89, Prep 74, Storage 67, Instrument 56, HLD 321, Judgment 30, SterilityAssurance 10 — **verified live in the study hub UI**. Total bank = 1,560 Q.
+
+**Gates:** typecheck (incl. scripts) clean · 26/26 tests · build green (23 routes).
+
+**Run the scripts:** `node --env-file=.env.local --import tsx scripts/seed-questions.ts` / `scripts/import-crcst.ts` (idempotent; delete-by-source then insert).
+
+**NEXT — Phase 2 (assessment + mindset redesign, Beta) then Phase 3 (generation loop):**
+- Phase 2 decisions locked: co-equal Readiness + Mindset; mindset model = beta-validated config-driven v1 (not hardcoded) with tech+manager feedback. Reuse `domain_assessments` (Likert T0/T1) + judgment_type tags + confidence-calibration idea. New: `mindset-logic.ts` (pure/testable), `mindset-model.ts` (versioned config), migration `014_mindset.sql` (mindset_profiles + tech_feedback + manager_adjustment), UI (radar + archetype + beta tap), and **rewire the readiness assessment flow** — it's still on the local JSON store + demo `requireRole('student')` (broken under real auth; `createAssessment`/`saveAnswerToDb`/`finalizeAssessment` need Supabase migration too).
+- Phase 3: research-grounded `Workflow` (ST79/ST91/ST108 → draft → adversarial verify → tag → draft rows), judgment-first (crcst left SPD_JUDGMENT at 30).
+- Owner decision pending: promote/cull the 589 draft (esp. CHL 458 manager content + off-mission CRCST).
+
+---
+
 ## LIVE checkpoint — 2026-06-18 (Claude) — app wired to Supabase + auth verified end-to-end
 
 **The app is now real and working against a live database.** Branch `feature/staff-competency-foundation` head `6f3c09f` (pushed).
