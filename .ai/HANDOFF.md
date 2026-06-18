@@ -1,5 +1,28 @@
 # SPD Ready — Handoff
 
+## PHASE 3 checkpoint — 2026-06-18 (Claude) — Research-grounded generation loop (judgment-first) DONE
+
+**The generation loop runs end-to-end and produced its first batch: 16 new SPD_JUDGMENT scenarios, loaded as DRAFTS.** Committed on `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`.
+
+**The loop (RESEARCH → DRAFT → VERIFY → TAG → LOAD-draft → [human gate] → PROMOTE):**
+- **RESEARCH+DRAFT** (subagent, grounded via WebSearch in ANSI/AAMI ST79/ST91/ST108, AORN, CDC, FDA/IFU): 16 situational-judgment scenarios, 2 per each of the 8 judgment_type tags, varied correct-letter spread (A3/B5/C5/D3), 7 intermediate + 7 advanced + 2 foundational. Each carries `real_world_standard` + `standard_refs`. → `scripts/content/judgment-batch-1.json`.
+- **VERIFY** (adversarial subagent, patient-safety rubric: factual correctness vs cited standard, single unambiguous answer, plausible distractors, schema validity): **15 pass / 1 revised / 0 rejected**. Revision was an ST91 nuance (alcohol flush is now a risk-assessment/IFU decision, not routine drying). → `scripts/content/judgment-batch-1.verified.json`.
+- **LOAD** `scripts/load-generated.ts` — validates schema, dedupes on content_hash (vs the whole 1,560-bank), tags `track_domain='SPD_JUDGMENT'`/`learning_domain='spd_judgment'`, inserts `kind='study'`, `source='generated'`, `status='draft'`, `source_ref='gen:<batch>:<i>'`. Idempotent (delete-by-source_ref-prefix). **16 loaded, 0 dups.**
+- **PROMOTE** `scripts/promote-questions.ts <batchId> [--dry]` — the human gate: flips a batch's drafts → active (live immediately via RLS + mastery engine, no deploy). Dry-run confirms 16 eligible. **NOT yet promoted — awaiting Terry's review.**
+
+**SPD_JUDGMENT bank now: 30 active (seed) + 16 generated draft = 46.** Run commands: `node --env-file=.env.local --import tsx scripts/load-generated.ts [path] [batchId]` and `scripts/promote-questions.ts <batchId>`.
+
+**Gates:** typecheck (incl. scripts) clean · 44/44 tests · build green (27 routes).
+
+**OWNER DECISIONS PENDING:**
+1. **Review + promote** the 16 judgment drafts (`promote-questions.ts judgment-batch-1`) — they feed both the SPD_JUDGMENT study track AND the mindset baseline SJT (which currently draws only from the static 30).
+2. Earlier draft backlog still pending: the 589 Phase-1 drafts (CHL 458 manager content + off-mission CRCST 131).
+3. **Scale Phase 3:** more judgment batches, then thin non-judgment concepts. A full durable multi-agent `Workflow` (vs the 2-subagent increment used here) is available if Terry wants volume — not launched unprompted (cost/scale).
+
+**NOTE:** the mindset baseline SJT (`/student/baseline`) draws from the static `TRACK_QUESTIONS` (the authored, judgment_type-tagged 30), NOT the DB — so promoting drafts deepens the *study track* immediately but to deepen the *baseline pool* we'd point `selectBalancedSet` at the DB judgment bank (filter to questions carrying judgment_type). Small follow-up.
+
+---
+
 ## PHASE 2 checkpoint — 2026-06-18 (Claude) — Judgment baseline + Mindset profile (Beta) DONE + verified live
 
 **The co-equal "Mindset" half of the assessment is built, on real auth + RLS, and verified end-to-end via Playwright.** DB = `wbznovoufjdlzmjrzsfu`. Uncommitted on branch `feature/staff-competency-foundation` (gates green; not yet committed/pushed).
@@ -552,6 +575,31 @@ Clean working tree or not a git repo.
 ?? spd-ready/supabase/migrations/014_mindset.sql
 ?? spd-ready/supabase/migrations/015_mindset_rls.sql
 ?? spd-ready/tests/mindset-logic.test.ts
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 08:08:48 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: b3e1743 Phase 2: judgment baseline + tech-mindset profile (Beta)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+?? spd-ready/scripts/load-generated.ts
 ```
 
 ### Summary
