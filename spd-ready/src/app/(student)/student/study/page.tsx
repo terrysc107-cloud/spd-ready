@@ -41,7 +41,7 @@ export default async function StudyPage() {
 
       {assignments.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">📌 Assigned by your coordinator</h2>
+          <h2 className="text-lg font-semibold">📌 Assigned by your manager</h2>
           {assignments.map(a => <AssignedModuleCard key={a.id} a={a} />)}
         </section>
       )}

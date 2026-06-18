@@ -20,7 +20,7 @@ export default async function StudentDashboardPage() {
   const tier = profile?.readiness_tier as 1 | 2 | 3 | null
 
   const tierConfig = {
-    1: { label: 'Placement Ready', color: 'text-[oklch(0.45_0.18_150)]', bg: 'bg-[oklch(0.96_0.04_150)]', border: 'border-[oklch(0.75_0.12_150)]', ring: 'oklch(0.55_0.18_150)' },
+    1: { label: 'Survey Ready', color: 'text-[oklch(0.45_0.18_150)]', bg: 'bg-[oklch(0.96_0.04_150)]', border: 'border-[oklch(0.75_0.12_150)]', ring: 'oklch(0.55_0.18_150)' },
     2: { label: 'Ready with Support', color: 'text-[oklch(0.55_0.18_80)]', bg: 'bg-[oklch(0.98_0.03_80)]', border: 'border-[oklch(0.85_0.12_80)]', ring: 'oklch(0.65_0.18_80)' },
     3: { label: 'Developing Readiness', color: 'text-destructive', bg: 'bg-destructive/5', border: 'border-destructive/30', ring: 'oklch(0.577_0.245_27)' },
   }
@@ -35,7 +35,7 @@ export default async function StudentDashboardPage() {
           <div className="absolute right-8 top-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white blur-2xl" />
         </div>
         <div className="relative z-10">
-          <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">Student Portal</p>
+          <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">My Training</p>
           <h1 className="text-3xl font-bold">
             {profile?.first_name ? `Welcome back, ${profile.first_name} 👋` : 'Welcome to SPD Ready'}
           </h1>
@@ -85,7 +85,7 @@ export default async function StudentDashboardPage() {
               {judgmentScore === null
                 ? 'Complete the SPD Judgment track to unlock your score'
                 : judgmentScore >= 75
-                ? 'Strong professional judgment — coordinators take notice'
+                ? 'Strong professional judgment — the standard your department needs'
                 : judgmentScore >= 55
                 ? 'Developing — continue the judgment track'
                 : 'Needs focus — work through the judgment scenarios'}
@@ -211,7 +211,7 @@ export default async function StudentDashboardPage() {
           <div className="flex items-center justify-between">
             <p className="font-semibold text-sm">Tier Progress</p>
             {profile.readiness_tier === 1
-              ? <span className="text-xs font-bold text-[oklch(0.45_0.18_150)]">✅ Placement Ready</span>
+              ? <span className="text-xs font-bold text-[oklch(0.45_0.18_150)]">✅ Survey Ready</span>
               : <span className="text-xs text-muted-foreground">
                   {profile.readiness_tier === 2
                     ? `${Math.max(0, 75 - Math.round(profile.readiness_score))}% to Tier 1`

@@ -20,7 +20,7 @@ export default async function OnboardingPage() {
       </Link>
       <h1 className="text-3xl font-semibold text-center mb-2">Complete Your Profile</h1>
       <p className="text-muted-foreground text-center mb-8">
-        This profile is your readiness credential — hospitals will review it alongside your assessment score.
+        This profile is part of your competency record — your manager sees it alongside your training and validations.
       </p>
       <OnboardingForm initialData={profile} />
     </div>

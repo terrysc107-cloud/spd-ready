@@ -9,27 +9,27 @@ import { Button } from '@/components/ui/button'
 // Per-tier next steps copy
 const TIER_NEXT_STEPS: Record<1 | 2 | 3, { heading: string; steps: string[] }> = {
   1: {
-    heading: 'You are eligible for externship placement.',
+    heading: 'You are survey-ready across your competencies.',
     steps: [
-      'Browse open externship positions and apply.',
-      'Your readiness profile is now visible to hospital coordinators.',
-      'Maintain your skills — coordinators will review your category scores.',
+      'Your readiness feeds your competency record automatically.',
+      'Your manager can validate and sign off against an audit.',
+      'Keep your skills sharp — strong scores keep your record current.',
     ],
   },
   2: {
-    heading: 'You are eligible with coordinator-matched support.',
+    heading: 'You are nearly ready — close the gaps below.',
     steps: [
-      'Apply to openings — your profile will be matched to sites offering mentorship.',
-      'Review your growth areas before your externship begins.',
-      'Retake the assessment after focused study to move to Tier 1.',
+      'Continue training in your growth areas to strengthen each competency.',
+      'Your progress is visible to your manager as it builds.',
+      'Retake the assessment after focused study to reach full readiness.',
     ],
   },
   3: {
-    heading: 'Focus on the areas below before applying.',
+    heading: 'Focus on the areas below to build competency.',
     steps: [
-      'Review your growth areas with your program instructor.',
+      'Work through the training tracks for your weakest domains.',
       'You can retake the assessment in 24 hours.',
-      'Tier 3 students are not eligible for externship applications until reaching Tier 2 or higher.',
+      'Your manager sees your progress — every domain you master counts.',
     ],
   },
 }
@@ -118,7 +118,7 @@ export default async function ResultsPage() {
             'text-destructive border-destructive/40'
           }`}>
             {tier === 1 ? '✅' : tier === 2 ? '⚡' : '📚'}
-            Tier {tier} — {tier === 1 ? 'Placement Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
+            Tier {tier} — {tier === 1 ? 'Survey Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
             {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
