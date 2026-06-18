@@ -1,5 +1,28 @@
 # SPD Ready — Handoff
 
+## PHASE 2 checkpoint — 2026-06-18 (Claude) — Judgment baseline + Mindset profile (Beta) DONE + verified live
+
+**The co-equal "Mindset" half of the assessment is built, on real auth + RLS, and verified end-to-end via Playwright.** DB = `wbznovoufjdlzmjrzsfu`. Uncommitted on branch `feature/staff-competency-foundation` (gates green; not yet committed/pushed).
+
+**What shipped:**
+- **Model (config-driven, versioned, Beta):** `src/lib/mindset-model.ts` — `MODEL_VERSION='v1-beta'`, 6 mindset dimensions each mapped to the `judgment_type` tags already on the SPD_JUDGMENT bank (safety_ownership, standards_discipline, critical_thinking[+common_sense], escalation, accountability, professionalism[+teamwork]), 8 archetypes (Guardian/Standard-Bearer/Investigator/Sentinel/Straight-Shooter/Anchor/All-Rounder/Emerging) + tunable thresholds (emergingFloorAvg/balancedFloorAvg/balancedSpreadMax/calibration bands). Tune from beta data without touching logic.
+- **Pure logic + tests:** `src/lib/dal/mindset-logic.ts` (deriveDimensionScores/deriveArchetype/deriveCalibration/deriveMindsetProfile/tallyByJudgmentType/selectBalancedSet — no Supabase/Next imports). `tests/mindset-logic.test.ts` = 18 tests. Added `moduleNameMapper '^@/(.*)$'` to `jest.config.js` so logic can import the config.
+- **Migrations applied:** `014_mindset.sql` (`spd_ready.mindset_profiles`: T0-locked baseline cols + current T1 cols + `self_perception` + `calibration_gap_t0` + `tech_feedback` + `manager_adjustment`, unique(staff_id,model_version)) + `015_mindset_rls.sql` (owner full; org managers/QA read + update manager_adjustment — `mp_update_manager`). Ran `notify pgrst,'reload schema'`.
+- **DAL/actions:** `src/lib/dal/mindset.ts` (recordJudgmentAssessment = single write path: first submit LOCKS T0, later submits = T1 check-in; saveTechFeedback; saveManagerAdjustment; getMindsetAgreementStats for the field-agreement Beta view). `src/actions/mindset.ts` (submitJudgmentBaselineAction/submitMindsetFeedbackAction/adjustMindsetArchetypeAction) — uses **real auth** (`requireAuth`/`requireAppRole`), not the broken demo `requireRole`.
+- **UI:** `src/components/ui/radar-chart.tsx` (dependency-free SVG, server-renderable). `/student/baseline` (self-perception Likert ×6 → balanced 16-scenario SJT) + `JudgmentBaseline.tsx`. `/student/mindset` (archetype hero + radar current-vs-baseline + per-dim bars/deltas + calibration + Beta feedback tap). `MindsetBetaFeedback.tsx`. Dashboard mindset card. Manager staff-detail `Judgment & Mindset` section + `ManagerMindsetAdjust.tsx`.
+
+**Verified live (Playwright):** tech1 took the baseline → row persisted (archetype `guardian`, all 6 dims covered, T0 locked, self_perception saved, calibration_gap 0 → "Well calibrated") → Beta tap wrote `tech_feedback='fits'`. Manager (Morgan) opened tech1's staff detail → saw radar + archetype + "Tech says this fits ✅" → adjusted to `anchor` w/ note → `manager_adjustment` jsonb persisted (cross-role RLS confirmed). tech1 staff_id = `6a3f12e1-92df-4ddd-8e77-93d07f86d13d`.
+
+**Gates:** typecheck clean · **44/44 tests** · build green (**27 routes**, +baseline +mindset).
+
+**T1 improvement mechanism:** recompute happens on **re-taking** the baseline ("check-in") — same T0/T1 pattern as domain_assessments. Organic per-judgment_type T1 from study sessions is deferred (study_sessions store only aggregate score_pct, not per-type). Deltas show "—" until a 2nd check-in.
+
+**STILL OPEN from Phase 2 plan (2F):** the **technical Readiness** 30-Q flow is still archived + on the local JSON store + demo `requireRole('student')` (broken under real auth: `createAssessment`/`saveAnswerToDb`/`finalizeAssessment` + the entry route). The Mindset vertical was prioritized (Terry's stated focus); the Readiness rewire to Supabase remains. Also: `submitLikertAction` (learning flow) still uses the demo `requireRole('student')` — latent bug under real auth; the new mindset baseline sidesteps it with its own action.
+
+**NEXT:** commit Phase 2; then Phase 3 (research-grounded generation loop, judgment-first — fills SPD_JUDGMENT beyond 30). Owner decision still pending: promote/cull the 589 draft Q.
+
+---
+
 ## CONTENT ENGINE checkpoint — 2026-06-18 (Claude) — Phases 0+1 done
 
 Building the content engine + assessment/mindset redesign. Plan: `/Users/terry/.claude/plans/well-lets-talk-about-iterative-quokka.md`. Branch `feature/staff-competency-foundation` head `355385e` (pushed). DB = `wbznovoufjdlzmjrzsfu`.
@@ -465,6 +488,70 @@ Clean working tree or not a git repo.
 ### Git status
 ```
  M .ai/HANDOFF.md
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-17 21:22:59 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: cbdfe98 docs: content-engine checkpoint — Phases 0+1 done
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 00:03:42 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: cbdfe98 docs: content-engine checkpoint — Phases 0+1 done
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+ M spd-ready/jest.config.js
+ M spd-ready/src/app/(student)/student/dashboard/page.tsx
+ M spd-ready/src/app/competency/staff/[staffId]/page.tsx
+?? spd-ready/src/actions/mindset.ts
+?? spd-ready/src/app/(student)/student/baseline/
+?? spd-ready/src/app/(student)/student/mindset/
+?? spd-ready/src/components/competency/ManagerMindsetAdjust.tsx
+?? spd-ready/src/components/student/JudgmentBaseline.tsx
+?? spd-ready/src/components/student/MindsetBetaFeedback.tsx
+?? spd-ready/src/components/ui/radar-chart.tsx
+?? spd-ready/src/lib/dal/mindset-logic.ts
+?? spd-ready/src/lib/dal/mindset.ts
+?? spd-ready/src/lib/mindset-model.ts
+?? spd-ready/supabase/migrations/014_mindset.sql
+?? spd-ready/supabase/migrations/015_mindset_rls.sql
+?? spd-ready/tests/mindset-logic.test.ts
 ```
 
 ### Summary

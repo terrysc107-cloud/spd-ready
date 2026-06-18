@@ -3,19 +3,23 @@ import { redirect } from 'next/navigation'
 import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getDomainProgress, getStreakData, getXPRecord, getJudgmentScore } from '@/lib/dal/study'
+import { getMindsetProfile } from '@/lib/dal/mindset'
+import { ARCHETYPE_BY_ID } from '@/lib/mindset-model'
 import { Button } from '@/components/ui/button'
 
 export default async function StudentDashboardPage() {
   const user = await getAuthUser()
   if (!user) redirect('/login')
 
-  const [profile, domainProgress, streakData, xpRecord, judgmentScore] = await Promise.all([
+  const [profile, domainProgress, streakData, xpRecord, judgmentScore, mindset] = await Promise.all([
     getStudentProfile(),
     getDomainProgress(),
     getStreakData(user.id),
     getXPRecord(user.id),
     getJudgmentScore(user.id),
+    getMindsetProfile(user.id),
   ])
+  const archetype = mindset ? (ARCHETYPE_BY_ID[mindset.archetype] ?? null) : null
   const score = profile?.readiness_score ? Math.round(profile.readiness_score) : null
   const tier = profile?.readiness_tier as 1 | 2 | 3 | null
 
@@ -106,6 +110,29 @@ export default async function StudentDashboardPage() {
           </Link>
         )}
       </div>
+
+      {/* Tech Mindset (Beta) */}
+      <Link href={archetype ? '/student/mindset' : '/student/baseline'} className="block group">
+        <div className={`rounded-xl border-2 p-5 flex items-center justify-between gap-4 transition-shadow hover:shadow-md ${
+          archetype ? 'border-[oklch(0.7_0.1_250)] bg-[oklch(0.97_0.02_250)]' : 'border-dashed border-primary/30 bg-primary/5'
+        }`}>
+          <div className="flex items-center gap-4">
+            <span className="text-3xl">{archetype ? archetype.emoji : '🧠'}</span>
+            <div>
+              <p className="font-bold text-sm">
+                {archetype ? archetype.label : 'Discover your tech mindset'}
+                <span className="ml-2 text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-1.5 py-0.5 rounded-full align-middle">Beta</span>
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {archetype ? archetype.tagline : 'Map how you make decisions under pressure — and watch it grow.'}
+              </p>
+            </div>
+          </div>
+          <span className="flex-shrink-0 text-sm font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
+            {archetype ? 'View →' : 'Start →'}
+          </span>
+        </div>
+      </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Score / Assessment card */}

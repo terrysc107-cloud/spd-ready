@@ -3,11 +3,17 @@ import { notFound } from 'next/navigation'
 import { requireAppRole, MANAGER_ROLES } from '@/lib/dal/auth'
 import { getStaffMember, getDepartments } from '@/lib/dal/org'
 import { getAssignmentsForStaff, getTemplates, getEvidenceReport } from '@/lib/dal/competency'
+import { getMindsetProfileForStaff } from '@/lib/dal/mindset'
+import { MINDSET_DIMENSIONS, ARCHETYPE_BY_ID } from '@/lib/mindset-model'
 import { PageHeader } from '@/components/ui/page-header'
 import { StatusPill, type CompetencyStatus } from '@/components/ui/status-pill'
 import { EmptyState } from '@/components/ui/empty-state'
+import { RadarChart } from '@/components/ui/radar-chart'
+import { ManagerMindsetAdjust } from '@/components/competency/ManagerMindsetAdjust'
 import { Button } from '@/components/ui/button'
 import { ArrowLeftIcon, BadgeCheckIcon, ClipboardListIcon } from 'lucide-react'
+
+const MINDSET_RADAR_LABELS = ['Safety', 'Standards', 'Thinking', 'Escalation', 'Accountability', 'Teamwork']
 
 const VALIDATABLE = new Set(['assigned', 'in_training', 'ready_for_validation'])
 
@@ -22,12 +28,14 @@ export default async function StaffDetailPage({
   const staff = await getStaffMember(staffId)
   if (!staff) notFound()
 
-  const [assignments, templates, departments, allEvidence] = await Promise.all([
+  const [assignments, templates, departments, allEvidence, mindset] = await Promise.all([
     getAssignmentsForStaff(staffId),
     getTemplates(),
     getDepartments(),
     getEvidenceReport(),
+    getMindsetProfileForStaff(staffId),
   ])
+  const mindsetArchetype = mindset ? (ARCHETYPE_BY_ID[mindset.archetype] ?? null) : null
   const tmplName = new Map(templates.map((t) => [t.id, t.name]))
   const deptName = new Map(departments.map((d) => [d.id, d.name]))
   const evidence = allEvidence.filter((e) => e.staff_id === staffId)
@@ -81,6 +89,49 @@ export default async function StaffDetailPage({
                 </div>
               </div>
             ))}
+          </div>
+        )}
+      </section>
+
+      {/* Judgment & Mindset (Beta) */}
+      <section className="space-y-3">
+        <div className="flex items-center gap-2">
+          <h2 className="font-heading text-base font-medium">Judgment &amp; Mindset</h2>
+          <span className="text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-1.5 py-0.5 rounded-full">Beta</span>
+        </div>
+        {!mindset || !mindsetArchetype ? (
+          <EmptyState icon={ClipboardListIcon} title="No judgment baseline yet" description="This tech has not taken the judgment baseline." />
+        ) : (
+          <div className="rounded-xl bg-card shadow-sm ring-1 ring-foreground/10 p-5 space-y-4">
+            <div className="flex flex-col sm:flex-row items-start gap-5">
+              <RadarChart
+                axes={MINDSET_RADAR_LABELS}
+                series={[{ values: MINDSET_DIMENSIONS.map(d => mindset.dimensionScores[d.key] ?? 0), stroke: 'oklch(0.55 0.18 250)', fill: 'oklch(0.55 0.18 250 / 0.15)' }]}
+                size={220}
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{mindsetArchetype.emoji}</span>
+                  <p className="font-bold">{mindsetArchetype.label}</p>
+                </div>
+                <p className="text-sm text-primary font-medium mt-0.5">{mindsetArchetype.tagline}</p>
+                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{mindsetArchetype.description}</p>
+                {mindset.techFeedback && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Tech says this {mindset.techFeedback === 'fits' ? 'fits ✅' : mindset.techFeedback === 'partly' ? 'partly fits 🤔' : 'does not fit ❌'}
+                    {mindset.techFeedbackNote ? ` — “${mindset.techFeedbackNote}”` : ''}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="border-t border-border/60 pt-4">
+              <ManagerMindsetAdjust
+                staffId={staffId}
+                derivedArchetypeId={mindset.archetype}
+                initialArchetypeId={mindset.managerAdjustment?.archetype ?? null}
+                initialNote={mindset.managerAdjustment?.note ?? null}
+              />
+            </div>
           </div>
         )}
       </section>
