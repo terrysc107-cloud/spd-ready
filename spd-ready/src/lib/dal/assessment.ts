@@ -1,7 +1,7 @@
 import { cache } from 'react'
 import { getCurrentUser, requireRole } from '@/lib/dal/auth'
 import { readStore, writeStore } from '@/lib/local-db/store'
-import { ASSESSMENT_QUESTIONS } from '@/lib/local-db/questions'
+import { getActiveAssessmentQuestions } from '@/lib/dal/questions'
 import type { CategoryScores } from '@/lib/dal/scoring'
 
 // ── Types ─────────────────────────────────────────────────────
@@ -49,7 +49,7 @@ export type AssessmentResponse = {
 // ── Reads (cached) ────────────────────────────────────────────
 
 export const getActiveQuestions = cache(async (): Promise<AssessmentQuestion[]> => {
-  return ASSESSMENT_QUESTIONS
+  return getActiveAssessmentQuestions()
 })
 
 export const getLatestInProgressAssessment = cache(async (): Promise<StudentAssessment | null> => {

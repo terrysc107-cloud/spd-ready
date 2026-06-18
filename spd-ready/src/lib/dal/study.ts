@@ -2,6 +2,7 @@ import { cache } from 'react'
 import { createClient } from '@/lib/supabase/server'
 import { getAuthUser } from '@/lib/dal/auth'
 import { TRACK_QUESTIONS, DOMAIN_META, type TrackDomain } from '@/lib/local-db/track-questions'
+import { countStudyQuestionsByTrackDomain } from '@/lib/dal/questions'
 import type { StudySession, StreakData, XPRecord } from '@/lib/local-db/store'
 
 export type DomainProgress = {
@@ -56,6 +57,7 @@ async function fetchSessions(staffId: string): Promise<StudySession[]> {
 export const getDomainProgress = cache(async (): Promise<DomainProgress[]> => {
   const user = await getAuthUser()
   const sessions: StudySession[] = user ? await fetchSessions(user.id) : []
+  const questionCounts = await countStudyQuestionsByTrackDomain()
 
   const domains = Object.keys(DOMAIN_META) as TrackDomain[]
 
@@ -64,7 +66,7 @@ export const getDomainProgress = cache(async (): Promise<DomainProgress[]> => {
       const domainSessions = sessions.filter(s => s.domain === domain)
       const best = domainSessions.length > 0 ? Math.max(...domainSessions.map(s => s.score_pct)) : null
       const latest = domainSessions.length > 0 ? domainSessions[domainSessions.length - 1].score_pct : null
-      const questionCount = TRACK_QUESTIONS.filter(q => q.domain === domain).length
+      const questionCount = questionCounts[domain] ?? 0
       return {
         domain,
         label: DOMAIN_META[domain].label,
