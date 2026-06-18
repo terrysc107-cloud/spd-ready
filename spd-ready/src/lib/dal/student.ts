@@ -1,6 +1,7 @@
 import { cache } from 'react'
 import { getAuthUser, requireAuth } from '@/lib/dal/auth'
-import { readStore, writeStore } from '@/lib/local-db/store'
+import { createClient } from '@/lib/supabase/server'
+import { readStore } from '@/lib/local-db/store'
 
 // ── Types ────────────────────────────────────────────────────
 export type StudentProfile = {
@@ -24,6 +25,53 @@ export type StudentProfile = {
   profile_complete: boolean
   created_at: string
   updated_at: string
+}
+
+type StudentProfileRow = {
+  staff_id: string
+  first_name: string | null
+  last_name: string | null
+  city: string | null
+  state: string | null
+  travel_radius: number | null
+  cert_status: string | null
+  program_name: string | null
+  expected_completion_date: string | null
+  shift_availability: string[] | null
+  transportation_reliable: boolean | null
+  preferred_environment: string | null
+  readiness_score: number | null
+  readiness_tier: number | null
+  strengths_json: string[] | null
+  growth_areas_json: string[] | null
+  profile_complete: boolean
+  created_at: string
+  updated_at: string
+}
+
+function mapProfile(r: StudentProfileRow): StudentProfile {
+  return {
+    id: r.staff_id,
+    user_id: r.staff_id,
+    first_name: r.first_name ?? '',
+    last_name: r.last_name ?? '',
+    city: r.city ?? '',
+    state: r.state ?? '',
+    travel_radius: r.travel_radius ?? 0,
+    cert_status: r.cert_status ?? 'none',
+    program_name: r.program_name ?? '',
+    expected_completion_date: r.expected_completion_date ?? '',
+    shift_availability: r.shift_availability ?? [],
+    transportation_reliable: r.transportation_reliable ?? true,
+    preferred_environment: r.preferred_environment ?? 'either',
+    readiness_score: r.readiness_score,
+    readiness_tier: r.readiness_tier,
+    strengths_json: r.strengths_json,
+    growth_areas_json: r.growth_areas_json,
+    profile_complete: r.profile_complete,
+    created_at: r.created_at,
+    updated_at: r.updated_at,
+  }
 }
 
 export type StudentProfileInput = {
@@ -57,10 +105,13 @@ export type ApplicationRow = {
 export const getStudentProfile = cache(async (): Promise<StudentProfile | null> => {
   const user = await getAuthUser()
   if (!user) return null
-  const store = readStore()
-  const profile = store.student_profiles[user.id]
-  if (!profile) return null
-  return { id: user.id, ...profile } as StudentProfile
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('student_profiles')
+    .select('*')
+    .eq('staff_id', user.id)
+    .maybeSingle<StudentProfileRow>()
+  return data ? mapProfile(data) : null
 })
 
 export const getApplications = cache(async (): Promise<ApplicationRow[]> => {
@@ -89,19 +140,51 @@ export const getApplications = cache(async (): Promise<ApplicationRow[]> => {
 
 export async function upsertStudentProfile(input: StudentProfileInput): Promise<void> {
   const user = await requireAuth()
-  const store = readStore()
-  const now = new Date().toISOString()
-  const existing = store.student_profiles[user.id]
-  store.student_profiles[user.id] = {
-    user_id: user.id,
-    ...input,
-    readiness_score: existing?.readiness_score ?? null,
-    readiness_tier: existing?.readiness_tier ?? null,
-    strengths_json: existing?.strengths_json ?? null,
-    growth_areas_json: existing?.growth_areas_json ?? null,
-    profile_complete: true,
-    created_at: existing?.created_at ?? now,
-    updated_at: now,
-  }
-  writeStore(store)
+  const supabase = await createClient()
+  // Only the demographic fields + profile_complete are written here; the
+  // readiness columns are intentionally omitted so a profile edit never wipes
+  // an existing readiness_score/tier (preserved on the ON CONFLICT update).
+  const { error } = await supabase.from('student_profiles').upsert(
+    {
+      staff_id: user.id,
+      first_name: input.first_name,
+      last_name: input.last_name,
+      city: input.city,
+      state: input.state,
+      travel_radius: input.travel_radius,
+      cert_status: input.cert_status,
+      program_name: input.program_name,
+      expected_completion_date: input.expected_completion_date,
+      shift_availability: input.shift_availability,
+      transportation_reliable: input.transportation_reliable,
+      preferred_environment: input.preferred_environment,
+      profile_complete: true,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: 'staff_id' }
+  )
+  if (error) throw new Error(`Failed to save profile: ${error.message}`)
+}
+
+// Stamp the computed readiness onto the student's profile (called after an
+// assessment is finalized). Leaves the demographic fields untouched.
+export async function updateReadinessOnProfile(params: {
+  readinessScore: number
+  readinessTier: number
+  strengths: string[]
+  growthAreas: string[]
+}): Promise<void> {
+  const user = await requireAuth()
+  const supabase = await createClient()
+  const { error } = await supabase
+    .from('student_profiles')
+    .update({
+      readiness_score: params.readinessScore,
+      readiness_tier: params.readinessTier,
+      strengths_json: params.strengths,
+      growth_areas_json: params.growthAreas,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('staff_id', user.id)
+  if (error) throw new Error(`Failed to save readiness: ${error.message}`)
 }

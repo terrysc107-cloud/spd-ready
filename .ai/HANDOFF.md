@@ -1,5 +1,24 @@
 # SPD Ready — Handoff
 
+## READINESS REWIRE checkpoint — 2026-06-18 (Claude) — Technical Readiness moved off JSON store → Supabase + real auth DONE + verified live
+
+**The 30-question technical readiness assessment (the last surface on the JSON file store + legacy demo auth, broken under real auth) is fully rewired onto Supabase `spd_ready` + real auth, end-to-end verified.** Branch `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`. **Gates: typecheck clean · 51/51 tests · build green (33 routes).**
+
+**What changed:**
+- **Migration 019_readiness** (applied live): `spd_ready.student_profiles` (staff_id PK = auth.uid; demographics + readiness_score/tier/strengths/growth/profile_complete), `spd_ready.student_assessments` (attempt + 6 category scores + overall), `spd_ready.assessment_responses` (per-question answer+score+category; question_id text, FK-free so the static fallback bank works). RLS: owner full + org managers read; `my_assessment()` helper for response ownership. (The old tables lived only in the legacy `public` schema; the app's clients are pinned to `spd_ready`, so they were never reachable.)
+- **DAL rewired to Supabase + real auth:** `src/lib/dal/student.ts` (getStudentProfile / upsertStudentProfile via upsert that preserves readiness columns / **new updateReadinessOnProfile**); `src/lib/dal/assessment.ts` (all reads/writes — in-progress/completed lookups, createAssessment, saveAnswerToDb upsert, computeCategoryScores, finalizeAssessment, **new countResponses**) now use `getAuthUser`/`requireAuth` instead of `getCurrentUser`/`requireRole('student')`.
+- **Actions** `src/actions/student.ts`: `requireRole('student')`→`requireAuth()` across upsertProfile/start/saveAnswer/submit; submit now counts responses + stamps readiness via Supabase (no more readStore/writeStore).
+- **Live routes created** (the assessment runner was archived): `/student/assessment` (entry gate), `/student/assessment/start`, `/student/assessment/[assessmentId]/[step]` (runner) — all real auth. Dashboard score card now routes a profile-complete-but-unscored tech to **Start Assessment**.
+- Scoring (`scoring.ts`) unchanged (pure: 30/25/15/15/10/5 weights; tiers ≥75 / ≥55 / <55).
+
+**Verified e2e (Playwright + DB):** tech1 → onboarding (3-step form) wrote `spd_ready.student_profiles` (profile_complete=true) → started assessment (real row) → answered Q1 via UI (response persisted) → submitted → **results page 78% / Tier 1 Survey Ready** with full category breakdown → DB confirms `student_assessments.status=completed, overall=78.1` + `student_profiles.readiness_score=78.10, tier=1, strengths=[situational,behavior], growth=[reliability,technical]` → dashboard reads it all back from Supabase. (Q2–Q30 responses were seeded via SQL to avoid 30 manual clicks; the take→save→score→finalize→stamp→read chain was exercised through the real UI + actions.)
+
+**Left as-is (intentional):** the archived hospital marketplace + cohort (`cohort.ts`, `hospital.ts`, `_archive_*`) still read student_profiles from the JSON store — archived, on legacy demo auth, out of the readiness path. `getApplications` (archived externships) also still on JSON store.
+
+**NEXT: UI pass** — Terry wants to work on UI after compacting. Warm-depth, mobile-first, modern-not-dry (see memory `feedback-modern-not-dry-ui` + `feedback-crcst-mobile-first`). Committed + pushed before this checkpoint.
+
+---
+
 ## PHASE 4 checkpoint — 2026-06-18 (Claude) — Learning Modules + Adaptive Feed + Audit→Remediation DONE + verified live
 
 **Terry's central thesis shipped: the app is now the single defensible hub that sets one standard for every tech and feeds each tech only what they're weak on.** Branch `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`. **Gates: typecheck clean · 51/51 tests · build green (30 routes).** Verified end-to-end with Playwright across tech + manager (incl. RLS).
@@ -669,6 +688,54 @@ Clean working tree or not a git repo.
 - Repo: /Users/terry/code/spd-ready
 - Branch: feature/staff-competency-foundation
 - Last commit: 1eb1a71 Phase 3: research-grounded generation loop (judgment-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 11:56:10 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 21dd484 Phase 4: Learning Modules + adaptive feed + audit→remediation loop
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 12:12:38 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 21dd484 Phase 4: Learning Modules + adaptive feed + audit→remediation loop
 - Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
 
 ### Git status

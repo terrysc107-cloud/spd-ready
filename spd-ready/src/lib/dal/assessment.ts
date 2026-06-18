@@ -1,6 +1,6 @@
 import { cache } from 'react'
-import { getCurrentUser, requireRole } from '@/lib/dal/auth'
-import { readStore, writeStore } from '@/lib/local-db/store'
+import { getAuthUser, requireAuth } from '@/lib/dal/auth'
+import { createClient } from '@/lib/supabase/server'
 import { getActiveAssessmentQuestions } from '@/lib/dal/questions'
 import type { CategoryScores } from '@/lib/dal/scoring'
 
@@ -46,6 +46,41 @@ export type AssessmentResponse = {
   created_at: string
 }
 
+type AssessmentRow = {
+  id: string
+  staff_id: string
+  status: 'in_progress' | 'completed'
+  started_at: string
+  submitted_at: string | null
+  overall_score: number | null
+  technical_score: number | null
+  situational_score: number | null
+  process_score: number | null
+  behavior_score: number | null
+  instrument_score: number | null
+  reliability_score: number | null
+  created_at: string
+}
+
+function mapAssessment(r: AssessmentRow, responseCount?: number): StudentAssessment {
+  return {
+    id: r.id,
+    student_user_id: r.staff_id,
+    status: r.status,
+    started_at: r.started_at,
+    submitted_at: r.submitted_at,
+    overall_score: r.overall_score,
+    technical_score: r.technical_score,
+    situational_score: r.situational_score,
+    process_score: r.process_score,
+    behavior_score: r.behavior_score,
+    instrument_score: r.instrument_score,
+    reliability_score: r.reliability_score,
+    created_at: r.created_at,
+    ...(responseCount !== undefined ? { response_count: responseCount } : {}),
+  }
+}
+
 // ── Reads (cached) ────────────────────────────────────────────
 
 export const getActiveQuestions = cache(async (): Promise<AssessmentQuestion[]> => {
@@ -53,58 +88,69 @@ export const getActiveQuestions = cache(async (): Promise<AssessmentQuestion[]> 
 })
 
 export const getLatestInProgressAssessment = cache(async (): Promise<StudentAssessment | null> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return null
-  const store = readStore()
-  const all = Object.values(store.assessments).filter(
-    a => a.student_user_id === user.id && a.status === 'in_progress'
-  )
-  if (all.length === 0) return null
-  const latest = all.sort((a, b) => b.started_at.localeCompare(a.started_at))[0]
-  const responses = store.responses[latest.id] ?? []
-  return { ...latest, created_at: latest.started_at, response_count: responses.length }
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('student_assessments')
+    .select('*')
+    .eq('staff_id', user.id)
+    .eq('status', 'in_progress')
+    .order('started_at', { ascending: false })
+    .limit(1)
+    .maybeSingle<AssessmentRow>()
+  if (!data) return null
+  const { count } = await supabase
+    .from('assessment_responses')
+    .select('id', { count: 'exact', head: true })
+    .eq('assessment_id', data.id)
+  return mapAssessment(data, count ?? 0)
 })
 
 export const getLatestCompletedAssessment = cache(async (): Promise<StudentAssessment | null> => {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) return null
-  const store = readStore()
-  const all = Object.values(store.assessments).filter(
-    a => a.student_user_id === user.id && a.status === 'completed'
-  )
-  if (all.length === 0) return null
-  return all.sort((a, b) => (b.submitted_at ?? '').localeCompare(a.submitted_at ?? ''))[0] as StudentAssessment
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('student_assessments')
+    .select('*')
+    .eq('staff_id', user.id)
+    .eq('status', 'completed')
+    .order('submitted_at', { ascending: false })
+    .limit(1)
+    .maybeSingle<AssessmentRow>()
+  return data ? mapAssessment(data) : null
 })
 
 export const getResponseForQuestion = cache(async (
   assessmentId: string,
   questionId: string
 ): Promise<AssessmentResponse | null> => {
-  const store = readStore()
-  const responses = store.responses[assessmentId] ?? []
-  const r = responses.find(r => r.question_id === questionId)
-  if (!r) return null
-  return {
-    id: `${assessmentId}-${questionId}`,
-    assessment_id: assessmentId,
-    question_id: questionId,
-    selected_answer: r.selected_answer,
-    score: r.score,
-    created_at: new Date().toISOString(),
-  }
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('assessment_responses')
+    .select('id, assessment_id, question_id, selected_answer, score, created_at')
+    .eq('assessment_id', assessmentId)
+    .eq('question_id', questionId)
+    .maybeSingle<AssessmentResponse>()
+  return data ?? null
 })
 
 // ── Cooldown check ────────────────────────────────────────────
 
 export async function checkCooldown(userId: string): Promise<{ allowed: boolean; nextAttemptAt?: Date }> {
-  const store = readStore()
-  const completed = Object.values(store.assessments).filter(
-    a => a.student_user_id === userId && a.status === 'completed' && a.submitted_at
-  )
-  if (completed.length === 0) return { allowed: true }
-  const latest = completed.sort((a, b) => (b.submitted_at ?? '').localeCompare(a.submitted_at ?? ''))[0]
-  const submittedAt = new Date(latest.submitted_at!)
-  const cooldownEnd = new Date(submittedAt.getTime() + 24 * 60 * 60 * 1000)
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('student_assessments')
+    .select('submitted_at')
+    .eq('staff_id', userId)
+    .eq('status', 'completed')
+    .not('submitted_at', 'is', null)
+    .order('submitted_at', { ascending: false })
+    .limit(1)
+    .maybeSingle<{ submitted_at: string }>()
+  if (!data?.submitted_at) return { allowed: true }
+  const cooldownEnd = new Date(new Date(data.submitted_at).getTime() + 24 * 60 * 60 * 1000)
   if (new Date() < cooldownEnd) return { allowed: false, nextAttemptAt: cooldownEnd }
   return { allowed: true }
 }
@@ -112,26 +158,15 @@ export async function checkCooldown(userId: string): Promise<{ allowed: boolean;
 // ── Writes ────────────────────────────────────────────────────
 
 export async function createAssessment(): Promise<string> {
-  const user = await requireRole('student')
-  const store = readStore()
-  const id = crypto.randomUUID()
-  store.assessments[id] = {
-    id,
-    student_user_id: user.id,
-    status: 'in_progress',
-    started_at: new Date().toISOString(),
-    submitted_at: null,
-    overall_score: null,
-    technical_score: null,
-    situational_score: null,
-    process_score: null,
-    behavior_score: null,
-    instrument_score: null,
-    reliability_score: null,
-  }
-  store.responses[id] = []
-  writeStore(store)
-  return id
+  const user = await requireAuth()
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('student_assessments')
+    .insert({ staff_id: user.id, status: 'in_progress' })
+    .select('id')
+    .single<{ id: string }>()
+  if (error || !data) throw new Error(`Failed to create assessment: ${error?.message ?? 'no row'}`)
+  return data.id
 }
 
 export async function saveAnswerToDb(
@@ -140,36 +175,50 @@ export async function saveAnswerToDb(
   selectedAnswer: string,
   question: AssessmentQuestion
 ): Promise<void> {
-  await requireRole('student')
-  const scoreMap = question.scoring_key_json.score_map
-  const score = scoreMap[selectedAnswer] ?? 0
-  const store = readStore()
-  if (!store.responses[assessmentId]) store.responses[assessmentId] = []
-  const existing = store.responses[assessmentId].findIndex(r => r.question_id === questionId)
-  const entry = { assessment_id: assessmentId, question_id: questionId, selected_answer: selectedAnswer, score, category: question.category }
-  if (existing >= 0) {
-    store.responses[assessmentId][existing] = entry
-  } else {
-    store.responses[assessmentId].push(entry)
-  }
-  writeStore(store)
+  await requireAuth()
+  const supabase = await createClient()
+  const score = question.scoring_key_json.score_map[selectedAnswer] ?? 0
+  const { error } = await supabase.from('assessment_responses').upsert(
+    {
+      assessment_id: assessmentId,
+      question_id: questionId,
+      selected_answer: selectedAnswer,
+      score,
+      category: question.category,
+    },
+    { onConflict: 'assessment_id,question_id' }
+  )
+  if (error) throw new Error(`Failed to save answer: ${error.message}`)
+}
+
+export async function countResponses(assessmentId: string): Promise<number> {
+  const supabase = await createClient()
+  const { count } = await supabase
+    .from('assessment_responses')
+    .select('id', { count: 'exact', head: true })
+    .eq('assessment_id', assessmentId)
+  return count ?? 0
 }
 
 export async function computeCategoryScores(assessmentId: string): Promise<CategoryScores> {
-  const store = readStore()
-  const responses = store.responses[assessmentId] ?? []
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('assessment_responses')
+    .select('category, score')
+    .eq('assessment_id', assessmentId)
+    .returns<{ category: string | null; score: number | null }[]>()
   const byCategory: Record<string, number[]> = {}
-  for (const r of responses) {
-    const cat = r.category
+  for (const r of data ?? []) {
+    const cat = r.category ?? 'technical'
     if (!byCategory[cat]) byCategory[cat] = []
-    byCategory[cat].push(r.score)
+    byCategory[cat].push(r.score ?? 0)
   }
-  const avg = (arr: number[]) => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) * 100 : 0
+  const avg = (arr: number[]) => (arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) * 100 : 0)
   return {
     technical:   avg(byCategory['technical']   ?? []),
     situational: avg(byCategory['situational'] ?? []),
     process:     avg(byCategory['process']     ?? []),
-    behavior:    avg(byCategory['behavioral']  ?? []),
+    behavior:    avg(byCategory['behavioral']  ?? []), // DB category value is 'behavioral'
     instrument:  avg(byCategory['instrument']  ?? []),
     reliability: avg(byCategory['reliability'] ?? []),
   }
@@ -180,20 +229,21 @@ export async function finalizeAssessment(
   categoryScores: CategoryScores,
   overallScore: number
 ): Promise<void> {
-  const user = await requireRole('student')
-  const store = readStore()
-  if (!store.assessments[assessmentId]) throw new Error('Assessment not found')
-  store.assessments[assessmentId] = {
-    ...store.assessments[assessmentId],
-    status: 'completed',
-    submitted_at: new Date().toISOString(),
-    overall_score: overallScore,
-    technical_score: categoryScores.technical,
-    situational_score: categoryScores.situational,
-    process_score: categoryScores.process,
-    behavior_score: categoryScores.behavior,
-    instrument_score: categoryScores.instrument,
-    reliability_score: categoryScores.reliability,
-  }
-  writeStore(store)
+  await requireAuth()
+  const supabase = await createClient()
+  const { error } = await supabase
+    .from('student_assessments')
+    .update({
+      status: 'completed',
+      submitted_at: new Date().toISOString(),
+      overall_score: overallScore,
+      technical_score: categoryScores.technical,
+      situational_score: categoryScores.situational,
+      process_score: categoryScores.process,
+      behavior_score: categoryScores.behavior,
+      instrument_score: categoryScores.instrument,
+      reliability_score: categoryScores.reliability,
+    })
+    .eq('id', assessmentId)
+  if (error) throw new Error(`Failed to finalize assessment: ${error.message}`)
 }

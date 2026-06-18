@@ -207,10 +207,10 @@ export default async function StudentDashboardPage() {
               <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
                 <span className="text-4xl">📊</span>
               </div>
-              <p className="font-semibold text-sm">Keep training</p>
-              <p className="text-xs text-muted-foreground mt-1">Build mastery across the SPD domains</p>
-              <Link href="/student/learning" className="mt-4 w-full">
-                <Button size="sm" className="w-full">Start Training</Button>
+              <p className="font-semibold text-sm">Take your readiness assessment</p>
+              <p className="text-xs text-muted-foreground mt-1">30 questions · 6 domains · unlocks your tier</p>
+              <Link href="/student/assessment" className="mt-4 w-full">
+                <Button size="sm" className="w-full">Start Assessment</Button>
               </Link>
             </>
           ) : (
