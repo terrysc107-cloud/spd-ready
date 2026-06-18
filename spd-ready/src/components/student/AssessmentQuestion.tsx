@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useFormStatus } from 'react-dom'
+import { ArrowLeftIcon } from 'lucide-react'
 import { saveAnswerAction } from '@/actions/student'
 import { Button } from '@/components/ui/button'
 
@@ -34,10 +35,10 @@ function SubmitButton({
   return (
     <Button type="submit" disabled={pending} className="w-full sm:w-auto">
       {pending
-        ? 'Saving...'
+        ? 'Saving…'
         : stepNum < totalSteps
-          ? 'Next Question'
-          : 'Submit Assessment'}
+          ? 'Next question →'
+          : 'Submit assessment'}
     </Button>
   )
 }
@@ -54,35 +55,38 @@ export function AssessmentQuestion({
   const progressPct = Math.round((stepNum / totalSteps) * 100)
 
   return (
-    <div className="max-w-2xl mx-auto py-8 space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6 py-8">
       {/* Back / Save & Exit */}
       <Link
         href="/student/dashboard"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+        className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
-        <span>Save &amp; Exit</span>
+        <ArrowLeftIcon className="size-4 transition-transform group-hover:-translate-x-0.5" />
+        <span>Save &amp; exit</span>
       </Link>
 
       {/* Progress */}
       <div className="space-y-2">
-        <div className="flex justify-between text-sm text-muted-foreground">
-          <span>
-            Question {stepNum} of {totalSteps}
+        <div className="flex items-end justify-between">
+          <span className="text-sm font-medium text-foreground">
+            Question {stepNum}{' '}
+            <span className="text-muted-foreground">of {totalSteps}</span>
           </span>
-          <span>{progressPct}%</span>
+          <span className="font-heading text-sm font-semibold tabular-nums text-accent">
+            {progressPct}%
+          </span>
         </div>
-        <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+        <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
           <div
-            className="h-2 rounded-full bg-primary transition-all"
+            className="h-2 rounded-full bg-accent transition-all duration-500"
             style={{ width: `${progressPct}%` }}
           />
         </div>
       </div>
 
       {/* Question card */}
-      <div className="rounded-lg border bg-card p-6 shadow-sm">
-        <p className="text-base font-medium leading-relaxed mb-6">{questionText}</p>
+      <div className="rounded-xl bg-card p-6 shadow-card ring-1 ring-foreground/10 sm:p-7">
+        <p className="mb-6 text-lg font-medium leading-relaxed">{questionText}</p>
 
         <form action={saveAnswerAction} className="space-y-3">
           {/* Hidden fields passed to Server Action */}
@@ -91,10 +95,10 @@ export function AssessmentQuestion({
           <input type="hidden" name="step" value={stepNum} />
 
           {/* Radio options */}
-          {OPTION_KEYS.map(key => (
+          {OPTION_KEYS.map((key) => (
             <label
               key={key}
-              className="flex items-start gap-3 rounded-md border p-3 cursor-pointer hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5 transition-colors"
+              className="group/opt flex cursor-pointer items-center gap-3 rounded-xl border border-border p-4 transition-all hover:border-accent/40 hover:bg-accent/[0.03] has-[:checked]:border-accent has-[:checked]:bg-accent/5 has-[:checked]:ring-1 has-[:checked]:ring-accent/40"
             >
               <input
                 type="radio"
@@ -102,23 +106,23 @@ export function AssessmentQuestion({
                 value={key}
                 defaultChecked={existingAnswer === key}
                 required
-                className="mt-0.5 shrink-0"
+                className="peer sr-only"
               />
-              <span className="text-sm">
-                <span className="font-medium mr-1">{key}.</span>
-                {options[key]}
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted font-heading text-sm font-semibold text-muted-foreground transition-colors peer-checked:bg-accent peer-checked:text-accent-foreground group-has-[:checked]/opt:bg-accent group-has-[:checked]/opt:text-accent-foreground">
+                {key}
               </span>
+              <span className="text-sm leading-relaxed">{options[key]}</span>
             </label>
           ))}
 
-          <div className="pt-4 flex justify-end">
+          <div className="flex justify-end pt-4">
             <SubmitButton stepNum={stepNum} totalSteps={totalSteps} />
           </div>
         </form>
       </div>
 
       {stepNum < totalSteps && (
-        <p className="text-xs text-center text-muted-foreground">
+        <p className="text-center text-xs text-muted-foreground">
           Your answer is saved immediately — you can close this window and return later.
         </p>
       )}

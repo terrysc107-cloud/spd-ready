@@ -7,6 +7,7 @@ import {
   getAssignmentsNeedingAttention,
 } from '@/lib/dal/competency-overview'
 import { PageHeader } from '@/components/ui/page-header'
+import { SectionHeader } from '@/components/ui/section-header'
 import { StatCard } from '@/components/ui/stat-card'
 import { ProgressRing } from '@/components/ui/progress-ring'
 import { StatusPill } from '@/components/ui/status-pill'
@@ -19,7 +20,6 @@ import {
   BellRingIcon,
   TriangleAlertIcon,
   InboxIcon,
-  ArrowRightIcon,
 } from 'lucide-react'
 
 function fmtDate(iso: string): string {
@@ -71,7 +71,7 @@ export default async function CompetencyOverviewPage() {
       </div>
 
       {/* Readiness ring */}
-      <div className="flex flex-col items-center gap-5 rounded-xl bg-card p-6 shadow-sm ring-1 ring-foreground/10 sm:flex-row sm:gap-8">
+      <div className="flex flex-col items-center gap-5 rounded-xl bg-card p-6 shadow-card ring-1 ring-foreground/10 sm:flex-row sm:gap-8">
         <ProgressRing value={pct} label={`${pct}%`} sublabel="validated" size={128} color={ringColor} />
         <div className="space-y-1 text-center sm:text-left">
           <h2 className="font-heading text-base font-medium">Survey readiness</h2>
@@ -88,7 +88,7 @@ export default async function CompetencyOverviewPage() {
 
       {/* Needs attention */}
       <section className="space-y-3">
-        <h2 className="font-heading text-base font-medium">Needs your attention</h2>
+        <SectionHeader title="Needs your attention" />
         {attention.length === 0 ? (
           <EmptyState
             icon={BadgeCheckIcon}
@@ -96,7 +96,7 @@ export default async function CompetencyOverviewPage() {
             description="When a tech finishes training or a competency goes overdue, it shows up here."
           />
         ) : (
-          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+          <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
             {attention.map((a) => (
               <div key={a.assignmentId} className="flex items-center justify-between gap-3 px-4 py-3">
                 <div className="min-w-0">
@@ -122,15 +122,7 @@ export default async function CompetencyOverviewPage() {
 
       {/* Recent sign-offs */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-heading text-base font-medium">Recent sign-offs</h2>
-          <Link
-            href="/competency/report"
-            className="flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-          >
-            All evidence <ArrowRightIcon className="size-3.5" />
-          </Link>
-        </div>
+        <SectionHeader title="Recent sign-offs" actionHref="/competency/report" actionLabel="All evidence" />
         {recent.length === 0 ? (
           <EmptyState
             icon={InboxIcon}
@@ -143,7 +135,7 @@ export default async function CompetencyOverviewPage() {
             }
           />
         ) : (
-          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+          <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
             {recent.map((r) => (
               <div key={r.record_id} className="flex items-center justify-between gap-3 px-4 py-3">
                 <div className="min-w-0">

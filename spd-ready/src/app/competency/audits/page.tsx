@@ -3,6 +3,7 @@ import { requireAppRole, MANAGER_ROLES } from '@/lib/dal/auth'
 import { getOrgAudits } from '@/lib/dal/audits'
 import { AUDIT_CATEGORY_BY_KEY } from '@/lib/audit-remediation'
 import { PageHeader } from '@/components/ui/page-header'
+import { SectionHeader } from '@/components/ui/section-header'
 import { EmptyState } from '@/components/ui/empty-state'
 import { CloseAuditButton } from '@/components/competency/CloseAuditButton'
 import { ClipboardCheckIcon } from 'lucide-react'
@@ -45,11 +46,11 @@ export default async function AuditsReportPage() {
       ) : (
         <>
           <section className="space-y-3">
-            <h2 className="font-heading text-base font-medium">Open ({open.length})</h2>
+            <SectionHeader title={`Open (${open.length})`} />
             {open.length === 0 ? (
               <p className="text-sm text-muted-foreground">No open audits — all remediated and signed off.</p>
             ) : (
-              <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+              <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
                 {open.map((a) => {
                   const rem = remediationLabel(a)
                   const cat = AUDIT_CATEGORY_BY_KEY[a.category]
@@ -79,8 +80,8 @@ export default async function AuditsReportPage() {
 
           {closed.length > 0 && (
             <section className="space-y-3">
-              <h2 className="font-heading text-base font-medium">Closed ({closed.length})</h2>
-              <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+              <SectionHeader title={`Closed (${closed.length})`} />
+              <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
                 {closed.map((a) => {
                   const cat = AUDIT_CATEGORY_BY_KEY[a.category]
                   return (

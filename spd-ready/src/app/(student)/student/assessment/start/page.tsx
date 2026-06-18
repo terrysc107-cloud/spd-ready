@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { startAssessmentAction } from '@/actions/student'
+import { ClipboardListIcon } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
@@ -22,7 +23,10 @@ export default async function AssessmentStartPage() {
       </Link>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Readiness Assessment</CardTitle>
+          <span className="mb-1 flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-inset ring-accent/20">
+            <ClipboardListIcon className="size-5" />
+          </span>
+          <CardTitle className="text-2xl">Readiness assessment</CardTitle>
           <CardDescription>30 questions across 6 sterile processing domains</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

@@ -53,7 +53,7 @@ export function ValidateForm({ assignmentId, items }: { assignmentId: string; it
 
   return (
     <div className="space-y-5">
-      <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+      <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
         {items.map((i) => (
           <div key={i.id} className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">

@@ -1,5 +1,25 @@
 # SPD Ready — Handoff
 
+## UI/UX REFRESH checkpoint — 2026-06-18 (Claude) — Clean-SaaS whole-app visual pass DONE (uncommitted)
+
+**Terry asked for a "clean SaaS" UI refresh (ref: styles.refero.design/?q=clean+SaaS) across the whole app, incl. both dashboards, kept warm (not dry) + mobile-first.** Branch `feature/staff-competency-foundation`. **Gates: typecheck clean · 51/51 tests · build green (33 routes). NOT committed yet** (awaiting Terry's go to commit/push — per his standing rule).
+
+**Design north star applied:** clean-SaaS *structure* (airier, crisp hierarchy, subtle elevation, gradient as punctuation not wallpaper) + warm-depth *finish* (white cards, soft shadow, rounded, one accent, tasteful emoji). Plan file: `~/.claude/plans/well-lets-talk-about-iterative-quokka.md`.
+
+**Phase 0 — foundation (the leverage):**
+- `globals.css`: **fixed a real bug** — `--font-sans` was self-referential (`var(--font-sans)`), so Geist never actually applied; now wired to `var(--font-geist-sans)` (+ `--font-heading`). App now renders in clean Geist. Added layered `--shadow-card` / `--shadow-card-hover` tokens (Tailwind v4 → `shadow-card` utility).
+- Primitives: `card.tsx` + `stat-card.tsx` now use `shadow-card`; **StatCard** gained `delta` trend chip + heading-font value; **PageHeader** titles use `font-heading` + tracking. **New** `ui/section-header.tsx`, `ui/form-card.tsx`, `ui/form-field.tsx`. `Sidebar.tsx` mobile bottom-nav: safe-area inset + bigger labels + active top-bar indicator.
+
+**Phase 1 — student funnel:** auth `login`/`register`/`reset-password` rebuilt on FormCard/FormField (note: `(auth)/layout.tsx` split-brand panel was already good, kept). `AssessmentQuestion.tsx` → focused shell w/ letter-badge options + accent progress. Assessment `entry` (cooldown) + `start` got accent icon headers. `learning/modules` browser: `border-2` tiles → elevated `shadow-card` cards + domain chips. `onboarding` + `OnboardingForm` selects standardized (rounded-lg + focus ring), accent shift pills, heading font. `profile` headings → heading font + tier-colored readiness card.
+
+**Phase 2 — dashboards + manager:** **student `dashboard/page.tsx` fully refactored** off the `border-2` emoji stack onto the system (stat tiles, organized action grid, judgment+mindset 2-col row, calm `tier-*-bg` colors, `shadow-card`, retained emoji warmth — all conditional states preserved). Manager `competency/page.tsx` + `audits/page.tsx` use `SectionHeader`; `AuditForm` controls standardized + `shadow-card`. Unified `shadow-sm`→`shadow-card` across competency lists + DataTable primitive.
+
+**Verified (Playwright, 390px + 1280px):** login (mobile, clean), student dashboard (mobile — big improvement, organized + warm), assessment cooldown (mobile), onboarding (mobile), modules browser (mobile), manager overview (desktop — premium). Font renders Geist everywhere; shadow-card depth + SectionHeaders + FormCard all correct. **Did NOT get a live AssessmentQuestion screenshot** (tech1 in 24h cooldown; tech2 onboarding submit bounced) — component is code-reviewed + builds clean. Minor: tech2 may have a partial/empty profile row from the QA attempt (harmless demo data).
+
+**NEXT:** (1) Terry to review screenshots / say commit+push. (2) Optional remaining polish: live AssessmentQuestion visual check, staff-list mobile card view, results/study/mindset are already strong (token-aligned only). (3) Owner action still pending: real media URLs in the 8 modules.
+
+---
+
 ## READINESS REWIRE checkpoint — 2026-06-18 (Claude) — Technical Readiness moved off JSON store → Supabase + real auth DONE + verified live
 
 **The 30-question technical readiness assessment (the last surface on the JSON file store + legacy demo auth, broken under real auth) is fully rewired onto Supabase `spd_ready` + real auth, end-to-end verified.** Branch `feature/staff-competency-foundation`. DB = `wbznovoufjdlzmjrzsfu`. **Gates: typecheck clean · 51/51 tests · build green (33 routes).**
@@ -741,6 +761,131 @@ Clean working tree or not a git repo.
 ### Git status
 ```
  M .ai/HANDOFF.md
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 12:42:38 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 5b52450 Rewire technical readiness assessment onto Supabase + real auth
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 14:38:33 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 5b52450 Rewire technical readiness assessment onto Supabase + real auth
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+ M spd-ready/src/app/(auth)/login/page.tsx
+ M spd-ready/src/app/(auth)/register/page.tsx
+ M spd-ready/src/app/(auth)/reset-password/page.tsx
+ M spd-ready/src/app/(student)/student/assessment/page.tsx
+ M spd-ready/src/app/(student)/student/assessment/start/page.tsx
+ M spd-ready/src/app/(student)/student/dashboard/page.tsx
+ M spd-ready/src/app/(student)/student/learning/modules/page.tsx
+ M spd-ready/src/app/(student)/student/onboarding/page.tsx
+ M spd-ready/src/app/(student)/student/profile/page.tsx
+ M spd-ready/src/app/competency/audits/page.tsx
+ M spd-ready/src/app/competency/my/page.tsx
+ M spd-ready/src/app/competency/page.tsx
+ M spd-ready/src/app/competency/staff/[staffId]/page.tsx
+ M spd-ready/src/app/globals.css
+ M spd-ready/src/components/competency/AuditForm.tsx
+ M spd-ready/src/components/competency/ValidateForm.tsx
+ M spd-ready/src/components/shell/Sidebar.tsx
+ M spd-ready/src/components/student/AssessmentQuestion.tsx
+ M spd-ready/src/components/student/OnboardingForm.tsx
+ M spd-ready/src/components/ui/card.tsx
+ M spd-ready/src/components/ui/page-header.tsx
+ M spd-ready/src/components/ui/stat-card.tsx
+ M spd-ready/src/components/ui/table.tsx
+?? spd-ready/src/components/ui/form-card.tsx
+?? spd-ready/src/components/ui/form-field.tsx
+?? spd-ready/src/components/ui/section-header.tsx
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 14:50:52 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 5b52450 Rewire technical readiness assessment onto Supabase + real auth
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+ M spd-ready/src/app/(auth)/login/page.tsx
+ M spd-ready/src/app/(auth)/register/page.tsx
+ M spd-ready/src/app/(auth)/reset-password/page.tsx
+ M spd-ready/src/app/(student)/student/assessment/page.tsx
+ M spd-ready/src/app/(student)/student/assessment/start/page.tsx
+ M spd-ready/src/app/(student)/student/dashboard/page.tsx
+ M spd-ready/src/app/(student)/student/learning/modules/page.tsx
+ M spd-ready/src/app/(student)/student/onboarding/page.tsx
+ M spd-ready/src/app/(student)/student/profile/page.tsx
+ M spd-ready/src/app/competency/audits/page.tsx
+ M spd-ready/src/app/competency/my/page.tsx
+ M spd-ready/src/app/competency/page.tsx
+ M spd-ready/src/app/competency/staff/[staffId]/page.tsx
+ M spd-ready/src/app/globals.css
+ M spd-ready/src/components/competency/AuditForm.tsx
+ M spd-ready/src/components/competency/ValidateForm.tsx
+ M spd-ready/src/components/shell/Sidebar.tsx
+ M spd-ready/src/components/student/AssessmentQuestion.tsx
+ M spd-ready/src/components/student/OnboardingForm.tsx
+ M spd-ready/src/components/ui/card.tsx
+ M spd-ready/src/components/ui/page-header.tsx
+ M spd-ready/src/components/ui/stat-card.tsx
+ M spd-ready/src/components/ui/table.tsx
+?? spd-ready/src/components/ui/form-card.tsx
+?? spd-ready/src/components/ui/form-field.tsx
+?? spd-ready/src/components/ui/section-header.tsx
 ```
 
 ### Summary

@@ -63,7 +63,7 @@ export function DataTable<T>({
   return (
     <>
       {/* Desktop */}
-      <div className={cn("hidden rounded-xl bg-card shadow-sm ring-1 ring-foreground/10 sm:block", className)}>
+      <div className={cn("hidden rounded-xl bg-card shadow-card ring-1 ring-foreground/10 sm:block", className)}>
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow className="hover:bg-transparent">
@@ -88,7 +88,7 @@ export function DataTable<T>({
         {rows.map((row) => (
           <div
             key={getRowKey(row)}
-            className="space-y-2 rounded-xl bg-card p-4 shadow-sm ring-1 ring-foreground/10"
+            className="space-y-2 rounded-xl bg-card p-4 shadow-card ring-1 ring-foreground/10"
           >
             {columns
               .filter((c) => !c.hideOnMobile)

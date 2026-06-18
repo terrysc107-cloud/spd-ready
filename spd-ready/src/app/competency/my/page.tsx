@@ -34,7 +34,7 @@ export default async function MyCompetenciesPage() {
           }
         />
       ) : (
-        <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+        <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
           {assignments.map((a) => (
             <div key={a.id} className="flex items-center justify-between gap-3 px-4 py-3">
               <div className="min-w-0">

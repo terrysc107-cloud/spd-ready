@@ -75,7 +75,7 @@ export default async function StaffDetailPage({
             description="Assign a competency template to start this tech's record."
           />
         ) : (
-          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+          <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
             {assignments.map((a) => (
               <div key={a.id} className="flex items-center justify-between gap-3 px-4 py-3">
                 <div className="min-w-0">
@@ -107,7 +107,7 @@ export default async function StaffDetailPage({
         {!mindset || !mindsetArchetype ? (
           <EmptyState icon={ClipboardListIcon} title="No judgment baseline yet" description="This tech has not taken the judgment baseline." />
         ) : (
-          <div className="rounded-xl bg-card shadow-sm ring-1 ring-foreground/10 p-5 space-y-4">
+          <div className="rounded-xl bg-card shadow-card ring-1 ring-foreground/10 p-5 space-y-4">
             <div className="flex flex-col sm:flex-row items-start gap-5">
               <RadarChart
                 axes={MINDSET_RADAR_LABELS}
@@ -151,7 +151,7 @@ export default async function StaffDetailPage({
         </div>
         <AuditForm staffId={staffId} staffName={staff.name ?? 'this tech'} />
         {staffAudits.length > 0 && (
-          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+          <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
             {staffAudits.map((a) => {
               const cat = AUDIT_CATEGORY_BY_KEY[a.category]
               const done = a.status === 'closed'
@@ -178,7 +178,7 @@ export default async function StaffDetailPage({
         {evidence.length === 0 ? (
           <EmptyState icon={BadgeCheckIcon} title="No signed-off competencies yet" />
         ) : (
-          <div className="divide-y rounded-xl bg-card shadow-sm ring-1 ring-foreground/10">
+          <div className="divide-y rounded-xl bg-card shadow-card ring-1 ring-foreground/10">
             {evidence.map((e) => (
               <div key={e.record_id} className="flex items-center justify-between gap-3 px-4 py-3">
                 <div className="min-w-0">

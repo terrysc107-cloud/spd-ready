@@ -40,9 +40,9 @@ export function AuditForm({ staffId, staffName }: { staffId: string; staffName: 
   }
 
   return (
-    <div className="rounded-xl border-2 border-border bg-card p-5 space-y-4">
+    <div className="space-y-4 rounded-xl bg-card p-5 shadow-card ring-1 ring-foreground/10">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-sm">Record an audit on {staffName}</h3>
+        <h3 className="font-heading text-sm font-semibold">Record an audit on {staffName}</h3>
         <button onClick={() => setOpen(false)} className="text-xs text-muted-foreground hover:text-foreground">Cancel</button>
       </div>
 
@@ -52,7 +52,7 @@ export function AuditForm({ staffId, staffName }: { staffId: string; staffName: 
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as typeof category)}
-            className="w-full rounded-lg border-2 border-border bg-background px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-input bg-card px-3 py-2 outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 text-sm"
           >
             {AUDIT_CATEGORIES.map((c) => (
               <option key={c.key} value={c.key}>{c.label}</option>
@@ -65,7 +65,7 @@ export function AuditForm({ staffId, staffName }: { staffId: string; staffName: 
           <select
             value={severity}
             onChange={(e) => setSeverity(e.target.value)}
-            className="w-full rounded-lg border-2 border-border bg-background px-3 py-2 text-sm capitalize"
+            className="w-full rounded-lg border border-input bg-card px-3 py-2 outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 text-sm capitalize"
           >
             {AUDIT_SEVERITIES.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
@@ -78,7 +78,7 @@ export function AuditForm({ staffId, staffName }: { staffId: string; staffName: 
           value={area}
           onChange={(e) => setArea(e.target.value)}
           placeholder="e.g. Decontam sink 2"
-          className="w-full rounded-lg border-2 border-border bg-background px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-input bg-card px-3 py-2 outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 text-sm"
         />
       </label>
 
@@ -89,7 +89,7 @@ export function AuditForm({ staffId, staffName }: { staffId: string; staffName: 
           onChange={(e) => setFinding(e.target.value)}
           rows={3}
           placeholder="What was observed and why it's out of standard…"
-          className="w-full rounded-lg border-2 border-border bg-background px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-input bg-card px-3 py-2 outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 text-sm"
         />
       </label>
 

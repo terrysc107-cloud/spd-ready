@@ -14,12 +14,12 @@ export default async function OnboardingPage() {
 
   return (
     <div className="py-8">
-      <Link href="/student/dashboard" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group mb-6">
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
+      <Link href="/student/dashboard" className="group mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+        <span className="transition-transform group-hover:-translate-x-0.5">←</span>
         <span>Dashboard</span>
       </Link>
-      <h1 className="text-3xl font-semibold text-center mb-2">Complete Your Profile</h1>
-      <p className="text-muted-foreground text-center mb-8">
+      <h1 className="mb-2 text-center font-heading text-3xl font-semibold tracking-tight">Complete your profile</h1>
+      <p className="mx-auto mb-8 max-w-md text-center text-sm text-muted-foreground">
         This profile is part of your competency record — your manager sees it alongside your training and validations.
       </p>
       <OnboardingForm initialData={profile} />

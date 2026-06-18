@@ -122,7 +122,7 @@ export function Sidebar({
       </header>
 
       {/* Mobile bottom tab bar */}
-      <nav className="bg-card fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-around border-t lg:hidden">
+      <nav className="bg-card/95 fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-around border-t pb-[env(safe-area-inset-bottom)] backdrop-blur-sm lg:hidden">
         {nav.map(({ href, label, icon: Icon }) => {
           const active = isActive(pathname, href)
           return (
@@ -130,10 +130,13 @@ export function Sidebar({
               key={href}
               href={href}
               className={cn(
-                "flex flex-1 flex-col items-center gap-0.5 py-2 text-[10px] font-medium transition-colors",
+                "relative flex flex-1 flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition-colors",
                 active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
+              {active && (
+                <span className="bg-primary absolute top-0 h-0.5 w-8 rounded-full" />
+              )}
               <Icon className="size-5" />
               {label}
             </Link>

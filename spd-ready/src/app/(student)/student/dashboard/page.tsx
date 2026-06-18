@@ -8,6 +8,7 @@ import { recommendModules } from '@/lib/dal/learning-modules'
 import { getRequiredModulesForStaff } from '@/lib/dal/audits'
 import { ARCHETYPE_BY_ID } from '@/lib/mindset-model'
 import { Button } from '@/components/ui/button'
+import { SectionHeader } from '@/components/ui/section-header'
 
 export default async function StudentDashboardPage() {
   const user = await getAuthUser()
@@ -29,132 +30,214 @@ export default async function StudentDashboardPage() {
   const tier = profile?.readiness_tier as 1 | 2 | 3 | null
 
   const tierConfig = {
-    1: { label: 'Survey Ready', color: 'text-[oklch(0.45_0.18_150)]', bg: 'bg-[oklch(0.96_0.04_150)]', border: 'border-[oklch(0.75_0.12_150)]', ring: 'oklch(0.55_0.18_150)' },
-    2: { label: 'Ready with Support', color: 'text-[oklch(0.55_0.18_80)]', bg: 'bg-[oklch(0.98_0.03_80)]', border: 'border-[oklch(0.85_0.12_80)]', ring: 'oklch(0.65_0.18_80)' },
-    3: { label: 'Developing Readiness', color: 'text-destructive', bg: 'bg-destructive/5', border: 'border-destructive/30', ring: 'oklch(0.577_0.245_27)' },
+    1: { label: 'Survey Ready', color: 'tier-1', bg: 'tier-1-bg', ring: 'oklch(0.55 0.18 150)' },
+    2: { label: 'Ready with Support', color: 'tier-2', bg: 'tier-2-bg', ring: 'oklch(0.65 0.18 80)' },
+    3: { label: 'Developing Readiness', color: 'tier-3', bg: 'tier-3-bg', ring: 'oklch(0.577 0.245 27)' },
   }
-
   const tc = tier ? tierConfig[tier] : null
+
+  const stats = [
+    { emoji: '🔥', value: streakData.current, label: 'Day streak' },
+    { emoji: '⚡', value: xpRecord.total, label: 'Total XP' },
+    { emoji: '🏆', value: xpRecord.domains_mastered.length, label: 'Domains mastered' },
+  ]
 
   return (
     <div className="space-y-6 py-6">
-      {/* Welcome header */}
-      <div className="brand-gradient rounded-2xl p-8 text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 bottom-0 w-64 opacity-10">
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white blur-2xl" />
-        </div>
+      {/* Welcome header — the one gradient moment */}
+      <div className="brand-gradient relative overflow-hidden rounded-2xl p-6 text-white sm:p-8">
+        <div className="pointer-events-none absolute top-1/2 right-8 size-48 -translate-y-1/2 rounded-full bg-white opacity-10 blur-2xl" />
         <div className="relative z-10">
-          <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">My Training</p>
-          <h1 className="text-3xl font-bold">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wide text-white/60">My training</p>
+          <h1 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
             {profile?.first_name ? `Welcome back, ${profile.first_name} 👋` : 'Welcome to SPD Ready'}
           </h1>
-          <p className="text-white/70 mt-2 text-sm">
-            {profile?.program_name ? `${profile.program_name} · ${profile.city}, ${profile.state}` : 'Complete your profile to get started.'}
+          <p className="mt-2 text-sm text-white/70">
+            {profile?.program_name
+              ? `${profile.program_name} · ${profile.city}, ${profile.state}`
+              : 'Complete your profile to get started.'}
           </p>
         </div>
       </div>
 
-      {/* Gamification stats row */}
+      {/* Gamification stat tiles */}
       <div className="grid grid-cols-3 gap-3">
-        {/* Streak */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">🔥</p>
-          <p className="text-2xl font-bold tabular-nums mt-1">{streakData.current}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Day streak</p>
-        </div>
-        {/* XP */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">⚡</p>
-          <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.total}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Total XP</p>
-        </div>
-        {/* Domains mastered */}
-        <div className="rounded-xl border-2 bg-card p-4 text-center">
-          <p className="text-2xl">🏆</p>
-          <p className="text-2xl font-bold tabular-nums mt-1">{xpRecord.domains_mastered.length}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Domains mastered</p>
-        </div>
-      </div>
-
-      {/* Judgment Readiness */}
-      <div className={`rounded-xl border-2 p-5 flex items-center justify-between gap-4 ${
-        judgmentScore === null
-          ? 'border-border bg-muted/30'
-          : judgmentScore >= 75
-          ? 'border-[oklch(0.75_0.12_150)] bg-[oklch(0.96_0.04_150)]'
-          : judgmentScore >= 55
-          ? 'border-[oklch(0.85_0.12_80)] bg-[oklch(0.98_0.03_80)]'
-          : 'border-destructive/30 bg-destructive/5'
-      }`}>
-        <div className="flex items-center gap-4">
-          <span className="text-3xl">🧠</span>
-          <div>
-            <p className="font-bold text-sm">Judgment Readiness Score</p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {judgmentScore === null
-                ? 'Complete the SPD Judgment track to unlock your score'
-                : judgmentScore >= 75
-                ? 'Strong professional judgment — the standard your department needs'
-                : judgmentScore >= 55
-                ? 'Developing — continue the judgment track'
-                : 'Needs focus — work through the judgment scenarios'}
-            </p>
+        {stats.map((s) => (
+          <div
+            key={s.label}
+            className="flex flex-col items-center rounded-xl bg-card p-4 text-center shadow-card ring-1 ring-foreground/10"
+          >
+            <span className="text-2xl">{s.emoji}</span>
+            <span className="mt-1 font-heading text-2xl font-bold tabular-nums tracking-tight">{s.value}</span>
+            <span className="mt-0.5 text-xs text-muted-foreground">{s.label}</span>
           </div>
-        </div>
-        {judgmentScore !== null ? (
-          <p className={`text-3xl font-bold tabular-nums ${
-            judgmentScore >= 75 ? 'text-[oklch(0.45_0.18_150)]'
-            : judgmentScore >= 55 ? 'text-[oklch(0.55_0.18_80)]'
-            : 'text-destructive'
-          }`}>
-            {Math.round(judgmentScore)}%
-          </p>
-        ) : (
-          <Link href="/student/study/SPD_JUDGMENT">
-            <Button size="sm" variant="outline">Start →</Button>
-          </Link>
-        )}
+        ))}
       </div>
 
-      {/* Tech Mindset (Beta) */}
-      <Link href={archetype ? '/student/mindset' : '/student/baseline'} className="block group">
-        <div className={`rounded-xl border-2 p-5 flex items-center justify-between gap-4 transition-shadow hover:shadow-md ${
-          archetype ? 'border-[oklch(0.7_0.1_250)] bg-[oklch(0.97_0.02_250)]' : 'border-dashed border-primary/30 bg-primary/5'
-        }`}>
+      {/* Primary: readiness / next action + quick actions */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {/* Score / Assessment card */}
+        <div
+          className={`col-span-1 flex flex-col items-center justify-center rounded-xl border p-6 text-center shadow-card ${
+            tc ? tc.bg : 'border-border bg-card'
+          }`}
+        >
+          {score !== null && tier ? (
+            <>
+              <div
+                className="relative mb-3 flex size-28 items-center justify-center rounded-full"
+                style={{
+                  background: `conic-gradient(${tc!.ring} ${score * 3.6}deg, oklch(0.92 0.01 220) 0deg)`,
+                  padding: '4px',
+                }}
+              >
+                <div className="flex size-full items-center justify-center rounded-full bg-card">
+                  <div>
+                    <p className="font-heading text-3xl font-bold leading-none">{score}%</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Readiness</p>
+                  </div>
+                </div>
+              </div>
+              <p className={`font-heading text-sm font-semibold ${tc!.color}`}>Tier {tier} — {tc!.label}</p>
+              <Link href="/student/results" className="mt-4 w-full">
+                <Button variant="outline" size="sm" className="w-full">View full results</Button>
+              </Link>
+            </>
+          ) : profile?.profile_complete ? (
+            <>
+              <div className="mb-3 flex size-28 items-center justify-center rounded-full border-4 border-dashed border-muted-foreground/20">
+                <span className="text-4xl">📊</span>
+              </div>
+              <p className="text-sm font-semibold">Take your readiness assessment</p>
+              <p className="mt-1 text-xs text-muted-foreground">30 questions · 6 domains · unlocks your tier</p>
+              <Link href="/student/assessment" className="mt-4 w-full">
+                <Button size="sm" className="w-full">Start assessment</Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <div className="mb-3 flex size-28 items-center justify-center rounded-full border-4 border-dashed border-muted-foreground/20">
+                <span className="text-4xl">👤</span>
+              </div>
+              <p className="text-sm font-semibold">Profile incomplete</p>
+              <p className="mt-1 text-xs text-muted-foreground">Set up your profile to unlock the assessment</p>
+              <Link href="/student/onboarding" className="mt-4 w-full">
+                <Button size="sm" className="w-full">Complete profile</Button>
+              </Link>
+            </>
+          )}
+        </div>
+
+        {/* Action cards */}
+        <div className="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {[
+            { icon: '🎓', title: 'Continue training', desc: 'Build mastery across the SPD domains — your training feeds competency automatically.', href: '/student/learning' },
+            { icon: '✅', title: 'My competencies', desc: 'See the competencies your manager assigned and their validation status.', href: '/competency/my' },
+            { icon: '📊', title: 'My results', desc: 'Review your readiness score and domain breakdown.', href: '/student/results' },
+            { icon: '👤', title: 'Edit profile', desc: 'Update your details, certification status, and availability.', href: '/student/profile' },
+          ].map(({ icon, title, desc, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group flex flex-col rounded-xl bg-card p-5 shadow-card ring-1 ring-foreground/10 transition-all hover:-translate-y-0.5 hover:shadow-card-hover hover:ring-accent/30"
+            >
+              <span className="mb-3 text-2xl">{icon}</span>
+              <p className="text-sm font-semibold">{title}</p>
+              <p className="mt-1 flex-1 text-xs leading-relaxed text-muted-foreground">{desc}</p>
+              <span className="mt-4 text-sm font-semibold text-primary transition-transform group-hover:translate-x-0.5">
+                Go →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Judgment + Mindset row */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {/* Judgment Readiness */}
+        <div
+          className={`flex items-center justify-between gap-4 rounded-xl border p-5 shadow-card ${
+            judgmentScore === null
+              ? 'border-border bg-card'
+              : judgmentScore >= 75
+                ? 'tier-1-bg'
+                : judgmentScore >= 55
+                  ? 'tier-2-bg'
+                  : 'tier-3-bg'
+          }`}
+        >
           <div className="flex items-center gap-4">
-            <span className="text-3xl">{archetype ? archetype.emoji : '🧠'}</span>
+            <span className="text-3xl">🧠</span>
             <div>
-              <p className="font-bold text-sm">
-                {archetype ? archetype.label : 'Discover your tech mindset'}
-                <span className="ml-2 text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-1.5 py-0.5 rounded-full align-middle">Beta</span>
-              </p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                {archetype ? archetype.tagline : 'Map how you make decisions under pressure — and watch it grow.'}
+              <p className="text-sm font-semibold">Judgment readiness</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                {judgmentScore === null
+                  ? 'Complete the SPD Judgment track to unlock your score'
+                  : judgmentScore >= 75
+                    ? 'Strong professional judgment — the standard your department needs'
+                    : judgmentScore >= 55
+                      ? 'Developing — continue the judgment track'
+                      : 'Needs focus — work through the judgment scenarios'}
               </p>
             </div>
           </div>
-          <span className="flex-shrink-0 text-sm font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
-            {archetype ? 'View →' : 'Start →'}
-          </span>
+          {judgmentScore !== null ? (
+            <p
+              className={`font-heading text-3xl font-bold tabular-nums ${
+                judgmentScore >= 75 ? 'tier-1' : judgmentScore >= 55 ? 'tier-2' : 'tier-3'
+              }`}
+            >
+              {Math.round(judgmentScore)}%
+            </p>
+          ) : (
+            <Link href="/student/study/SPD_JUDGMENT">
+              <Button size="sm" variant="outline">Start →</Button>
+            </Link>
+          )}
         </div>
-      </Link>
+
+        {/* Tech Mindset (Beta) */}
+        <Link href={archetype ? '/student/mindset' : '/student/baseline'} className="group block">
+          <div
+            className={`flex h-full items-center justify-between gap-4 rounded-xl border p-5 shadow-card transition-all group-hover:-translate-y-0.5 group-hover:shadow-card-hover ${
+              archetype ? 'border-[oklch(0.7_0.1_250)]/50 bg-[oklch(0.97_0.02_250)]' : 'border-dashed border-primary/30 bg-primary/5'
+            }`}
+          >
+            <div className="flex items-center gap-4">
+              <span className="text-3xl">{archetype ? archetype.emoji : '🧭'}</span>
+              <div>
+                <p className="text-sm font-semibold">
+                  {archetype ? archetype.label : 'Discover your tech mindset'}
+                  <span className="ml-2 rounded-full bg-primary/10 px-1.5 py-0.5 align-middle text-[10px] font-semibold uppercase tracking-wide text-primary">Beta</span>
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {archetype ? archetype.tagline : 'Map how you make decisions under pressure — and watch it grow.'}
+                </p>
+              </div>
+            </div>
+            <span className="shrink-0 text-sm font-semibold text-primary transition-transform group-hover:translate-x-0.5">
+              {archetype ? 'View →' : 'Start →'}
+            </span>
+          </div>
+        </Link>
+      </div>
 
       {/* Required remediation modules (audit loop) */}
       {required.length > 0 && (
         <div className="space-y-2">
           {required.slice(0, 3).map((r) => (
-            <Link key={r.assignment_id} href={`/student/learning/module/${r.slug}`} className="block group">
-              <div className="rounded-xl border-2 border-[oklch(0.577_0.245_27)]/40 bg-[oklch(0.577_0.245_27)]/5 p-4 flex items-center justify-between gap-3 transition-shadow hover:shadow-md">
-                <div className="flex items-center gap-3 min-w-0">
+            <Link key={r.assignment_id} href={`/student/learning/module/${r.slug}`} className="group block">
+              <div className="flex items-center justify-between gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-4 shadow-card transition-all group-hover:-translate-y-0.5 group-hover:shadow-card-hover">
+                <div className="flex min-w-0 items-center gap-3">
                   <span className="text-2xl">⚠️</span>
                   <div className="min-w-0">
-                    <p className="font-bold text-sm">Required: {r.title}</p>
-                    <p className="text-xs text-muted-foreground truncate">
+                    <p className="text-sm font-semibold">Required: {r.title}</p>
+                    <p className="truncate text-xs text-muted-foreground">
                       {r.finding ? `Cited: ${r.finding}` : 'Assigned by your manager'}
                     </p>
                   </div>
                 </div>
-                <span className="flex-shrink-0 text-sm font-semibold text-[oklch(0.45_0.18_27)] group-hover:translate-x-0.5 transition-transform">Review →</span>
+                <span className="shrink-0 text-sm font-semibold text-destructive transition-transform group-hover:translate-x-0.5">Review →</span>
               </div>
             </Link>
           ))}
@@ -163,196 +246,95 @@ export default async function StudentDashboardPage() {
 
       {/* Recommended next module (adaptive feed) */}
       {topReco && (
-        <Link href={`/student/learning/module/${topReco.slug}`} className="block group">
-          <div className="rounded-xl border-2 border-border bg-card p-4 flex items-center justify-between gap-3 transition-shadow hover:shadow-md">
-            <div className="flex items-center gap-3 min-w-0">
+        <Link href={`/student/learning/module/${topReco.slug}`} className="group block">
+          <div className="flex items-center justify-between gap-3 rounded-xl bg-card p-4 shadow-card ring-1 ring-foreground/10 transition-all group-hover:-translate-y-0.5 group-hover:shadow-card-hover group-hover:ring-accent/30">
+            <div className="flex min-w-0 items-center gap-3">
               <span className="text-2xl">🎯</span>
               <div className="min-w-0">
-                <p className="font-bold text-sm">Recommended: {topReco.title}</p>
-                <p className="text-xs text-muted-foreground truncate">{topReco.recommendationReason}</p>
+                <p className="text-sm font-semibold">Recommended: {topReco.title}</p>
+                <p className="truncate text-xs text-muted-foreground">{topReco.recommendationReason}</p>
               </div>
             </div>
-            <span className="flex-shrink-0 text-sm font-semibold text-primary group-hover:translate-x-0.5 transition-transform">Start →</span>
+            <span className="shrink-0 text-sm font-semibold text-primary transition-transform group-hover:translate-x-0.5">Start →</span>
           </div>
         </Link>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {/* Score / Assessment card */}
-        <div className={`col-span-1 rounded-xl border-2 p-6 ${tc ? `${tc.bg} ${tc.border}` : 'bg-card border-border'} flex flex-col items-center justify-center text-center`}>
-          {score !== null && tier ? (
-            <>
-              {/* Score ring */}
-              <div
-                className="w-28 h-28 rounded-full flex items-center justify-center relative mb-3"
-                style={{
-                  background: `conic-gradient(${tc!.ring} ${score * 3.6}deg, oklch(0.92 0.01 220) 0deg)`,
-                  padding: '4px',
-                }}
-              >
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                  <div>
-                    <p className="text-3xl font-bold leading-none">{score}%</p>
-                    <p className="text-xs text-muted-foreground mt-1">Readiness</p>
-                  </div>
-                </div>
-              </div>
-              <p className={`font-bold text-sm ${tc!.color}`}>Tier {tier} — {tc!.label}</p>
-              <Link href="/student/results" className="mt-4 w-full">
-                <Button variant="outline" size="sm" className="w-full">View Full Results</Button>
-              </Link>
-            </>
-          ) : profile?.profile_complete ? (
-            <>
-              <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
-                <span className="text-4xl">📊</span>
-              </div>
-              <p className="font-semibold text-sm">Take your readiness assessment</p>
-              <p className="text-xs text-muted-foreground mt-1">30 questions · 6 domains · unlocks your tier</p>
-              <Link href="/student/assessment" className="mt-4 w-full">
-                <Button size="sm" className="w-full">Start Assessment</Button>
-              </Link>
-            </>
-          ) : (
-            <>
-              <div className="w-28 h-28 rounded-full border-4 border-dashed border-muted-foreground/20 flex items-center justify-center mb-3">
-                <span className="text-4xl">👤</span>
-              </div>
-              <p className="font-semibold text-sm">Profile incomplete</p>
-              <p className="text-xs text-muted-foreground mt-1">Set up your profile to unlock the assessment</p>
-              <Link href="/student/onboarding" className="mt-4 w-full">
-                <Button size="sm" className="w-full">Complete Profile</Button>
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Action cards */}
-        <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            {
-              icon: '🎓',
-              title: 'Continue Training',
-              desc: 'Build mastery across the SPD domains — your training feeds competency automatically.',
-              href: '/student/learning',
-              disabled: false,
-            },
-            {
-              icon: '✅',
-              title: 'My Competencies',
-              desc: 'See the competencies your manager assigned and their validation status.',
-              href: '/competency/my',
-              disabled: false,
-            },
-            {
-              icon: '📊',
-              title: 'My Results',
-              desc: 'Review your readiness score and domain breakdown.',
-              href: '/student/results',
-              disabled: false,
-            },
-            {
-              icon: '👤',
-              title: 'Edit Profile',
-              desc: 'Update your details, certification status, and availability.',
-              href: '/student/profile',
-              disabled: false,
-            },
-          ].map(({ icon, title, desc, href, disabled }) => (
-            <div key={href} className={`rounded-xl border bg-card p-5 flex flex-col ${disabled ? 'opacity-50' : 'hover:shadow-md transition-shadow'}`}>
-              <span className="text-2xl mb-3">{icon}</span>
-              <p className="font-semibold text-sm">{title}</p>
-              <p className="text-xs text-muted-foreground mt-1 flex-1 leading-relaxed">{desc}</p>
-              {!disabled && (
-                <Link href={href} className="mt-4">
-                  <Button variant="ghost" size="sm" className="px-0 text-primary font-semibold hover:bg-transparent hover:text-primary/70 h-auto">
-                    Go →
-                  </Button>
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Tier progress bar */}
       {profile?.readiness_score != null && (
-        <div className="rounded-xl border-2 bg-card p-5 space-y-3">
+        <div className="space-y-3 rounded-xl bg-card p-5 shadow-card ring-1 ring-foreground/10">
           <div className="flex items-center justify-between">
-            <p className="font-semibold text-sm">Tier Progress</p>
-            {profile.readiness_tier === 1
-              ? <span className="text-xs font-bold text-[oklch(0.45_0.18_150)]">✅ Survey Ready</span>
-              : <span className="text-xs text-muted-foreground">
-                  {profile.readiness_tier === 2
-                    ? `${Math.max(0, 75 - Math.round(profile.readiness_score))}% to Tier 1`
-                    : `${Math.max(0, 55 - Math.round(profile.readiness_score))}% to Tier 2`}
-                </span>
-            }
+            <p className="text-sm font-semibold">Tier progress</p>
+            {profile.readiness_tier === 1 ? (
+              <span className="text-xs font-bold tier-1">✅ Survey Ready</span>
+            ) : (
+              <span className="text-xs text-muted-foreground">
+                {profile.readiness_tier === 2
+                  ? `${Math.max(0, 75 - Math.round(profile.readiness_score))}% to Tier 1`
+                  : `${Math.max(0, 55 - Math.round(profile.readiness_score))}% to Tier 2`}
+              </span>
+            )}
           </div>
-          <div className="h-3 rounded-full bg-muted overflow-hidden">
+          <div className="h-3 overflow-hidden rounded-full bg-muted">
             <div
               className="h-full rounded-full transition-all"
               style={{
-                width: `${Math.min(100, (profile.readiness_score / 100) * 100)}%`,
-                background: profile.readiness_tier === 1
-                  ? 'oklch(0.55 0.18 150)'
-                  : profile.readiness_tier === 2
-                  ? 'oklch(0.65 0.18 80)'
-                  : 'oklch(0.577 0.245 27)',
+                width: `${Math.min(100, profile.readiness_score)}%`,
+                background:
+                  profile.readiness_tier === 1
+                    ? 'oklch(0.55 0.18 150)'
+                    : profile.readiness_tier === 2
+                      ? 'oklch(0.65 0.18 80)'
+                      : 'oklch(0.577 0.245 27)',
               }}
             />
           </div>
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>0%</span>
-            <span className="text-[oklch(0.55_0.18_80)] font-medium">Tier 2 at 55%</span>
-            <span className="text-[oklch(0.45_0.18_150)] font-medium">Tier 1 at 75%</span>
+            <span className="font-medium tier-2">Tier 2 at 55%</span>
+            <span className="font-medium tier-1">Tier 1 at 75%</span>
             <span>100%</span>
           </div>
         </div>
       )}
 
       {/* Study Progress */}
-      <div className="rounded-xl border bg-card p-6">
-        <div className="flex items-center justify-between mb-5">
-          <div>
-            <h2 className="font-bold text-base">Study Progress</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">7 domains · 70 questions</p>
-          </div>
-          <Link href="/student/study">
-            <Button variant="outline" size="sm">Study Now →</Button>
-          </Link>
-        </div>
+      <div className="rounded-xl bg-card p-6 shadow-card ring-1 ring-foreground/10">
+        <SectionHeader
+          title="Study progress"
+          description="7 domains · 70 questions"
+          action={
+            <Link href="/student/study">
+              <Button variant="outline" size="sm">Study now →</Button>
+            </Link>
+          }
+          className="mb-5"
+        />
         <div className="space-y-3">
-          {domainProgress.map(d => {
-            const score = d.best_score
-            const barColor = score === null
-              ? 'bg-muted'
-              : score >= 85
-              ? 'bg-[oklch(0.55_0.18_150)]'
-              : score >= 50
-              ? 'bg-[oklch(0.65_0.18_80)]'
-              : 'bg-destructive'
-
+          {domainProgress.map((d) => {
+            const s = d.best_score
+            const barColor =
+              s === null ? 'bg-muted' : s >= 85 ? 'bg-[oklch(0.55_0.18_150)]' : s >= 50 ? 'bg-[oklch(0.65_0.18_80)]' : 'bg-destructive'
             return (
-              <Link key={d.domain} href={`/student/study/${d.domain}`} className="block group">
+              <Link key={d.domain} href={`/student/study/${d.domain}`} className="group block">
                 <div className="flex items-center gap-3">
-                  <span className="text-base w-6 text-center flex-shrink-0">{d.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium truncate group-hover:text-primary transition-colors">{d.label}</span>
-                      <span className="text-xs font-bold tabular-nums ml-2 flex-shrink-0">
-                        {score !== null ? `${Math.round(score)}%` : '—'}
+                  <span className="w-6 shrink-0 text-center text-base">{d.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-1 flex items-center justify-between">
+                      <span className="truncate text-xs font-medium transition-colors group-hover:text-primary">{d.label}</span>
+                      <span className="ml-2 shrink-0 text-xs font-bold tabular-nums">
+                        {s !== null ? `${Math.round(s)}%` : '—'}
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                    <div className="h-1.5 overflow-hidden rounded-full bg-muted">
                       <div
                         className={`h-full rounded-full transition-all ${barColor}`}
-                        style={{ width: score !== null ? `${Math.min(score, 100)}%` : '0%' }}
+                        style={{ width: s !== null ? `${Math.min(s, 100)}%` : '0%' }}
                       />
                     </div>
                   </div>
                   {d.suggested && (
-                    <span className="flex-shrink-0 text-xs font-semibold text-[oklch(0.42_0.15_200)] bg-[oklch(0.62_0.18_200)]/10 px-1.5 py-0.5 rounded-full">Next</span>
+                    <span className="shrink-0 rounded-full bg-accent/10 px-1.5 py-0.5 text-xs font-semibold text-[oklch(0.42_0.15_200)]">Next</span>
                   )}
                 </div>
               </Link>
