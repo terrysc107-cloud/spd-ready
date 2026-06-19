@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { SparklesIcon } from 'lucide-react'
 import { getAuthUser } from '@/lib/dal/auth'
 import { getMindsetProfile } from '@/lib/dal/mindset'
 import { deriveCalibration } from '@/lib/dal/mindset-logic'
@@ -25,11 +26,13 @@ export default async function MindsetPage() {
   // No baseline yet → invite to take it.
   if (!profile) {
     return (
-      <div className="max-w-2xl mx-auto py-10 space-y-6 text-center">
-        <div className="brand-gradient rounded-2xl p-8 text-white">
-          <span className="text-4xl">🧠</span>
-          <h1 className="text-2xl font-bold mt-3">Discover your tech mindset</h1>
-          <p className="text-white/80 mt-2 text-sm leading-relaxed">
+      <div className="mx-auto max-w-2xl space-y-6 py-10 text-center">
+        <div className="rounded-2xl bg-card p-8 shadow-card ring-1 ring-border/70">
+          <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-secondary text-primary">
+            <SparklesIcon className="size-7" />
+          </span>
+          <h1 className="mt-4 font-heading text-2xl font-bold tracking-tight">Discover your tech mindset</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             A short judgment baseline maps how you make decisions under pressure — and locks your starting point so you can watch it grow.
           </p>
         </div>
@@ -54,7 +57,7 @@ export default async function MindsetPage() {
   return (
     <div className="max-w-3xl mx-auto py-6 space-y-6">
       {/* Archetype hero */}
-      <div className="rounded-2xl border-2 border-border bg-gradient-to-br from-[oklch(0.97_0.02_250)] to-card p-6 sm:p-8">
+      <div className="rounded-2xl shadow-card ring-1 ring-border/70 bg-gradient-to-br from-[oklch(0.97_0.02_250)] to-card p-6 sm:p-8">
         <div className="flex items-center justify-between gap-3 mb-4">
           <span className="text-xs font-semibold uppercase tracking-wide text-primary">Your Tech Mindset · Beta</span>
           <span className="text-[10px] font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded-full">model {MODEL_VERSION}</span>
@@ -62,7 +65,7 @@ export default async function MindsetPage() {
         <div className="flex items-start gap-4">
           <span className="text-5xl leading-none">{archetype.emoji}</span>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold">{archetype.label}</h1>
+            <h1 className="font-heading text-2xl font-bold tracking-tight">{archetype.label}</h1>
             <p className="text-sm font-medium text-primary mt-0.5">{archetype.tagline}</p>
           </div>
         </div>
@@ -80,9 +83,9 @@ export default async function MindsetPage() {
       </div>
 
       {/* Radar */}
-      <div className="rounded-xl border-2 border-border bg-card p-6">
+      <div className="rounded-2xl bg-card p-6 shadow-card ring-1 ring-border/70">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-bold text-base">Judgment dimensions</h2>
+          <h2 className="font-heading text-lg font-semibold tracking-tight">Judgment dimensions</h2>
           {hasProgress && (
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1"><span className="w-3 h-0.5 rounded bg-[oklch(0.55_0.18_250)]" />Now</span>
@@ -126,8 +129,8 @@ export default async function MindsetPage() {
 
       {/* Calibration */}
       {calibration && (
-        <div className="rounded-xl border-2 border-border bg-card p-6">
-          <h2 className="font-bold text-base mb-3">Self-perception vs. demonstrated</h2>
+        <div className="rounded-2xl bg-card p-6 shadow-card ring-1 ring-border/70">
+          <h2 className="font-heading text-lg font-semibold tracking-tight mb-3">Self-perception vs. demonstrated</h2>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="rounded-lg bg-muted/40 p-4 text-center">
               <p className="text-2xl font-bold tabular-nums">{calibration.selfAvgPct}%</p>

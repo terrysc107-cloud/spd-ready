@@ -9,15 +9,15 @@ export function MasteryCard({ d }: { d: DomainSummary }) {
     'oklch(0.577 0.245 27)'
   return (
     <Link href={`/student/learning/${d.domain}`} className="block group">
-      <div className="rounded-xl border-2 border-border bg-card p-5 h-full flex flex-col gap-3 transition-all group-hover:shadow-md group-hover:border-primary/40">
+      <div className="flex h-full flex-col gap-3 rounded-2xl bg-card p-5 shadow-card ring-1 ring-border/70 transition-all group-hover:-translate-y-0.5 group-hover:shadow-card-hover">
         <div className="flex items-start justify-between">
           <span className="text-3xl">{d.icon}</span>
-          <span className="text-sm font-bold tabular-nums" style={{ color: masteryColor }}>
+          <span className="font-heading text-base font-bold tabular-nums" style={{ color: masteryColor }}>
             {d.avg_mastery}%
           </span>
         </div>
         <div className="flex-1">
-          <p className="font-bold text-sm">{d.label}</p>
+          <p className="font-heading text-sm font-semibold">{d.label}</p>
           <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{d.description}</p>
         </div>
         <div className="h-2 rounded-full bg-muted overflow-hidden">

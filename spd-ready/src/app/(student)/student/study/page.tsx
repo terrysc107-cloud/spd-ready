@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { ArrowLeftIcon, PinIcon, TrophyIcon, ZapIcon } from 'lucide-react'
 import { getAuthUser } from '@/lib/dal/auth'
 import { getDomainProgress, getXPRecord } from '@/lib/dal/study'
 import { getAssignmentsForStudent } from '@/lib/dal/learning'
@@ -18,44 +19,40 @@ export default async function StudyPage() {
   const masteredDomains = xpRecord.domains_mastered
 
   return (
-    <div className="py-8 max-w-4xl mx-auto space-y-8">
-      {/* Back to dashboard */}
-      <Link href="/student/dashboard" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-        <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
+    <div className="mx-auto max-w-4xl space-y-8 py-8">
+      <Link href="/student/dashboard" className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">
+        <ArrowLeftIcon className="size-4 transition-transform group-hover:-translate-x-0.5" />
         <span>Dashboard</span>
       </Link>
 
-      {/* Header */}
-      <div className="brand-gradient rounded-2xl p-8 text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 bottom-0 w-64 opacity-10">
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 w-48 h-48 rounded-full bg-white blur-2xl" />
-        </div>
-        <div className="relative z-10">
-          <p className="text-white/60 text-sm font-medium uppercase tracking-wide mb-1">Study Mode</p>
-          <h1 className="text-3xl font-bold">Choose Your Domain</h1>
-          <p className="text-white/70 mt-2 text-sm max-w-lg">
-            Practice questions across 8 domains — get instant feedback and track your readiness.
-          </p>
-        </div>
+      {/* Header — light monday style */}
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Study mode</p>
+        <h1 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Choose your domain</h1>
+        <p className="mt-2 max-w-lg text-[0.95rem] text-muted-foreground">
+          Practice questions across 8 domains — get instant feedback and track your readiness.
+        </p>
       </div>
 
       {assignments.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">📌 Assigned by your manager</h2>
-          {assignments.map(a => <AssignedModuleCard key={a.id} a={a} />)}
+          <h2 className="flex items-center gap-2 font-heading text-lg font-semibold tracking-tight">
+            <PinIcon className="size-5 text-primary" /> Assigned by your manager
+          </h2>
+          {assignments.map((a) => <AssignedModuleCard key={a.id} a={a} />)}
         </section>
       )}
 
       {/* Suggested domain banner */}
       {(() => {
-        const suggested = domains.find(d => d.suggested)
+        const suggested = domains.find((d) => d.suggested)
         if (!suggested) return null
         return (
-          <div className="rounded-xl border-2 border-[oklch(0.62_0.18_200)]/40 bg-[oklch(0.62_0.18_200)]/5 p-4 flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 rounded-2xl border border-primary/30 bg-primary/5 p-4 shadow-card">
             <div className="flex items-center gap-3">
               <span className="text-2xl">{suggested.icon}</span>
               <div>
-                <p className="font-semibold text-sm">Suggested next: {suggested.label}</p>
+                <p className="font-heading text-sm font-semibold">Suggested next: {suggested.label}</p>
                 <p className="text-xs text-muted-foreground">
                   {suggested.sessions_completed === 0
                     ? 'You have not studied this domain yet'
@@ -64,45 +61,42 @@ export default async function StudyPage() {
               </div>
             </div>
             <Link href={`/student/study/${suggested.domain}`}>
-              <Button size="sm">Start →</Button>
+              <Button size="sm">Start</Button>
             </Link>
           </div>
         )
       })()}
 
       {/* Domain grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {domains.map(d => {
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {domains.map((d) => {
           const score = d.best_score
           const scoreColor = score === null
             ? 'text-muted-foreground'
-            : score >= 85 ? 'text-[oklch(0.45_0.18_150)]'
             : score >= 70 ? 'text-[oklch(0.45_0.18_150)]'
             : score >= 50 ? 'text-[oklch(0.55_0.18_80)]'
             : 'text-destructive'
 
           return (
-            <Link key={d.domain} href={`/student/study/${d.domain}`} className="block group">
-              <div className={`rounded-xl border-2 bg-card p-5 h-full flex flex-col gap-3 transition-all group-hover:shadow-md group-hover:border-primary/40 ${d.suggested ? 'border-[oklch(0.62_0.18_200)]/40' : 'border-border'}`}>
+            <Link key={d.domain} href={`/student/study/${d.domain}`} className="group block">
+              <div className={`flex h-full flex-col gap-3 rounded-2xl bg-card p-5 shadow-card ring-1 transition-all group-hover:-translate-y-0.5 group-hover:shadow-card-hover ${d.suggested ? 'ring-primary/40' : 'ring-border/70'}`}>
                 <div className="flex items-start justify-between">
                   <span className="text-3xl">{d.icon}</span>
                   {score !== null && (
-                    <span className={`text-sm font-bold tabular-nums ${scoreColor}`}>
-                      {Math.round(score)}%
-                    </span>
+                    <span className={`text-sm font-bold tabular-nums ${scoreColor}`}>{Math.round(score)}%</span>
                   )}
                 </div>
                 <div className="flex-1">
-                  <p className="font-bold text-sm">{d.label}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{d.description}</p>
+                  <p className="font-heading text-sm font-semibold">{d.label}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{d.description}</p>
                 </div>
                 {/* Progress bar */}
                 <div>
-                  <div className="flex justify-between text-xs text-muted-foreground mb-1">
+                  <div className="mb-1 flex justify-between text-xs text-muted-foreground">
                     <span>{d.sessions_completed} session{d.sessions_completed !== 1 ? 's' : ''}</span>
                     <span>{d.total_questions} questions</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-muted">
                     <div
                       className="h-full rounded-full transition-all"
                       style={{
@@ -115,16 +109,18 @@ export default async function StudyPage() {
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   {d.suggested && (
-                    <span className="text-xs font-semibold text-[oklch(0.45_0.15_200)] bg-[oklch(0.62_0.18_200)]/10 px-2 py-0.5 rounded-full">Suggested</span>
+                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">Suggested</span>
                   )}
                   {masteredDomains.includes(d.domain) && (
-                    <span className="text-xs font-bold text-[oklch(0.45_0.18_150)] bg-[oklch(0.96_0.04_150)] px-2 py-0.5 rounded-full">
-                      🏆 Mastered
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[oklch(0.96_0.04_150)] px-2 py-0.5 text-xs font-bold text-[oklch(0.45_0.18_150)]">
+                      <TrophyIcon className="size-3" /> Mastered
                     </span>
                   )}
-                  <span className="text-xs text-muted-foreground">⚡ 25+ XP</span>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                    <ZapIcon className="size-3" /> 25+ XP
+                  </span>
                   <span className="ml-auto text-xs font-semibold text-primary group-hover:underline">Start →</span>
                 </div>
               </div>
