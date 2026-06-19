@@ -112,12 +112,11 @@ export default async function ResultsPage() {
             </div>
           </div>
           {/* Tier badge */}
-          <div className={`inline-flex items-center gap-2 rounded-full px-5 py-2 font-bold text-sm border-2 bg-white shadow-sm ${
-            tier === 1 ? 'text-[oklch(0.45_0.18_150)] border-[oklch(0.75_0.12_150)]' :
-            tier === 2 ? 'text-[oklch(0.55_0.18_80)] border-[oklch(0.85_0.12_80)]' :
-            'text-destructive border-destructive/40'
+          <div className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold ring-1 ring-inset bg-card shadow-card ${
+            tier === 1 ? 'text-[oklch(0.45_0.18_150)] ring-[oklch(0.75_0.12_150)]' :
+            tier === 2 ? 'text-[oklch(0.55_0.18_80)] ring-[oklch(0.85_0.12_80)]' :
+            'text-destructive ring-destructive/40'
           }`}>
-            {tier === 1 ? '✅' : tier === 2 ? '⚡' : '📚'}
             Tier {tier} — {tier === 1 ? 'Survey Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
@@ -128,7 +127,7 @@ export default async function ResultsPage() {
 
       {/* ── Category Breakdown ─── */}
       <div className="rounded-xl border bg-card p-6">
-        <h2 className="font-bold text-base mb-5">Category Breakdown</h2>
+        <h2 className="font-heading text-lg font-semibold tracking-tight mb-5">Category breakdown</h2>
         <div className="space-y-4">
           {(Object.keys(categoryScores) as (keyof typeof categoryScores)[]).map(key => {
             const pct = Math.round(categoryScores[key])
@@ -166,7 +165,7 @@ export default async function ResultsPage() {
       {/* ── Strengths + Growth ─── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="rounded-xl border-2 tier-1-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.45_0.18_150)] mb-3 flex items-center gap-2">✅ Top Strengths</h3>
+          <h3 className="font-bold text-sm text-[oklch(0.45_0.18_150)] mb-3">Top strengths</h3>
           <div className="space-y-2">
             {strengths.length > 0 ? strengths.map(key => (
               <div key={key} className="flex items-center justify-between">
@@ -177,7 +176,7 @@ export default async function ResultsPage() {
           </div>
         </div>
         <div className="rounded-xl border-2 tier-2-bg p-5">
-          <h3 className="font-bold text-sm text-[oklch(0.55_0.18_80)] mb-3 flex items-center gap-2">⚡ Growth Areas</h3>
+          <h3 className="font-bold text-sm text-[oklch(0.55_0.18_80)] mb-3">Growth areas</h3>
           <div className="space-y-2">
             {growthAreas.length > 0 ? growthAreas.map(key => (
               <div key={key}>
@@ -191,7 +190,7 @@ export default async function ResultsPage() {
 
       {/* ── Next Steps ─── */}
       <div className="rounded-xl border bg-card p-6">
-        <h2 className="font-bold text-base mb-1">Next Steps</h2>
+        <h2 className="font-heading text-lg font-semibold tracking-tight mb-1">Next steps</h2>
         <p className="text-sm text-muted-foreground mb-4">{nextSteps.heading}</p>
         <div className="space-y-2">
           {nextSteps.steps.map((step, i) => (
