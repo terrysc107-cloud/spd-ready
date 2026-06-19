@@ -1,5 +1,23 @@
 # SPD Ready — Handoff
 
+## ✅ CHECKPOINT 2026-06-19 (Claude) — monday+Sora redesign LIVE on prod; Vercel deploy fixed
+
+**State: everything merged to `main` + deployed + login verified working in production.** Branch `feature/staff-competency-foundation` == `origin/main` (head `eeac35c`), clean tree. **Gates: app typecheck clean · 51/51 tests · build green.**
+
+**What's done:**
+- **Full competency app + readiness-on-Supabase + monday.com redesign + Sora/Inter type** — all on `main`, rolled across student pages (dashboard, learning, study, mindset, results, modules). Design = violet `#6161ff` brand, cloud canvas, white cards, pill buttons, light sidebar, pastel tiles, soft shadow; **Sora display + Inter body**, bold varied scale via PageHeader/SectionHeader/CardTitle/StatCard.
+- **PROD DEPLOY FIXED (was silently broken the whole rebuild):** Vercel project `spd-ready` (team `terrysc107-9627s-projects`, prj `prj_9dxVJByI8qnmbO4naDyEIik95QdB`) auto-deploys `main` → **https://spd-ready.vercel.app**. Every deploy since the crcst import had ERRORED (`scripts/import-crcst.ts` imports sibling `~/code/crcst`, absent on Vercel) so prod served the OLD marketplace app. **Fix = added `"scripts"` to `tsconfig.json` exclude** (`npm run typecheck` no longer covers scripts — acceptable, they're tsx tools). Then **set the 3 Supabase env vars on Vercel prod** (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) via authed `vercel` CLI + redeployed. **Verified: prod login `tech1@demo-spd.test`/`Password123!` → dashboard, real data (Taylor, 78% Tier 1).** `.vercel/` now exists locally (gitignored).
+
+**Gotchas for next session:**
+- **localhost:3000 = the ATS website (different project)** — run SPD on another port (e.g. `npm run dev -- -p 3007`).
+- Supabase project `wbznovoufjdlzmjrzsfu` (ts-micro-saas-hub), schema `spd_ready`. Demo logins all `Password123!`: `tech1@`/`tech2@`/`manager@demo-spd.test`.
+- **service_role key is still the OLD leaked one** (Terry OK'd as-is on Vercel for now) — rotate in Supabase + update `.env.local` AND Vercel when convenient.
+- Playwright MCP browser kept crashing/locking — if stuck, `pkill -f mcp-chrome-<id>` then re-navigate.
+
+**Pending follow-ups (UI):** (1) small emoji still in interactive components (StudyQuiz, ConfidenceTapPrompt, ModuleViewer, MindsetBetaFeedback, ManagerMindsetAdjust, profile 🏅, a couple manager rows); (2) **marketing landing** (`(marketing)/page.tsx`) still bespoke dark-gradient — not re-laid-out to monday; (3) domain-identity emoji on study/learning/mastery cards kept on purpose — swap to icons only if wanted. **Owner action:** real photo/video URLs in the 8 learning modules (sections currently null).
+
+---
+
 ## monday.com REDESIGN + Sora type — MERGED TO MAIN (2026-06-18, Claude)
 
 **The app was retoned to the monday.com design language with a Sora/Inter type system, rolled across the student pages, and MERGED TO `main` + pushed.** Terry's earlier clean-SaaS cohesion pass read "cheesy AI built"; he gave monday.com as the concrete target, picked **Sora + Inter** for type, then said "merge" + "roll the rest of the site." Branch `feature/staff-competency-foundation` == `origin/main` (head `79f8e25`). **Gates: typecheck clean · 51/51 tests · build green.**
@@ -1061,6 +1079,54 @@ Clean working tree or not a git repo.
 - Repo: /Users/terry/code/spd-ready
 - Branch: feature/staff-competency-foundation
 - Last commit: e27f00f Update handoff: monday redesign + Sora type merged to main
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-19 13:06:42 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 9020b4e Handoff: append Hermes checkpoint stubs
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-19 13:22:40 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: eeac35c fix(build): exclude dev scripts from tsconfig so Vercel can build
 - Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
 
 ### Git status
