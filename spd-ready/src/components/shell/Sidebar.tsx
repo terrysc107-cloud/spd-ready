@@ -60,9 +60,9 @@ export function Sidebar({
   return (
     <>
       {/* Desktop rail */}
-      <aside className="bg-sidebar text-sidebar-foreground fixed inset-y-0 left-0 z-40 hidden w-60 flex-col lg:flex">
+      <aside className="bg-sidebar text-sidebar-foreground border-sidebar-border fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r lg:flex">
         <div className="px-5 py-5">
-          <Logo size="sm" href={home} variant="light" />
+          <Logo size="sm" href={home} />
         </div>
         <nav className="flex-1 space-y-1 px-3">
           {nav.map(({ href, label, icon: Icon }) => {
@@ -72,10 +72,10 @@ export function Sidebar({
                 key={href}
                 href={href}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                  "flex items-center gap-3 rounded-full px-3 py-2 text-sm font-medium transition-colors",
                   active
-                    ? "bg-sidebar-accent text-white"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-white"
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
                 )}
               >
                 <span
@@ -92,13 +92,13 @@ export function Sidebar({
         </nav>
         <div className="border-sidebar-border border-t px-3 py-3">
           <div className="px-2 pb-2">
-            <p className="truncate text-sm font-medium text-white">{name ?? email ?? "Signed in"}</p>
-            {role && <p className="text-sidebar-foreground/60 text-xs capitalize">{role}</p>}
+            <p className="text-foreground truncate text-sm font-medium">{name ?? email ?? "Signed in"}</p>
+            {role && <p className="text-sidebar-foreground/70 text-xs capitalize">{role}</p>}
           </div>
           <form action={signOutAction}>
             <button
               type="submit"
-              className="text-sidebar-foreground/70 hover:bg-sidebar-accent/50 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-white"
+              className="text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground flex w-full items-center gap-3 rounded-full px-3 py-2 text-sm font-medium transition-colors"
             >
               <LogOutIcon className="size-4" />
               Sign out

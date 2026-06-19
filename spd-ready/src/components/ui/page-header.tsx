@@ -34,8 +34,8 @@ export function PageHeader({
             {eyebrow && (
               <p className="mb-1 text-xs font-medium tracking-wide text-white/60 uppercase">{eyebrow}</p>
             )}
-            <h1 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
-            {description && <p className="mt-1.5 text-sm text-white/70">{description}</p>}
+            <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+            {description && <p className="mt-2 text-sm text-white/75 sm:text-[0.95rem]">{description}</p>}
           </div>
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
@@ -52,8 +52,8 @@ export function PageHeader({
         {eyebrow && (
           <p className="mb-1 text-xs font-medium tracking-wide text-muted-foreground uppercase">{eyebrow}</p>
         )}
-        <h1 className="font-heading text-2xl font-semibold tracking-tight sm:text-[1.75rem]">{title}</h1>
-        {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+        <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+        {description && <p className="mt-2 text-sm text-muted-foreground sm:text-[0.95rem]">{description}</p>}
       </div>
       {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>

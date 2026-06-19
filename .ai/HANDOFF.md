@@ -899,3 +899,92 @@ Clean working tree or not a git repo.
 
 ### Blockers / warnings
 - TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 14:54:39 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 903ffac Clean-SaaS UI refresh across the whole app (warm, mobile-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+Clean working tree or not a git repo.
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 15:49:42 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 903ffac Clean-SaaS UI refresh across the whole app (warm, mobile-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+ M spd-ready/src/app/(student)/student/dashboard/page.tsx
+ M spd-ready/src/app/globals.css
+ M spd-ready/src/app/layout.tsx
+ M spd-ready/src/components/brand/Logo.tsx
+ M spd-ready/src/components/shell/Sidebar.tsx
+ M spd-ready/src/components/ui/button.tsx
+ M spd-ready/src/components/ui/card.tsx
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
+
+---
+## Handoff — 2026-06-18 16:14:57 EDT
+
+- Repo: /Users/terry/code/spd-ready
+- Branch: feature/staff-competency-foundation
+- Last commit: 903ffac Clean-SaaS UI refresh across the whole app (warm, mobile-first)
+- Note: Claude Code stopped/finished a response. Fill in summary, decisions, next steps, and blockers.
+
+### Git status
+```
+ M .ai/HANDOFF.md
+ M spd-ready/src/app/(student)/student/dashboard/page.tsx
+ M spd-ready/src/app/globals.css
+ M spd-ready/src/app/layout.tsx
+ M spd-ready/src/components/brand/Logo.tsx
+ M spd-ready/src/components/shell/Sidebar.tsx
+ M spd-ready/src/components/ui/button.tsx
+ M spd-ready/src/components/ui/card.tsx
+ M spd-ready/src/components/ui/page-header.tsx
+ M spd-ready/src/components/ui/section-header.tsx
+```
+
+### Summary
+- TODO: What changed?
+
+### Decisions / assumptions
+- TODO: Key choices Claude made.
+
+### Next steps
+- TODO: The next human/Hermes/Claude action.
+
+### Blockers / warnings
+- TODO: Anything unresolved, failing, risky, or needing the user.
