@@ -13,8 +13,8 @@ export function Logo({ href = '/', size = 'md', variant = 'dark' }: LogoProps) {
     lg: { icon: 48, text: 'text-3xl' },
   }
   const { icon, text } = sizes[size]
-  const textColor = variant === 'light' ? 'text-white' : 'text-[oklch(0.22_0.07_225)]'
-  const subColor = variant === 'light' ? 'text-white/70' : 'text-[oklch(0.52_0.16_205)]'
+  const textColor = variant === 'light' ? 'text-white' : 'text-[#333333]'
+  const subColor = variant === 'light' ? 'text-white/70' : 'text-[#6161ff]'
 
   const inner = (
     <div className="flex items-center gap-2.5">
@@ -22,12 +22,12 @@ export function Logo({ href = '/', size = 'md', variant = 'dark' }: LogoProps) {
       <svg width={icon} height={icon} viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M20 2L37 8.5V21C37 30.5 20 42 20 42C20 42 3 30.5 3 21V8.5L20 2Z"
-          fill="oklch(0.32 0.09 222)"
+          fill="#6161ff"
         />
         <path
           d="M20 2L37 8.5V21C37 30.5 20 42 20 42C20 42 3 30.5 3 21V8.5L20 2Z"
           fill="url(#shieldGrad)"
-          opacity="0.6"
+          opacity="0.7"
         />
         <polyline
           points="12,22 17.5,28.5 28.5,15"
@@ -39,8 +39,8 @@ export function Logo({ href = '/', size = 'md', variant = 'dark' }: LogoProps) {
         />
         <defs>
           <linearGradient id="shieldGrad" x1="3" y1="2" x2="37" y2="42" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="oklch(0.62 0.18 200)" />
-            <stop offset="100%" stopColor="oklch(0.32 0.09 222)" stopOpacity="0" />
+            <stop offset="0%" stopColor="#9450fd" />
+            <stop offset="100%" stopColor="#6161ff" stopOpacity="0" />
           </linearGradient>
         </defs>
       </svg>
@@ -50,8 +50,8 @@ export function Logo({ href = '/', size = 'md', variant = 'dark' }: LogoProps) {
           SPD<span className={subColor}> Ready</span>
         </span>
         {size !== 'sm' && (
-          <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${variant === 'light' ? 'text-white/50' : 'text-[oklch(0.55_0.08_220)]'}`}>
-            Readiness Platform
+          <span className={`text-[10px] tracking-widest uppercase mt-0.5 ${variant === 'light' ? 'text-white/50' : 'text-[#808080]'}`}>
+            SPD Competency
           </span>
         )}
       </div>

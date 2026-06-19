@@ -1,21 +1,26 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
-import { getDomainSummaries, getDueReviewQueue, getAssignmentsForStudent } from '@/lib/dal/learning'
+import { getAuthUser } from '@/lib/dal/auth'
+import { getDomainSummaries, getDueReviewQueue } from '@/lib/dal/learning'
+import { recommendModules } from '@/lib/dal/learning-modules'
+import { getRequiredModulesForStaff } from '@/lib/dal/audits'
 import { MasteryCard } from '@/components/student/MasteryCard'
-import { AssignedModuleCard } from '@/components/student/AssignedModuleCard'
 import { LEARNING_DOMAIN_META } from '@/lib/local-db/types'
 import { getConcept } from '@/lib/local-db/concepts'
 
 export default async function LearningDashboardPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
-  const [summaries, dueQueue, assignments] = await Promise.all([
+  const [summaries, dueQueue, recommended, required] = await Promise.all([
     getDomainSummaries(),
     getDueReviewQueue(),
-    getAssignmentsForStudent(),
+    recommendModules(user.id),
+    getRequiredModulesForStaff(user.id),
   ])
+  // don't double-show a required module in the recommended row
+  const requiredIds = new Set(required.map((r) => r.module_id))
+  const recos = recommended.filter((m) => !requiredIds.has(m.id))
 
   return (
     <div className="py-8 max-w-5xl mx-auto space-y-8">
@@ -31,10 +36,55 @@ export default async function LearningDashboardPage() {
         </p>
       </div>
 
-      {assignments.length > 0 && (
+      {/* Required — assigned by your manager (remediation) */}
+      {required.length > 0 && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Assigned by your coordinator</h2>
-          {assignments.map(a => <AssignedModuleCard key={a.id} a={a} />)}
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <span className="text-[oklch(0.577_0.245_27)]">⚠️</span> Required — assigned by your manager
+          </h2>
+          {required.map((r) => (
+            <Link
+              key={r.assignment_id}
+              href={`/student/learning/module/${r.slug}`}
+              className="block rounded-xl border-2 border-[oklch(0.577_0.245_27)]/40 bg-[oklch(0.577_0.245_27)]/5 p-5 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-bold text-base">{r.title}</p>
+                  {r.finding && <p className="text-sm text-muted-foreground mt-1">Cited for: &ldquo;{r.finding}&rdquo;</p>}
+                  {r.due_date && <p className="text-xs text-muted-foreground mt-1">Due {new Date(r.due_date).toLocaleDateString()}</p>}
+                </div>
+                <span className="shrink-0 text-sm font-semibold text-[oklch(0.45_0.18_27)]">Review &amp; validate →</span>
+              </div>
+            </Link>
+          ))}
+        </section>
+      )}
+
+      {/* Recommended for you — adaptive feed */}
+      {recos.length > 0 && (
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">Recommended for you</h2>
+            <Link href="/student/learning/modules" className="text-sm font-medium text-primary hover:underline">Browse all →</Link>
+          </div>
+          <p className="text-sm text-muted-foreground -mt-1">Based on your weak and due-for-review areas.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {recos.map((m) => (
+              <Link
+                key={m.id}
+                href={`/student/learning/module/${m.slug}`}
+                className="rounded-xl border-2 border-border bg-card p-4 hover:shadow-md hover:border-primary/40 transition-all block"
+              >
+                <div className="flex items-center gap-2">
+                  <span>{LEARNING_DOMAIN_META[m.domain].icon}</span>
+                  <p className="font-semibold text-sm leading-snug">{m.title}</p>
+                </div>
+                {m.summary && <p className="text-xs text-muted-foreground mt-1.5 line-clamp-2">{m.summary}</p>}
+                <p className="text-[11px] font-medium text-primary mt-2">{m.recommendationReason}</p>
+              </Link>
+            ))}
+          </div>
         </section>
       )}
 
@@ -59,7 +109,10 @@ export default async function LearningDashboardPage() {
       )}
 
       <section>
-        <h2 className="text-lg font-semibold mb-4">Domains</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold">Domains</h2>
+          <Link href="/student/learning/modules" className="text-sm font-medium text-primary hover:underline">Learning modules →</Link>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {summaries.map(s => <MasteryCard key={s.domain} d={s} />)}
         </div>

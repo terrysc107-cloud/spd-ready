@@ -1,20 +1,14 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { startAssessmentAction } from '@/actions/student'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card'
+import { ClipboardListIcon } from 'lucide-react'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 export default async function AssessmentStartPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   // Profile gate — defense in depth layer 2 (both page AND Server Action check this)
@@ -29,7 +23,10 @@ export default async function AssessmentStartPage() {
       </Link>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Readiness Assessment</CardTitle>
+          <span className="mb-1 flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-inset ring-accent/20">
+            <ClipboardListIcon className="size-5" />
+          </span>
+          <CardTitle className="text-2xl">Readiness assessment</CardTitle>
           <CardDescription>30 questions across 6 sterile processing domains</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -38,25 +35,15 @@ export default async function AssessmentStartPage() {
             judgment, process discipline, behavioral fit, instrument familiarity, and reliability.
           </p>
           <div className="rounded-md bg-muted/50 p-4 text-sm space-y-2">
-            <p>
-              <strong>30 questions</strong> — one per screen, multiple choice
-            </p>
-            <p>
-              <strong>Resumable</strong> — close the browser and return where you left off
-            </p>
-            <p>
-              <strong>24-hour cooldown</strong> — between attempts
-            </p>
-            <p>
-              <strong>Results available immediately</strong> — after all 30 questions are answered
-            </p>
+            <p><strong>30 questions</strong> — one per screen, multiple choice</p>
+            <p><strong>Resumable</strong> — close the browser and return where you left off</p>
+            <p><strong>24-hour cooldown</strong> — between attempts</p>
+            <p><strong>Results available immediately</strong> — after all 30 questions are answered</p>
           </div>
         </CardContent>
         <CardFooter>
           <form action={startAssessmentAction} className="w-full">
-            <Button type="submit" className="w-full">
-              Begin Assessment
-            </Button>
+            <Button type="submit" className="w-full">Begin Assessment</Button>
           </form>
         </CardFooter>
       </Card>

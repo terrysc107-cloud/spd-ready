@@ -1,6 +1,6 @@
 import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getDomainSummary, getDomainConceptMastery } from '@/lib/dal/learning'
 import { getConceptsForDomain } from '@/lib/local-db/concepts'
 import { LEARNING_DOMAINS, LEARNING_DOMAIN_META } from '@/lib/local-db/types'
@@ -12,7 +12,7 @@ export default async function LearningDomainPage({
 }: {
   params: Promise<{ domain: string }>
 }) {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const { domain: domainSlug } = await params

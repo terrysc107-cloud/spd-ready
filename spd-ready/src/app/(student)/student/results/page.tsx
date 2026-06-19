@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getCurrentUser } from '@/lib/dal/auth'
+import { getAuthUser } from '@/lib/dal/auth'
 import { getStudentProfile } from '@/lib/dal/student'
 import { getLatestCompletedAssessment } from '@/lib/dal/assessment'
 import { CATEGORY_LABELS } from '@/lib/dal/scoring'
@@ -9,27 +9,27 @@ import { Button } from '@/components/ui/button'
 // Per-tier next steps copy
 const TIER_NEXT_STEPS: Record<1 | 2 | 3, { heading: string; steps: string[] }> = {
   1: {
-    heading: 'You are eligible for externship placement.',
+    heading: 'You are survey-ready across your competencies.',
     steps: [
-      'Browse open externship positions and apply.',
-      'Your readiness profile is now visible to hospital coordinators.',
-      'Maintain your skills — coordinators will review your category scores.',
+      'Your readiness feeds your competency record automatically.',
+      'Your manager can validate and sign off against an audit.',
+      'Keep your skills sharp — strong scores keep your record current.',
     ],
   },
   2: {
-    heading: 'You are eligible with coordinator-matched support.',
+    heading: 'You are nearly ready — close the gaps below.',
     steps: [
-      'Apply to openings — your profile will be matched to sites offering mentorship.',
-      'Review your growth areas before your externship begins.',
-      'Retake the assessment after focused study to move to Tier 1.',
+      'Continue training in your growth areas to strengthen each competency.',
+      'Your progress is visible to your manager as it builds.',
+      'Retake the assessment after focused study to reach full readiness.',
     ],
   },
   3: {
-    heading: 'Focus on the areas below before applying.',
+    heading: 'Focus on the areas below to build competency.',
     steps: [
-      'Review your growth areas with your program instructor.',
+      'Work through the training tracks for your weakest domains.',
       'You can retake the assessment in 24 hours.',
-      'Tier 3 students are not eligible for externship applications until reaching Tier 2 or higher.',
+      'Your manager sees your progress — every domain you master counts.',
     ],
   },
 }
@@ -50,7 +50,7 @@ const CATEGORY_IMPROVEMENT_NOTES: Record<string, string> = {
 }
 
 export default async function ResultsPage() {
-  const user = await getCurrentUser()
+  const user = await getAuthUser()
   if (!user) redirect('/login')
 
   const [profile, assessment] = await Promise.all([
@@ -59,7 +59,7 @@ export default async function ResultsPage() {
   ])
 
   if (!assessment || assessment.status !== 'completed') {
-    redirect('/student/assessment')
+    redirect('/student/learning')
   }
 
   // Tier is stored in student_profiles (not student_assessments — no readiness_tier column there)
@@ -118,7 +118,7 @@ export default async function ResultsPage() {
             'text-destructive border-destructive/40'
           }`}>
             {tier === 1 ? '✅' : tier === 2 ? '⚡' : '📚'}
-            Tier {tier} — {tier === 1 ? 'Placement Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
+            Tier {tier} — {tier === 1 ? 'Survey Ready' : tier === 2 ? 'Ready with Support' : 'Developing Readiness'}
           </div>
           <p className="text-xs text-muted-foreground mt-3">
             {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -228,13 +228,11 @@ export default async function ResultsPage() {
 
       {/* ── CTA / Retake ─── */}
       <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-        {tier !== 3 && (
-          <Link href="/student/openings" className="w-full sm:w-auto">
-            <Button className="w-full" size="lg">Browse Externship Openings →</Button>
-          </Link>
-        )}
-        <Link href="/student/assessment" className="w-full sm:w-auto">
-          <Button variant="outline" size="lg" className="w-full">Retake Assessment</Button>
+        <Link href="/competency/my" className="w-full sm:w-auto">
+          <Button className="w-full" size="lg">View My Competencies →</Button>
+        </Link>
+        <Link href="/student/learning" className="w-full sm:w-auto">
+          <Button variant="outline" size="lg" className="w-full">Continue Training</Button>
         </Link>
         <Link href="/student/dashboard" className="w-full sm:w-auto">
           <Button variant="ghost" size="lg" className="w-full">Back to Dashboard</Button>

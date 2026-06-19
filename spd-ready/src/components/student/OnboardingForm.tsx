@@ -94,7 +94,7 @@ export function OnboardingForm({ initialData }: Props) {
                 id="cert_status"
                 name="cert_status"
                 defaultValue={initialData?.cert_status ?? 'none'}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                className="flex h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
               >
                 <option value="none">No certification</option>
                 <option value="in_progress">In Progress (studying)</option>
@@ -138,7 +138,7 @@ export function OnboardingForm({ initialData }: Props) {
                   id="state"
                   name="state"
                   defaultValue={initialData?.state ?? ''}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  className="flex h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
                 >
                   <option value="">Select state</option>
                   {US_STATES.map(s => (
@@ -196,10 +196,10 @@ export function OnboardingForm({ initialData }: Props) {
                     key={shift}
                     type="button"
                     onClick={() => toggleShift(shift)}
-                    className={`rounded-full border px-3 py-1 text-sm capitalize transition-colors ${
+                    className={`rounded-full border px-3 py-1 text-sm font-medium capitalize transition-colors ${
                       selectedShifts.includes(shift)
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border text-muted-foreground hover:border-primary/50'
+                        ? 'border-accent/40 bg-accent/10 text-[oklch(0.42_0.15_200)]'
+                        : 'border-border text-muted-foreground hover:border-accent/40'
                     }`}
                   >
                     {shift}
@@ -217,7 +217,7 @@ export function OnboardingForm({ initialData }: Props) {
                 id="preferred_environment"
                 name="preferred_environment"
                 defaultValue={initialData?.preferred_environment ?? 'either'}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                className="flex h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
               >
                 <option value="acute_care">Acute Care / Hospital</option>
                 <option value="ambulatory">Ambulatory / Outpatient</option>

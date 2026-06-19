@@ -3,8 +3,8 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { requireRole } from '@/lib/dal/auth'
-import { upsertStudentProfile, getStudentProfile } from '@/lib/dal/student'
+import { requireAuth } from '@/lib/dal/auth'
+import { upsertStudentProfile, getStudentProfile, updateReadinessOnProfile } from '@/lib/dal/student'
 import {
   checkCooldown,
   createAssessment,
@@ -12,13 +12,13 @@ import {
   getActiveQuestions,
   computeCategoryScores,
   finalizeAssessment,
+  countResponses,
 } from '@/lib/dal/assessment'
 import {
   computeReadinessScore,
   deriveReadinessTier,
   deriveStrengthsAndGrowth,
 } from '@/lib/dal/scoring'
-import { readStore, writeStore } from '@/lib/local-db/store'
 
 type ActionState = { error?: string } | null
 
@@ -43,8 +43,8 @@ export async function upsertStudentProfileAction(
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
-  // Role guard — redirects to /login if not authenticated, /unauthorized if wrong role
-  await requireRole('student')
+  // Auth guard — redirects to /login if not authenticated
+  await requireAuth()
 
   const raw = {
     first_name: (formData.get('first_name') as string) ?? '',
@@ -86,7 +86,7 @@ export async function upsertStudentProfileAction(
 // Security: checks profile completion AND retake cooldown server-side — not just in UI.
 // URL contract (locked): redirects to /student/assessment/${assessmentId}/1 on success.
 export async function startAssessmentAction(): Promise<void> {
-  const user = await requireRole('student')
+  const user = await requireAuth()
 
   // Profile gate — defense in depth (UI also redirects, but Server Action is the security boundary)
   const profile = await getStudentProfile()
@@ -111,7 +111,7 @@ export async function startAssessmentAction(): Promise<void> {
 // URL contract (locked): redirects to /student/assessment/${assessmentId}/${step+1} for steps 1-29,
 // then calls submitAssessmentAction on step 30.
 export async function saveAnswerAction(formData: FormData): Promise<void> {
-  await requireRole('student')
+  await requireAuth()
 
   const assessmentId = formData.get('assessmentId') as string
   const questionId = formData.get('questionId') as string
@@ -146,12 +146,11 @@ export async function saveAnswerAction(formData: FormData): Promise<void> {
 // Called internally by saveAnswerAction on the final step.
 // Also callable directly for edge cases (e.g., retry after interrupted submit).
 export async function submitAssessmentAction(assessmentId: string): Promise<void> {
-  const user = await requireRole('student')
+  await requireAuth()
 
-  // Count responses from local store — must be >= 30 before scoring
-  const store = readStore()
-  const responses = store.responses[assessmentId] ?? []
-  if (responses.length < 30) {
+  // Count responses from Supabase — must be >= 30 before scoring
+  const responseCount = await countResponses(assessmentId)
+  if (responseCount < 30) {
     redirect(`/student/assessment?error=incomplete_assessment`)
   }
 
@@ -162,19 +161,13 @@ export async function submitAssessmentAction(assessmentId: string): Promise<void
 
   await finalizeAssessment(assessmentId, categoryScores, overallScore)
 
-  // Update student_profiles in local store
-  const profile = store.student_profiles[user.id]
-  if (profile) {
-    store.student_profiles[user.id] = {
-      ...profile,
-      readiness_score: overallScore,
-      readiness_tier: readinessTier,
-      strengths_json: strengths,
-      growth_areas_json: growthAreas,
-      updated_at: new Date().toISOString(),
-    }
-    writeStore(store)
-  }
+  // Stamp the readiness onto the student's profile (Supabase).
+  await updateReadinessOnProfile({
+    readinessScore: overallScore,
+    readinessTier,
+    strengths,
+    growthAreas,
+  })
 
   revalidatePath('/', 'layout')
   redirect('/student/results')

@@ -1,0 +1,297 @@
+[
+  {
+    "stem": "You are pulling a steam load and notice one wrapped orthopedic tray has visible water droplets on the outside of the wrap after the full cooling period. The OR is calling for that exact tray for a case starting in 20 minutes, and the charge nurse says 'it's just a little water, wipe it off and send it up.' What is the correct action?",
+    "options": {
+      "A": "Consider the pack contaminated, do not release it, document the wet pack, and reprocess after investigating the cause",
+      "B": "Wipe the exterior dry, confirm the chemical indicator passed, and release the tray since the cycle completed",
+      "C": "Open the wrap to check if the instruments inside are dry, and release them if they are",
+      "D": "Send the tray up but tell the OR to use it only as a backup"
+    },
+    "correct": "A",
+    "partial_credit": null,
+    "explanation": "Per ANSI/AAMI ST79 (Annex O, moisture assessment), a pack with external moisture droplets after the cooling period is considered a wet pack and must be treated as unsterile, because moisture provides a wicking path for microorganisms through the wrap. The correct action is to reject and reprocess the tray and investigate the cause (load configuration, drying time, etc.). Wiping it dry (B) ignores that wicking may already have occurred and that internal moisture is unknown. Opening the wrap (C) breaches the sterile barrier and still does not make a wet pack usable. Sending it as a backup (D) still puts a non-sterile tray in the sterile field. Schedule pressure does not change the sterility determination.",
+    "difficulty": "intermediate",
+    "judgment_type": "common_sense",
+    "real_world_standard": "A wet pack is an unsterile pack; it is rejected and reprocessed regardless of schedule pressure.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Annex O / moisture assessment (wet packs)", "note": "External or internal moisture after cooling renders a pack unsterile due to microbial wicking through the wrap; reject and reprocess, and investigate the cause." }
+    ]
+  },
+  {
+    "stem": "A biological indicator (BI) run in a routine (non-implant) steam load comes back positive the next morning. The sterilizer has run several loads since, and the cause is not obvious. Your lead is out and the floor is busy. What should you do?",
+    "options": {
+      "A": "Repeat the BI; if the repeat is negative, assume the first was a false positive and take no further action",
+      "B": "Take the sterilizer out of service, quarantine and recall all loads back to the last negative BI, retrieve and reprocess affected items, and notify the appropriate personnel",
+      "C": "Leave the sterilizer running but flag the one load that had the BI for reprocessing",
+      "D": "Release the items already distributed since they passed their chemical indicators, and only reprocess what is still in the department"
+    },
+    "correct": "B",
+    "partial_credit": "C",
+    "explanation": "ANSI/AAMI ST79 directs that when a BI is positive and the cause is not immediately identified, the sterilizer is taken out of service and every load back to the last negative BI is recalled and reprocessed; items should be retrieved when possible and the failure investigated/corrected before returning the unit to service. Simply repeating the BI (A) and trusting a negative repeat without recall leaves potentially non-sterile items in circulation. Flagging only the single BI load (C) is a partial response but underestimates the recall window back to the last negative result. Relying on chemical indicators (D) is unsafe because CIs verify cycle conditions, not microbial kill, and cannot substitute for a BI.",
+    "difficulty": "advanced",
+    "judgment_type": "accountability",
+    "real_world_standard": "A positive BI with unknown cause triggers sterilizer removal from service and recall back to the last negative BI.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Sterilization process monitoring / BI failure and recall", "note": "On an unexplained positive BI, remove sterilizer from service and recall all loads back to the last negative BI; reprocess retrieved items and identify/correct the cause." }
+    ]
+  },
+  {
+    "stem": "A loaner orthopedic tray arrives from a vendor 45 minutes before its scheduled case. The vendor rep insists it was 'cleaned and sterilized at our facility' and asks you to just run it through a quick cycle so it is ready. There are no manufacturer IFU sheets in the case and the count sheet is incomplete. What is the best action?",
+    "options": {
+      "A": "Run an immediate-use cycle so the tray is ready on time, since the vendor says it was already cleaned",
+      "B": "Decontaminate, inspect, and terminally sterilize the tray following the device manufacturer's IFU; obtain the IFU before processing and escalate the timeline conflict",
+      "C": "Sterilize it using your facility's standard wrapped cycle without the IFU, since most orthopedic trays use similar parameters",
+      "D": "Accept the vendor's assurance and place the tray directly into circulation"
+    },
+    "correct": "B",
+    "partial_credit": null,
+    "explanation": "Loaner instruments must be decontaminated, inspected, and terminally sterilized on receipt per the device manufacturer's validated IFU (AORN loaner guidance; ST79's reliance on IFU-driven parameters), regardless of vendor claims about prior processing, because you cannot verify another facility's process. Running IUSS (A) for convenience or because a tray arrived late is explicitly discouraged and is not a substitute for terminal sterilization. Guessing parameters without the IFU (C) risks an inadequate cycle for a complex device. Trusting the vendor's word (D) places an unvalidated tray on a patient. The right move is to process per IFU and escalate the unrealistic timeline rather than cut steps.",
+    "difficulty": "intermediate",
+    "judgment_type": "moral_standard",
+    "real_world_standard": "Loaner trays are always reprocessed per the manufacturer IFU on receipt; vendor assurances do not replace your validated process.",
+    "standard_refs": [
+      { "standard": "AORN Guidelines", "section": "Loaner instrumentation", "note": "Loaner devices are decontaminated, inspected, and terminally sterilized per the manufacturer IFU before use, with adequate lead time." },
+      { "standard": "ANSI/AAMI ST79", "section": "Immediate-use steam sterilization", "note": "IUSS is reserved for emergent need, not convenience or to compensate for inadequate inventory/lead time." }
+    ]
+  },
+  {
+    "stem": "While decontaminating flexible colonoscopes, you notice one scope consistently shows debris at the distal end after manual cleaning, even though you followed the standard brushing steps. Three other scopes the same shift cleaned normally. What is the most appropriate response?",
+    "options": {
+      "A": "Run it through the automated endoscope reprocessor anyway; the AER will finish cleaning it",
+      "B": "Repeat manual cleaning a couple more times and send it on if it eventually looks clean",
+      "C": "Stop, remove the scope from use, and investigate root cause (damaged/retained channel, worn brush, defective port, or IFU step missed), then escalate per ST91",
+      "D": "Assume the cleaning verification test is oversensitive and continue processing"
+    },
+    "correct": "C",
+    "partial_credit": "B",
+    "explanation": "Persistent debris on one scope while peers clean normally is an off-normal signal that points to a specific root cause: channel damage, a retained foreign body, a worn or wrong-size brush, or a missed IFU step. ANSI/AAMI ST91 stresses that cleaning is the foundation of reprocessing and that high-level disinfection/sterilization cannot compensate for inadequate cleaning, so the scope must be removed and investigated. Relying on the AER (A) is unsafe because residual soil blocks disinfectant contact. Brute-force repeating cleaning (B) might eventually pass but ignores the root cause, so it is only a partial answer. Dismissing the verification test (D) rationalizes away a real failure signal.",
+    "difficulty": "advanced",
+    "judgment_type": "critical_thinking",
+    "real_world_standard": "An item that won't come clean signals a root cause to investigate, not a step to repeat blindly or skip past disinfection.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST91", "section": "Manual cleaning and cleaning verification", "note": "Thorough cleaning is prerequisite to HLD/sterilization; residual soil must be resolved at the source before the scope advances." }
+    ]
+  },
+  {
+    "stem": "Your facility just transitioned to ANSI/AAMI ST108 water requirements. You notice the final-rinse water for your manual instrument soak is coming from the same untreated tap line used for initial washing, and a spotting/scale problem has appeared on instruments. The department has been doing it this way for years. What is the correct judgment?",
+    "options": {
+      "A": "Keep using tap water for the final rinse since it has worked historically and the spots wipe off",
+      "B": "Apply an acidic descaler to the instruments after rinsing to remove the spots",
+      "C": "Add more tap-water rinses to dilute the residue",
+      "D": "Switch the final rinse to critical (treated) water as required for that step, document the discrepancy, and escalate the water-system gap to your lead/facilities"
+    },
+    "correct": "D",
+    "partial_credit": null,
+    "explanation": "ANSI/AAMI ST108 distinguishes utility water (washing/flushing/initial rinse) from critical water (final rinse), because mineral and microbial content in untreated water can deposit on devices and compromise downstream processing. The correct action is to use critical water for the final rinse and escalate the system gap, not to normalize a long-standing deviation. Continuing with tap water (A) and 'just wiping spots' ignores a binding requirement and a real quality signal. Extra tap rinses (C) add more low-quality water, not better water. Chemically descaling instruments (B) treats a symptom and may damage devices while leaving the root water-quality problem unaddressed.",
+    "difficulty": "advanced",
+    "judgment_type": "critical_thinking",
+    "real_world_standard": "Final-rinse water must meet critical-water quality; visible spotting is a water-quality signal to correct at the source.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST108", "section": "Water categories (utility vs. critical)", "note": "Critical water is required for final rinse of devices; it is extensively treated to remove minerals/organics/microorganisms that otherwise deposit on instruments." }
+    ]
+  },
+  {
+    "stem": "A high-level disinfected flexible bronchoscope finishes its AER cycle. The OR wants it back in service right away for an add-on case, and your manual drying step using forced air typically takes about ten minutes per the IFU and ST91. A coworker says, 'It's basically dry, just hang it and grab it.' What do you do?",
+    "options": {
+      "A": "Hang the scope wet and release it; hanging in the cabinet will finish drying it before it is needed",
+      "B": "Skip channel drying but wipe the exterior dry and release it",
+      "C": "Complete the full channel-drying step (forced instrument/filtered air, including any alcohol flush per IFU) before the scope is stored or released",
+      "D": "Release it now and dry the next one more carefully"
+    },
+    "correct": "C",
+    "partial_credit": null,
+    "explanation": "ANSI/AAMI ST91 calls for thorough drying of all channels with pressure-regulated forced instrument air (or at minimum HEPA-filtered air) for a recommended minimum of about ten minutes, extended until no moisture remains, because retained moisture allows waterborne organism growth and biofilm and can negate the disinfection. An alcohol flush is no longer a routine drying step under ST91:2021 (alcohol can act as a fixative); whether to flush with alcohol is a risk-assessment/IFU decision, which is why option C scopes it to 'any alcohol flush per IFU.' Hanging it wet (A) or only wiping the exterior (B) leaves channel moisture, the highest-risk site. Deferring proper drying to 'the next one' (D) still releases an inadequately processed scope. The schedule does not override the drying requirement; the case timeline should be escalated, not the drying step skipped.",
+    "difficulty": "intermediate",
+    "judgment_type": "safety_ownership",
+    "real_world_standard": "Endoscope channels must be fully dried before storage/use; retained moisture breeds waterborne pathogens and biofilm.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST91", "section": "Drying of flexible endoscopes", "note": "Dry channels with pressure-regulated forced instrument/HEPA-filtered air (min ~10 minutes, extended until dry). ST91:2021 treats an alcohol flush as a risk-assessment/IFU decision, not a routine drying step." }
+    ]
+  },
+  {
+    "stem": "Halfway through assembling a complex laparoscopic set, you realize you cannot account for one small insert screw that was on the count sheet. You have already wrapped two other trays and are behind. No one saw you working on this set. What is the right thing to do?",
+    "options": {
+      "A": "Wrap the set and note 'screw missing' quietly on the count sheet so it is technically documented",
+      "B": "Substitute a similar screw from another tray so the count matches",
+      "C": "Stop, document the discrepancy, search/reconcile the missing item, and notify your lead before the set is released; do not release an incomplete or unaccounted set",
+      "D": "Release the set; the OR will catch it if the screw is actually needed"
+    },
+    "correct": "C",
+    "partial_credit": "A",
+    "explanation": "A missing or unaccounted instrument is both a patient-safety and a retained-surgical-item risk; ST79 and AORN count/traceability practices require reconciling discrepancies and not releasing incomplete or unverifiable sets. The accountable action is to stop, document, reconcile, and escalate before release, regardless of being unobserved. Burying the note (A) documents but still releases an unsafe set, so it is only partial. Substituting a part from another tray (B) creates a second discrepancy and may introduce a non-validated/incompatible item. Pushing it to the OR to catch (D) shifts a known defect downstream and risks a retained fragment or an unusable set mid-case.",
+    "difficulty": "intermediate",
+    "judgment_type": "accountability",
+    "real_world_standard": "Instrument count discrepancies are reconciled and escalated before release; you don't pass a known gap downstream.",
+    "standard_refs": [
+      { "standard": "AORN Guidelines", "section": "Instrument accountability / counts", "note": "Discrepancies in instrument counts must be reconciled and documented; incomplete sets are not released without resolution." },
+      { "standard": "ANSI/AAMI ST79", "section": "Assembly and traceability", "note": "Sets are assembled and documented per count sheets so contents are verifiable and traceable through the process." }
+    ]
+  },
+  {
+    "stem": "You discover that earlier in your shift you loaded a peel pouch with the paper-to-paper and film-to-film sides facing the wrong way and ran it through a steam cycle, and several such pouches have already been delivered to a clinic cart. You are not certain the cycle was affected, but you know the pouches were oriented incorrectly. What should you do?",
+    "options": {
+      "A": "Say nothing unless someone asks; the CIs on the pouches turned color so they are probably fine",
+      "B": "Promptly report your error to your lead, identify and retrieve the affected pouches, and reprocess them correctly per IFU",
+      "C": "Pull only the pouches still in the department and leave the delivered ones, since retrieving them is disruptive",
+      "D": "Re-run the same pouches through another cycle without unpacking, to be safe"
+    },
+    "correct": "B",
+    "partial_credit": "C",
+    "explanation": "Owning your own mistake transparently is a core professional and patient-safety duty. Incorrect pouch orientation can impair air removal, steam penetration, and drying, so the safe response is to disclose, locate all affected pouches (including delivered ones), and reprocess them correctly per IFU. Staying silent because CIs changed (A) is unsafe, since a CI verifies exposure to a condition, not validated sterility under a compromised packaging configuration. Retrieving only in-house pouches (C) addresses part of the risk but knowingly leaves potentially compromised items in the field, so it is only partial. Re-running sealed pouches (D) does not correct the orientation problem and isn't a validated remedy.",
+    "difficulty": "intermediate",
+    "judgment_type": "professionalism",
+    "real_world_standard": "Flag and own your own processing errors immediately and retrieve all affected items, even after delivery.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Packaging (peel pouches) and quality assurance", "note": "Pouches must be oriented and loaded per IFU to allow air removal and steam contact; suspected packaging errors warrant retrieval and reprocessing." }
+    ]
+  },
+  {
+    "stem": "A new technician on your shift is visibly overwhelmed: the decontam sink is backing up, the washer just faulted, and instruments are piling up while two STAT trays are needed. A surgeon's assistant is at the window demanding a tray 'right now.' What is the best teamwork response?",
+    "options": {
+      "A": "Tell the new tech to handle their own area while you focus on your assignment so you aren't blamed for their backlog",
+      "B": "Triage with the team: communicate the washer issue to the lead, redistribute hands to clear decontam and prioritize the STAT trays through a validated process, and set realistic expectations with the requester",
+      "C": "Bypass the faulted washer and hand-clean everything quickly to clear the queue, skipping the usual verification",
+      "D": "Push the two STAT trays through immediate-use sterilization to satisfy the window, then sort out the backlog later"
+    },
+    "correct": "B",
+    "partial_credit": null,
+    "explanation": "Under surge conditions, the standard-aligned move is coordinated triage: escalate the equipment fault, pool staff to keep cleaning thorough, prioritize true STATs through validated cleaning and sterilization, and communicate honest timelines. ST79 and AORN emphasize that throughput pressure never justifies skipping cleaning/verification steps. Leaving a struggling teammate (A) protects yourself but harms patients and the team. Skipping verification to hand-clean fast (C) sacrifices the foundational cleaning step. Defaulting to IUSS for STATs (D) misuses immediate-use sterilization for workflow convenience. Collaboration plus protecting the process is the safe path.",
+    "difficulty": "intermediate",
+    "judgment_type": "teamwork",
+    "real_world_standard": "Surge pressure is met with team triage and honest timelines, never by skipping cleaning or verification.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Quality process / workflow", "note": "Cleaning and verification steps are non-negotiable regardless of throughput pressure; equipment faults are escalated." },
+      { "standard": "AORN Guidelines", "section": "Team communication / IUSS minimization", "note": "Coordinate and communicate under pressure; reserve IUSS for genuine emergencies, not workflow surges." }
+    ]
+  },
+  {
+    "stem": "During the Bowie-Dick (air removal) test on a dynamic-air-removal sterilizer at the start of the day, the test sheet shows a non-uniform color change suggesting incomplete air removal. The first scheduled instrument load is urgent. What should you do?",
+    "options": {
+      "A": "Run the urgent load anyway and repeat the Bowie-Dick after, since one questionable test could be a fluke",
+      "B": "Release the load if the load's own chemical indicator passes, regardless of the Bowie-Dick result",
+      "C": "Switch that load to a gravity cycle to avoid the air-removal issue",
+      "D": "Do not use the sterilizer for loads; repeat the Bowie-Dick per protocol and, if it fails again, take the sterilizer out of service and report it for evaluation before any loads run"
+    },
+    "correct": "D",
+    "partial_credit": null,
+    "explanation": "ANSI/AAMI ST79 requires a daily air-removal (Bowie-Dick) test for dynamic-air-removal sterilizers, and a failed/questionable test indicates the sterilizer should not be used for loads until the issue is resolved, typically repeat the test and, on continued failure, remove from service and have it evaluated. Running the urgent load first (A) processes patient items in a sterilizer with suspected air-removal failure. Improvising a gravity cycle (C) does not address the documented fault and may be inappropriate for the items. Trusting a single load CI (B) ignores that the Bowie-Dick specifically validates air removal/steam penetration capability of the chamber. Urgency is handled by another qualified sterilizer, not by overriding the test.",
+    "difficulty": "advanced",
+    "judgment_type": "escalation",
+    "real_world_standard": "A failed daily air-removal (Bowie-Dick) test means the sterilizer is not used for loads until resolved.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Bowie-Dick / air-removal testing", "note": "Dynamic-air-removal sterilizers get a daily air-removal test; a failure means no loads until the test passes or the unit is serviced." }
+    ]
+  },
+  {
+    "stem": "A surgeon walks into the decontam area in street clothes, frustrated, and says loudly that 'SPD always loses my favorite clamp' and demands you find it immediately. You know the clamp was sent for repair last week with documentation. How should you handle this professionally?",
+    "options": {
+      "A": "Match their tone and remind them that surgeons constantly break instruments, then walk away",
+      "B": "Calmly acknowledge the frustration, note that the area requires proper attire/access, share the documented repair status, and offer the next step (loaner/substitute) through the right channel",
+      "C": "Stop your task and start digging through bins to look busy until they leave",
+      "D": "Tell them it's not your job and that they need to talk to the manager"
+    },
+    "correct": "B",
+    "partial_credit": "D",
+    "explanation": "Professional conduct means staying calm, respectful, and factual under interpersonal pressure while still protecting process integrity, here, addressing improper attire/traffic in decontam and providing the documented repair status plus a constructive next step. This de-escalates and keeps the patient/workflow moving. Matching their tone (A) is unprofessional and damages collaboration. Pretending to search (C) wastes time and abandons the documented facts. Deflecting entirely to the manager (D) is only partially appropriate; escalation can be valid, but the technician should still communicate respectfully and provide the known information rather than simply brushing the person off.",
+    "difficulty": "foundational",
+    "judgment_type": "professionalism",
+    "real_world_standard": "Respond to conflict calmly and factually, uphold attire/traffic control, and offer a constructive next step.",
+    "standard_refs": [
+      { "standard": "AORN Guidelines", "section": "Surgical attire / traffic control and professional communication", "note": "Restricted areas require appropriate attire/access control; staff communicate respectfully and factually to support safe, collaborative care." }
+    ]
+  },
+  {
+    "stem": "An implant tray for a total knee is needed for a case. Per your facility policy and ST79, implant loads are monitored with a process challenge device containing a BI and a Type 5 integrating indicator, and the implant is held until the BI result is read. The coordinator pressures you to release the implant now on the integrator alone because 'we can't delay.' This is a routine scheduled case, not an emergency. What is correct?",
+    "options": {
+      "A": "Hold the implant until the BI result is available; only in a documented emergency may it be released on the integrator with the BI still incubated and the rationale recorded",
+      "B": "Release the implant on the Type 5 integrator result alone to keep the schedule, since integrators are reliable",
+      "C": "Skip the BI/PCD for this load to avoid the wait, since the integrator already passed",
+      "D": "Release it and read the BI later without documenting, since it will almost certainly be negative"
+    },
+    "correct": "A",
+    "partial_credit": null,
+    "explanation": "ANSI/AAMI ST79 specifies that every implant load be monitored with a PCD containing a BI plus a Type 5 integrating indicator and that the implant be quarantined until the BI result is known. Early release on the integrator alone is permitted only in documented emergencies, with the BI still incubated and the decision recorded, not for routine scheduling convenience. Releasing on the integrator for a routine case (B) bypasses the implant-monitoring safeguard. Skipping the BI/PCD (C) eliminates the strongest assurance of sterility for a permanently implanted device. Releasing without documenting (D) defeats traceability and accountability if the BI later fails.",
+    "difficulty": "advanced",
+    "judgment_type": "moral_standard",
+    "real_world_standard": "Implants are quarantined until the BI reads negative; integrator-only release is for documented emergencies only.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Implant load monitoring / quarantine", "note": "Monitor implant loads with a PCD containing a BI and Type 5 integrator; quarantine the implant until the BI result is known. Emergency early release on the integrator requires documentation and continued BI incubation." }
+    ]
+  },
+  {
+    "stem": "You pull a wrapped instrument set from the shelf for a case and notice the external wrap has a small puncture/tear near the corner, though the load record and indicators were fine when it was sterilized. The case is starting soon. What is the most reasonable action?",
+    "options": {
+      "A": "Cover the tear with sterilization tape and send the set, since it sterilized correctly originally",
+      "B": "Inspect the tear; if the instruments inside look untouched, use the set anyway",
+      "C": "Consider the package integrity compromised, do not use it, and reprocess the set; pull a different sterile set if available",
+      "D": "Send it up and let the circulating nurse decide whether to open it"
+    },
+    "correct": "C",
+    "partial_credit": null,
+    "explanation": "Sterility maintenance is event-related: a breach of package integrity (tear, puncture, wet/compromised wrap) means the contents can no longer be considered sterile, regardless of a successful original cycle. ST79 and AORN require that compromised packaging be treated as non-sterile and reprocessed. Taping the tear (A) does not restore the sterile barrier and is not a validated repair. Visually judging the instruments (B) is meaningless because contamination through a breach is not visible. Pushing the decision to the circulator (D) passes a known integrity failure downstream. The correct, safe action is to reprocess and substitute a sound sterile set.",
+    "difficulty": "foundational",
+    "judgment_type": "common_sense",
+    "real_world_standard": "A breached package is non-sterile regardless of cycle history; reprocess it rather than 'repair' or rationalize it.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Sterility maintenance / event-related sterility", "note": "Package integrity loss (tears, punctures, moisture) compromises sterility; affected packages are treated as non-sterile and reprocessed." },
+      { "standard": "AORN Guidelines", "section": "Sterile package inspection before use", "note": "Inspect packaging before use; do not use any package whose integrity is compromised." }
+    ]
+  },
+  {
+    "stem": "Census is high and the OR requests that you immediate-use sterilize a single, non-emergent specialty instrument because there is only one in inventory and back-to-back cases need it. There is time to terminally sterilize it between cases if scheduling adjusts slightly. What is the best judgment?",
+    "options": {
+      "A": "Decline routine IUSS for this convenience situation, escalate the inventory gap, and work with the team to adjust scheduling so the instrument can be terminally sterilized, reserving IUSS for true emergencies",
+      "B": "Perform IUSS each time between cases; it is the fastest way to keep the schedule moving",
+      "C": "IUSS it once and then reuse it without reprocessing between the back-to-back cases",
+      "D": "Wrap and IUSS it so it can be stored sterile for later use"
+    },
+    "correct": "A",
+    "partial_credit": null,
+    "explanation": "ANSI/AAMI ST79 and AORN state that immediate-use steam sterilization should be minimized and used only for urgent, justified situations, not to compensate for insufficient inventory or for convenience, because IUSS-processed items carry higher SSI risk and shorter assurance. The correct action is to address the root cause (inventory/scheduling) and reserve IUSS for genuine emergencies. Routine IUSS between cases (B) institutionalizes a discouraged shortcut. Reusing an item without reprocessing (C) is a gross infection-control violation. 'Wrapping it to store after IUSS' (D) misunderstands IUSS, which is for immediate use and is not intended for storage.",
+    "difficulty": "advanced",
+    "judgment_type": "escalation",
+    "real_world_standard": "IUSS is for genuine emergencies, not convenience or inventory shortfalls; fix the root cause instead.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Immediate-use steam sterilization", "note": "Minimize IUSS; use only when justified and per IFU, never for convenience or to offset inadequate inventory; items are for immediate use, not storage." },
+      { "standard": "AORN Guidelines", "section": "IUSS minimization", "note": "Reserve IUSS for emergent need; address inventory/scheduling gaps systemically." }
+    ]
+  },
+  {
+    "stem": "You receive an urgent FDA/manufacturer recall notice for a specific lot of a reusable device component currently in your inventory, citing a contamination/sterilization-assurance concern. Some of those components are already assembled into sterile-stored sets. It's the end of your shift. What is the correct response?",
+    "options": {
+      "A": "Leave a note for the next shift and clock out, since the recall isn't your assignment",
+      "B": "Continue issuing the sets until the manufacturer sends formal replacement instructions",
+      "C": "Pull only the loose components on the shelf and leave assembled sets alone to avoid breaking them down",
+      "D": "Immediately identify, quarantine, and segregate all affected lot components, including those in assembled sterile sets, notify your lead and follow the recall/quarantine procedure, and document the actions before any affected item can be issued"
+    },
+    "correct": "D",
+    "partial_credit": "C",
+    "explanation": "A recall is a patient-safety event that takes priority over shift timing. The correct action is to immediately locate, quarantine, and segregate every affected lot item so none can be issued, including components already built into sterile sets, then notify leadership and follow the documented recall procedure with traceability records. Deferring to the next shift (A) leaves affected devices issuable in the interim. Pulling only loose stock (C) misses the assembled sets and is only a partial response. Continuing to issue while awaiting paperwork (B) knowingly distributes recalled devices. Recall handling and traceability are explicit expectations in ST79 quality systems and facility policy.",
+    "difficulty": "advanced",
+    "judgment_type": "safety_ownership",
+    "real_world_standard": "On a recall, immediately quarantine every affected item, including those built into sets, before anything is issued.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST79", "section": "Recall, traceability, and quality system", "note": "Facilities maintain traceability to support recall; affected items are located, quarantined, and removed from issue, with documented actions." },
+      { "standard": "FDA / CDC", "section": "Device recall handling", "note": "Recalled reusable devices must be removed from use and managed per the manufacturer/FDA notice to protect patients." }
+    ]
+  },
+  {
+    "stem": "Two technicians disagree at the assembly table: one insists a delicate microsurgical instrument with a lumen should be processed per the older general tray routine 'like we always have,' while the new device IFU specifies a different cleaning brush, flush volume, and sterilization parameters. The set is needed soon. What is the best path forward?",
+    "options": {
+      "A": "Go with the senior tech's habit since they have more experience and the case is waiting",
+      "B": "Split the difference by using the old brush but the new sterilization parameters",
+      "C": "Follow the current device IFU for cleaning and sterilization, pull up the IFU together to align, and escalate to the lead if there is still disagreement before processing",
+      "D": "Process it both ways on two units and use whichever finishes first"
+    },
+    "correct": "C",
+    "partial_credit": null,
+    "explanation": "The device manufacturer's current IFU is the authoritative, FDA-cleared validated process and overrides habit or seniority. ST91/ST79 and AORN all ground reprocessing in the specific IFU, especially for lumened and delicate devices where brush type, flush volume, and parameters are validated together. Resolving the dispute by reading the IFU together and escalating if needed keeps the team aligned and the patient safe. Deferring to seniority/habit (A) can perpetuate a non-validated process. Mixing old and new steps (B) creates an unvalidated hybrid. Running it 'both ways' (D) is wasteful and still risks using a non-validated method. IFU adherence plus collaborative resolution is correct.",
+    "difficulty": "intermediate",
+    "judgment_type": "teamwork",
+    "real_world_standard": "The current device IFU settles process disputes; align as a team on the IFU and escalate rather than defaulting to habit.",
+    "standard_refs": [
+      { "standard": "ANSI/AAMI ST91", "section": "IFU-driven reprocessing of lumened/complex devices", "note": "Cleaning tools, flush volumes, and parameters are validated per the device IFU and must be followed for complex/lumened instruments." },
+      { "standard": "ANSI/AAMI ST79", "section": "Manufacturer IFU adherence", "note": "Processing follows the current validated device IFU; habit or general routines do not override device-specific instructions." }
+    ]
+  }
+]

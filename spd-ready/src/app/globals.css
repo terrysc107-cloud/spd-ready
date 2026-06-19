@@ -2,14 +2,40 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* ============================================================
+   Design language — "premium enterprise, warm depth (not dry)"
+   Depth comes from ELEVATION on a warm off-white canvas, not from
+   saturated fills. Elevation tiers:
+     E0 page    : bg-background (off-white; never pure-white page)
+     E1 card    : bg-card ring-1 ring-foreground/10 rounded-xl shadow-sm
+     E2 metric  : + shadow-md            (StatCard, hero readiness)
+     E3 hero    : .brand-gradient + blur-circle glassmorphism (one/screen)
+     E4 overlay : shadow-lg              (dialog, toast)
+   Color roles: --primary = structure (sidebar-active, primary btn, key #s);
+     --accent = ONE highlight per view (focus, "next", active); --muted =
+     neutrals; --destructive = errors only; chart-1..5 = data-viz only;
+     .tier-1/2/3 = universal status/severity scale; --sidebar-* = shell only.
+   Iconography: manager/compliance = lucide only (status via StatusPill);
+     tech = emoji ok for domain/streak/celebration, lucide for functional.
+   ============================================================ */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-sora);
+  /* monday pastel feature-tile surfaces (surface tints only — never text/buttons) */
+  --color-mint: #d6f5c0;
+  --color-sky: #c4eeff;
+  --color-apricot: #ffe0c2;
+  --color-lavender: #eddff7;
+  --color-periwinkle: #e7ecff;
+  --color-aqua: #d8f7ff;
+  --color-peony: #fcdcf6;
+  --color-violet-brand: #6161ff;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,41 +72,46 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* monday "flat-with-soft-shadow" — one soft lavender-tinted lift, no harsh stacks. */
+  --shadow-card: 0 2px 24px 0 rgba(205, 208, 223, 0.45);
+  --shadow-card-hover: 0 6px 32px 0 rgba(110, 110, 200, 0.18);
 }
 
 :root {
-  --background: oklch(0.98 0.003 220);
-  --foreground: oklch(0.13 0.02 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.02 240);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.02 240);
-  --primary: oklch(0.32 0.09 222);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.94 0.02 220);
-  --secondary-foreground: oklch(0.32 0.09 222);
-  --muted: oklch(0.95 0.01 220);
-  --muted-foreground: oklch(0.50 0.03 220);
-  --accent: oklch(0.62 0.18 200);
-  --accent-foreground: oklch(0.98 0 0);
+  /* monday.com palette — cloud canvas, white cards, ink text, violet brand */
+  --background: #f5f6f8;          /* cloud */
+  --foreground: #333333;          /* ink */
+  --card: #ffffff;                /* snow */
+  --card-foreground: #333333;
+  --popover: #ffffff;
+  --popover-foreground: #333333;
+  --primary: #6161ff;             /* monday violet — the single action color */
+  --primary-foreground: #ffffff;
+  --secondary: #e7ecff;           /* periwinkle wash */
+  --secondary-foreground: #6161ff;
+  --muted: #eef0f4;
+  --muted-foreground: #535768;    /* slate */
+  --accent: #6161ff;              /* one highlight = violet */
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0.02 220);
-  --input: oklch(0.90 0.02 220);
-  --ring: oklch(0.62 0.18 200);
-  --chart-1: oklch(0.62 0.18 200);
+  --border: #d0d4e4;              /* mist */
+  --input: #d0d4e4;
+  --ring: #6161ff;
+  --chart-1: #6161ff;
   --chart-2: oklch(0.64 0.18 150);
   --chart-3: oklch(0.75 0.15 80);
-  --chart-4: oklch(0.32 0.09 222);
+  --chart-4: #9450fd;
   --chart-5: oklch(0.62 0.22 25);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.20 0.05 222);
-  --sidebar-foreground: oklch(0.95 0.01 220);
-  --sidebar-primary: oklch(0.62 0.18 200);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.28 0.07 222);
-  --sidebar-accent-foreground: oklch(0.95 0.01 220);
-  --sidebar-border: oklch(0.28 0.07 222);
-  --sidebar-ring: oklch(0.62 0.18 200);
+  --radius: 1rem;
+  /* Light "white workshop" nav to match the cloud canvas */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #535768;          /* slate inactive */
+  --sidebar-primary: #6161ff;             /* active accent bar */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef0fe;              /* active link tint */
+  --sidebar-accent-foreground: #6161ff;   /* active link text */
+  --sidebar-border: #e6e7ea;
+  --sidebar-ring: #6161ff;
 }
 
 .dark {
@@ -134,7 +165,15 @@
 }
 
 .brand-gradient {
-  background: linear-gradient(135deg, oklch(0.22 0.07 225) 0%, oklch(0.38 0.12 215) 50%, oklch(0.52 0.16 205) 100%);
+  background: linear-gradient(135deg, #6161ff 0%, #9450fd 100%);
+}
+
+/* monday hero headline gradient (pink → orange) — display text only */
+.headline-gradient {
+  background: linear-gradient(90deg, #fe81e4 0%, #fda900 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .tier-1 { color: oklch(0.55 0.18 150); }

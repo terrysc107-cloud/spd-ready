@@ -8,16 +8,16 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <Logo size="md" variant="light" href="/" />
         <div>
           <blockquote className="text-white/80 text-sm leading-relaxed italic">
-            &ldquo;SPD Ready gives us confident placement decisions — we can see exactly where each student stands before day one.&rdquo;
+            &ldquo;SPD Ready gives us one standard for competency — we walk into survey day already knowing every tech is validated.&rdquo;
           </blockquote>
-          <p className="text-white/50 text-xs mt-3">— SPD Program Coordinator</p>
+          <p className="text-white/50 text-xs mt-3">— SPD Manager</p>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {[
-            { value: '30', label: 'Clinical questions' },
-            { value: '6', label: 'Scored categories' },
-            { value: '3', label: 'Readiness tiers' },
-            { value: '24h', label: 'Retake cooldown' },
+            { value: '8', label: 'Training domains' },
+            { value: '1', label: 'Verifiable record' },
+            { value: '4', label: 'Steps to sign-off' },
+            { value: '100%', label: 'Survey-ready' },
           ].map(({ value, label }) => (
             <div key={label} className="bg-white/10 rounded-lg p-3 text-center">
               <p className="text-white font-bold text-xl">{value}</p>
