@@ -1,6 +1,24 @@
 # SPD Ready — Handoff
 
-## UI/UX REFRESH checkpoint — 2026-06-18 (Claude) — Clean-SaaS whole-app visual pass DONE (uncommitted)
+## monday.com REDESIGN + Sora type — MERGED TO MAIN (2026-06-18, Claude)
+
+**The app was retoned to the monday.com design language with a Sora/Inter type system, rolled across the student pages, and MERGED TO `main` + pushed.** Terry's earlier clean-SaaS cohesion pass read "cheesy AI built"; he gave monday.com as the concrete target, picked **Sora + Inter** for type, then said "merge" + "roll the rest of the site." Branch `feature/staff-competency-foundation` == `origin/main` (head `79f8e25`). **Gates: typecheck clean · 51/51 tests · build green.**
+
+**Design system (globals.css tokens — whole app inherits):**
+- Palette: cloud `#f5f6f8` canvas, white cards, ink `#333`, single **violet `#6161ff`** brand/action color, mist `#d0d4e4` borders; pastel tokens (`bg-mint/sky/lavender/apricot/periwinkle/aqua`) for feature tiles.
+- **Pill buttons** (`button.tsx` rounded-full + roomier padding), rounded-2xl cards, one **soft lavender shadow** (`--shadow-card`). **Light/white sidebar** with violet active (`Sidebar.tsx` active class fixed off `text-white`). Violet `Logo`.
+- `.brand-gradient` repurposed dark-blue→violet; `.headline-gradient` pink→orange for display names.
+- **Type:** `layout.tsx` loads **Sora** (`--font-sora`, weights 400–800) + **Inter** (`--font-inter`); `--font-heading`=Sora, `--font-sans`=Inter. Bold varied scale applied in `PageHeader`/`SectionHeader`/`CardTitle`/`StatCard` (inherited app-wide).
+
+**Rebuilt/rolled in the new language (no logic changes):** student `dashboard` (light bold Sora hero + gradient name, pastel stat tiles, lucide icons — NO emoji), `learning`, `study`, `mindset` (gradient heroes → light monday headers; `border-2` → soft-shadow ring cards; decorative emoji → lucide; SectionHeaders), `MasteryCard`, `results` (Sora headings, de-emoji'd badges). Auth/assessment/competency surfaces inherit tokens (violet pills, Inter/Sora, cloud canvas, white cards) automatically.
+
+**Verified (Playwright 390 + 1280):** dashboard + login + learning — cohesive monday look, big confident Sora headlines, no overflow.
+
+**NOT done (follow-ups):** (1) small **interactive-component emoji** still present — `StudyQuiz`, `ConfidenceTapPrompt`, `ModuleViewer`, `MindsetBetaFeedback`, `ManagerMindsetAdjust`, `study/[domain]/results`, profile `🏅`, a couple manager-page `✓`/emoji. (2) **Marketing landing** (`(marketing)/page.tsx`) still has its bespoke dark-gradient design — inherits fonts/colors but not re-laid-out. (3) **Domain-identity emoji kept on purpose** (study/learning/mastery cards) — swap to icons only if Terry wants. (4) `_archive_*` untouched (dead).
+
+---
+
+## UI/UX REFRESH checkpoint — 2026-06-18 (Claude) — Clean-SaaS whole-app visual pass DONE (committed 903ffac, now superseded by monday redesign)
 
 **Terry asked for a "clean SaaS" UI refresh (ref: styles.refero.design/?q=clean+SaaS) across the whole app, incl. both dashboards, kept warm (not dry) + mobile-first.** Branch `feature/staff-competency-foundation`. **Gates: typecheck clean · 51/51 tests · build green (33 routes). NOT committed yet** (awaiting Terry's go to commit/push — per his standing rule).
 
